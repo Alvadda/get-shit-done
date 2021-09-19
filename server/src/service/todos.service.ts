@@ -51,8 +51,10 @@ const updateTodo = async (userId: string, todo: Todo) => {
 const deleteTodo = async (userId: string, id: string) => {
     try {
         await dbCtx.query('DELETE FROM todo WHERE todo_id = ($1) AND user_id = ($2)', [id, userId])
+        return true
     } catch (error) {
         log.error(`cant delete todo with Id ${id}`, error)
+        return false
     }
 }
 
