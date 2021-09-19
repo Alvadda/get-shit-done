@@ -31,8 +31,8 @@ const createUser = async (name: string, email: string, password: string) => {
     }
 }
 
-const mapUser = (resultDb: QueryResult<any>): User | null => {
-    if (resultDb.rows.length === 0) return null
+const mapUser = (resultDb: QueryResult<any>): User | undefined => {
+    if (resultDb.rows.length === 0) return undefined
 
     const user: User = {
         id: resultDb.rows[0].user_id,
