@@ -1,21 +1,20 @@
+import { ITodoConnector } from './../interfaces/todo.interfaces'
 import { Router } from 'express'
-import {
-    createTodosHandler,
-    readTodoHandler,
-    readTodosHandler,
-    updateTodosHandler,
-    deleteTodosHandler,
-} from '../controller/todos.controller'
 import { createTodoSchema, deleteTodoSchema, readTodoSchema, updateTodoSchema } from '../schema/todos.schema'
+import TodoController from '../controller/todo.controller'
 import valdiation from '../middleware/validation.middleware'
 import authorization from '../middleware/auth.middleware'
 
 const router = Router()
 
-router.get('/', authorization, readTodosHandler)
-router.get('/:id', valdiation(readTodoSchema), authorization, readTodoHandler)
-router.post('/', valdiation(createTodoSchema), authorization, createTodosHandler)
-router.put('/:id', valdiation(updateTodoSchema), authorization, updateTodosHandler)
-router.delete('/:id', valdiation(deleteTodoSchema), authorization, deleteTodosHandler)
+export const initTodoRoute = (connector: ITodoConnector) => {
+    const controller = new TodoController(connector)
+
+    router.get('/', authorization, controller.readTodosHandler)
+    router.get('/:id', valdiation(readTodoSchema), authorization, controller.readTodoHandler)
+    router.post('/', valdiation(createTodoSchema), authorization, controller.createTodosHandler)
+    router.put('/:id', valdiation(updateTodoSchema), authorization, controller.updateTodosHandler)
+    router.delete('/:id', valdiation(deleteTodoSchema), authorization, controller.deleteTodosHandler)
+}
 
 export default router
