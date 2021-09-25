@@ -1,11 +1,12 @@
 import { Application } from 'express'
-import todosRoutes, { initTodoRoute } from './routes/todos.routes'
-import express from 'express'
-import authRoutes from './routes/auth.routes'
-import cors from 'cors'
 import { ITodoConnector } from './interfaces/todo.interfaces'
+import { IUserConnector } from './interfaces/user.interfaces'
+import todosRoutes, { initTodoRoute } from './routes/todos.routes'
+import authRoutes, { initAuthRoute } from './routes/auth.routes'
+import express from 'express'
+import cors from 'cors'
 
-export default (todoConnector: ITodoConnector) => {
+export default (todoConnector: ITodoConnector, userConnector: IUserConnector) => {
     const app: Application = express()
 
     app.use(express.json())
@@ -14,6 +15,7 @@ export default (todoConnector: ITodoConnector) => {
 
     //Routes
     initTodoRoute(todoConnector)
+    initAuthRoute(userConnector)
 
     app.use('/todos', todosRoutes)
     app.use('/auth', authRoutes)

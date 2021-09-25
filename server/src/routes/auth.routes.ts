@@ -1,13 +1,16 @@
 import { Router } from 'express'
 import { loginSchema, registerSchema } from '../schema/auth.schema'
-import { loginHandler, registerHandler, testHandler } from '../controller/auth.controller'
+import { IUserConnector } from '../interfaces/user.interfaces'
+import AuthController from '../controller/auth.controller'
 import valdiation from '../middleware/validation.middleware'
-import authorization from '../middleware/auth.middleware'
 
 const router = Router()
 
-router.post('/register', valdiation(registerSchema), registerHandler)
-router.post('/login', valdiation(loginSchema), loginHandler)
-router.post('/verify', valdiation(loginSchema), authorization, testHandler)
+export const initAuthRoute = (connector: IUserConnector) => {
+    const controller = new AuthController(connector)
+
+    router.post('/register', valdiation(registerSchema), controller.registerHandler)
+    router.post('/login', valdiation(loginSchema), controller.loginHandler)
+}
 
 export default router
