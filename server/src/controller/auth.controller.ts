@@ -15,12 +15,12 @@ export default class AuthController {
         const { name, email, password } = req.body
         try {
             const user = await this.userConnector.readUser(email)
-            if (user !== null) return res.status(401).send('User alrdy exist')
+            if (user) return res.status(401).json({ message: 'User alrdy exist' })
 
             const encryptedPassword = await encryptPassword(password)
             const newUser = await this.userConnector.createUser(name, email, encryptedPassword)
 
-            if (newUser == null) return res.sendStatus(401)
+            if (!newUser) return res.sendStatus(401)
             const token = jwtGenerator(newUser.id)
 
             res.json({ token })
@@ -33,12 +33,11 @@ export default class AuthController {
     loginHandler = async (req: Request, res: Response) => {
         const { email, password } = req.body
         try {
-            console.log('test', email, password)
             const user = await this.userConnector.readUser(email)
-            if (user == null) return res.status(404).send('Password or Email is incorrect')
+            if (!user) return res.status(403).json({ message: 'Password or Email is incorrect' })
 
             const isValidPassword = await bcrypt.compare(password, user.password)
-            if (!isValidPassword) return res.status(403).send('Password or Email is incorrect')
+            if (!isValidPassword) return res.status(403).json({ message: 'Password or Email is incorrect' })
 
             const token = jwtGenerator(user.id)
             res.json({ token })

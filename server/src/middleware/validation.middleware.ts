@@ -13,7 +13,7 @@ const valdiation = (schema: AnySchema) => async (req: Request, res: Response, ne
         return next()
     } catch (error: any) {
         log.error(error.message)
-        res.status(400).send(error.message)
+        res.status(400).json({ message: error.message })
     }
 }
 

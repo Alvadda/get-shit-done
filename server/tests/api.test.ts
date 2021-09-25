@@ -23,15 +23,134 @@ describe('Todos', () => {
 })
 
 describe('Auth', () => {
+    beforeEach(() => {
+        userMock.createUser.mockClear()
+        userMock.readUser.mockClear()
+    })
+
     test('p_login', async () => {
+        const result = await request(server).post('/auth/login').send({
+            email: 'test@login.de',
+            password: '123',
+        })
+        expect(result.statusCode).toBe(200)
+        expect(userMock.readUser.mock.calls.length).toBe(1)
+        expect(result.body).not.toBeNull()
+        expect(result.body.token).not.toBeNull()
+    })
+
+    test('n_login_wrong_email', async () => {
         const result = await request(server).post('/auth/login').send({
             email: 'test@test.de',
             password: '123',
         })
 
-        expect(result.statusCode).toBe(200)
+        expect(result.statusCode).toBe(403)
+        expect(result.body.message).toBe('Password or Email is incorrect')
+    })
+
+    test('n_login_wrong_password', async () => {
+        const result = await request(server).post('/auth/login').send({
+            email: 'test@login.de',
+            password: '321',
+        })
+
+        expect(result.statusCode).toBe(403)
+        expect(result.body.message).toBe('Password or Email is incorrect')
+    })
+
+    test('n_login_no_email', async () => {
+        const result = await request(server).post('/auth/login').send({
+            password: '123',
+        })
+
+        expect(result.statusCode).toBe(400)
+        expect(result.body.message).toBe('Email is required')
+    })
+
+    test('n_login_no_valid_email', async () => {
+        const result = await request(server).post('/auth/login').send({
+            email: 'testlogin.de',
+            password: '123',
+        })
+
+        expect(result.statusCode).toBe(400)
+        expect(result.body.message).toBe('Must be a valid email')
+    })
+
+    test('n_login_no_password', async () => {
+        const result = await request(server).post('/auth/login').send({
+            email: 'test@login.de',
+        })
+
+        expect(result.statusCode).toBe(400)
+        expect(result.body.message).toBe('password is required')
+    })
+
+    test('p_register', async () => {
+        const result = await request(server).post('/auth/register').send({
+            name: 'testRegister',
+            email: 'test@register.de',
+            password: '123',
+        })
+
         expect(userMock.readUser.mock.calls.length).toBe(1)
+        expect(result.statusCode).toBe(200)
+        expect(userMock.createUser.mock.calls.length).toBe(1)
         expect(result.body).not.toBeNull()
         expect(result.body.token).not.toBeNull()
+    })
+
+    test('n_register_user_exist', async () => {
+        const result = await request(server).post('/auth/register').send({
+            name: 'login',
+            email: 'test@login.de',
+            password: '123',
+        })
+
+        expect(result.statusCode).toBe(401)
+        expect(userMock.readUser.mock.calls.length).toBe(1)
+        expect(userMock.createUser.mock.calls.length).toBe(0)
+        expect(result.body.message).toBe('User alrdy exist')
+    })
+
+    test('n_register_no_name', async () => {
+        const result = await request(server).post('/auth/register').send({
+            email: 'test@login.de',
+            password: '123',
+        })
+
+        expect(result.statusCode).toBe(400)
+        expect(result.body.message).toBe('Name is required')
+    })
+    test('n_register_no_email', async () => {
+        const result = await request(server).post('/auth/register').send({
+            name: 'register',
+            password: '123',
+        })
+
+        expect(result.statusCode).toBe(400)
+        expect(result.body.message).toBe('Email is required')
+    })
+
+    test('n_register_no_valid_email', async () => {
+        const result = await request(server).post('/auth/register').send({
+            name: 'register',
+            email: 'testlogin.de',
+            password: '123',
+        })
+
+        expect(result.statusCode).toBe(400)
+        expect(result.body.message).toBe('Must be a valid email')
+    })
+
+    test('n_register_no_password', async () => {
+        const result = await request(server).post('/auth/register').send({
+            name: 'register',
+            email: 'test@login.de',
+        })
+
+        expect(result.statusCode).toBe(400)
+        expect(result.body.message).toBe('password is required')
     })
 })
