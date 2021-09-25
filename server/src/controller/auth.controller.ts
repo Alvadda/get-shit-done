@@ -1,3 +1,4 @@
+import { formatErrorMessage } from './../logger/logger'
 import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 import log from '../logger/logger'
@@ -15,7 +16,8 @@ export default class AuthController {
         const { name, email, password } = req.body
         try {
             const user = await this.userConnector.readUser(email)
-            if (user) return res.status(401).json({ message: 'User alrdy exist' })
+
+            if (user) return res.status(401).json(formatErrorMessage('User alrdy exist'))
 
             const encryptedPassword = await encryptPassword(password)
             const newUser = await this.userConnector.createUser(name, email, encryptedPassword)
@@ -34,10 +36,10 @@ export default class AuthController {
         const { email, password } = req.body
         try {
             const user = await this.userConnector.readUser(email)
-            if (!user) return res.status(403).json({ message: 'Password or Email is incorrect' })
+            if (!user) return res.status(403).json(formatErrorMessage('Password or Email is incorrect'))
 
             const isValidPassword = await bcrypt.compare(password, user.password)
-            if (!isValidPassword) return res.status(403).json({ message: 'Password or Email is incorrect' })
+            if (!isValidPassword) return res.status(403).json(formatErrorMessage('Password or Email is incorrect'))
 
             const token = jwtGenerator(user.id)
             res.json({ token })

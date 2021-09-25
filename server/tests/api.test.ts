@@ -44,7 +44,6 @@ describe('Auth', () => {
             email: 'test@test.de',
             password: '123',
         })
-
         expect(result.statusCode).toBe(403)
         expect(result.body.message).toBe('Password or Email is incorrect')
     })

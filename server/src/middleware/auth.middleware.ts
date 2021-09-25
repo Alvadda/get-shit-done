@@ -1,3 +1,4 @@
+import { formatErrorMessage } from './../logger/logger'
 import { NextFunction, Request, Response } from 'express'
 import log from '../logger/logger'
 import jtw from 'jsonwebtoken'
@@ -7,7 +8,7 @@ dotenv.config()
 
 const authorization = async (req: Request, res: Response, next: NextFunction) => {
     const token = req.header('jwt_token')
-    if (!token) return res.status(403).send('authorization denied')
+    if (!token) return res.status(403).json(formatErrorMessage('authorization denied'))
 
     try {
         const verify: any = jtw.verify(token, process.env.jwtSecret || '')
@@ -15,7 +16,8 @@ const authorization = async (req: Request, res: Response, next: NextFunction) =>
         return next()
     } catch (error: any) {
         log.error(error.message)
-        res.status(500).send(error.message)
+
+        res.status(500).json(formatErrorMessage(error.message))
     }
 }
 
