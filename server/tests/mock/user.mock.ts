@@ -16,7 +16,6 @@ const userRegister: User = {
 
 export class UserConnectorMock implements IUserConnector {
     readUser = jest.fn((email: string) => {
-        console.log('UserConnectorMock.readUser', email)
         if (email === userLogin.email) return Promise.resolve(userLogin)
         return Promise.resolve(undefined)
     })
