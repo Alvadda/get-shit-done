@@ -54,9 +54,6 @@
             "ts-jest": {
                 "tsconfig": "tsconfig.json"
             }
-        },
-        "testMatch": [
-            "**/tests/*.+(ts|tsx|js)"
-        ]
+        }
     }
 }

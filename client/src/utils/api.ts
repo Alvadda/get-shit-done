@@ -4,13 +4,37 @@ export interface Todo {
     createdAt?: Date
 }
 
+interface Login {
+    token: string
+}
+
+export const login = async (email: string, password: string): Promise<Login> =>
+    new Promise<Login>((resolve, reject) => {
+        const request = fetch(`http://localhost:5000/auth/login`, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            method: 'POST',
+            body: JSON.stringify({ email, password }),
+        })
+        request.then((response) =>
+            response.json().then((data) => {
+                if (data.message) {
+                    console.log(data.message)
+                    reject(data.message)
+                }
+                resolve(data)
+            })
+        )
+    })
+
 export const readTodos = async (): Promise<Todo[]> =>
     new Promise<Todo[]>((resolve, reject) => {
         const request = fetch(`http://localhost:5000/todos`)
         request.then((response) =>
             response.json().then((data) => {
-                if (data.error) {
-                    reject(data.error)
+                if (data.message) {
+                    reject(data.message)
                 }
                 resolve(data)
             })
@@ -24,8 +48,8 @@ export const deleteTodo = async (id: string): Promise<Todo[]> =>
         })
         request.then((response) =>
             response.json().then((data) => {
-                if (data.error) {
-                    reject(data.error)
+                if (data.message) {
+                    reject(data.message)
                 }
                 resolve(data)
             })
@@ -43,8 +67,8 @@ export const createTodo = async (todo: Todo): Promise<Todo[]> =>
         })
         request.then((response) =>
             response.json().then((data) => {
-                if (data.error) {
-                    reject(data.error)
+                if (data.message) {
+                    reject(data.message)
                 }
                 resolve(data)
             })

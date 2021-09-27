@@ -16,7 +16,6 @@ const authorization = async (req: Request, res: Response, next: NextFunction) =>
         return next()
     } catch (error: any) {
         log.error(error.message)
-
         res.status(500).json(formatErrorMessage(error.message))
     }
 }
