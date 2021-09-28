@@ -34,23 +34,23 @@ const Header: VFC<HeaderProps> = ({ onLogout }) => {
                     <desc>A line styled icon from Orion Icon Library.</desc>
                     <path
                         d="M34 22V6H2v52h32V42"
-                        stroke-width="2"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
+                        strokeWidth="2"
+                        strokeMiterlimit="10"
+                        strokeLinecap="round"
                         stroke="#fff"
                         fill="none"
                         data-name="layer2"
-                        stroke-linejoin="round"
+                        strokeLinejoin="round"
                     ></path>
                     <path
                         d="M14 32h47M48 43l13-11-13-11"
-                        stroke-width="2"
-                        stroke-miterlimit="10"
-                        stroke-linecap="round"
+                        strokeWidth="2"
+                        strokeMiterlimit="10"
+                        strokeLinecap="round"
                         stroke="#fff"
                         fill="none"
                         data-name="layer1"
-                        stroke-linejoin="round"
+                        strokeLinejoin="round"
                     ></path>
                 </svg>
             </div>

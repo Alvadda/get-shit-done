@@ -1,12 +1,11 @@
 import React, { useEffect, useState, VFC } from 'react'
 import { GlobalStyle } from './utils/GlobalStyle'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import TodoList from './components/modules/TodoList'
 import Login from './components/modules/Login'
 import { login } from './utils/api'
 import Main from './components/modules/Main'
 
-const AUTH_TOKEN = 'auth-token'
+const AUTH_TOKEN = 'jwt_token'
 
 const App: VFC = () => {
     const [auth, setAuth] = useState<boolean>(false)

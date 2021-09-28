@@ -1,3 +1,5 @@
+const AUTH_TOKEN = 'jwt_token'
+
 export interface Todo {
     id?: string
     description: string
@@ -8,8 +10,13 @@ interface Login {
     token: string
 }
 
+const getHeader = (): object => ({
+    'Content-Type': 'application/json',
+    [AUTH_TOKEN]: sessionStorage.getItem(AUTH_TOKEN),
+})
+
 export const login = async (email: string, password: string): Promise<Login> =>
-    new Promise<Login>((resolve, reject) => {
+    new Promise((resolve, reject) => {
         const request = fetch(`http://localhost:5000/auth/login`, {
             headers: {
                 'Content-Type': 'application/json',
@@ -29,8 +36,12 @@ export const login = async (email: string, password: string): Promise<Login> =>
     })
 
 export const readTodos = async (): Promise<Todo[]> =>
-    new Promise<Todo[]>((resolve, reject) => {
-        const request = fetch(`http://localhost:5000/todos`)
+    new Promise((resolve, reject) => {
+        const request = fetch(`http://localhost:5000/todos`, {
+            headers: {
+                ...getHeader(),
+            },
+        })
         request.then((response) =>
             response.json().then((data) => {
                 if (data.message) {
@@ -45,6 +56,9 @@ export const deleteTodo = async (id: string): Promise<Todo[]> =>
     new Promise<Todo[]>((resolve, reject) => {
         const request = fetch(`http://localhost:5000/todos/${id}`, {
             method: 'DELETE',
+            headers: {
+                ...getHeader(),
+            },
         })
         request.then((response) =>
             response.json().then((data) => {
@@ -59,10 +73,10 @@ export const deleteTodo = async (id: string): Promise<Todo[]> =>
 export const createTodo = async (todo: Todo): Promise<Todo[]> =>
     new Promise<Todo[]>((resolve, reject) => {
         const request = fetch(`http://localhost:5000/todos`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
             method: 'POST',
+            headers: {
+                ...getHeader(),
+            },
             body: JSON.stringify(todo),
         })
         request.then((response) =>

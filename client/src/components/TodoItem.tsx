@@ -20,7 +20,7 @@ const TodoItem: VFC<TodoItemProps> = ({ id, description, onDelete }) => {
                     onDelete(id)
                 }}
             >
-                Click me
+                Delete
             </button>
         </div>
     )
