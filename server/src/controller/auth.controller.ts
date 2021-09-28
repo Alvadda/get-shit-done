@@ -42,7 +42,7 @@ export default class AuthController {
             if (!isValidPassword) return res.status(403).json(formatErrorMessage('Password or Email is incorrect'))
 
             const token = jwtGenerator(user.id)
-            res.json({ token })
+            res.json({ userName: user.name, token })
         } catch (err: any) {
             log.error(err.message)
             res.sendStatus(500)

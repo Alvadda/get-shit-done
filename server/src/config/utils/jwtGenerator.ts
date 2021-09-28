@@ -5,7 +5,7 @@ dotenv.config()
 
 const jwtGenerator = (user_id: string) => {
     return jwt.sign({ user: user_id }, process.env.jwtSecret || '', {
-        expiresIn: '1h',
+        expiresIn: '5h',
     })
 }
 
