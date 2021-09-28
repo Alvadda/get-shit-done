@@ -4,24 +4,30 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import TodoList from './components/modules/TodoList'
 import Login from './components/modules/Login'
 import { login } from './utils/api'
+import Main from './components/modules/Main'
 
 const AUTH_TOKEN = 'auth-token'
 
 const App: VFC = () => {
     const [auth, setAuth] = useState<boolean>(false)
 
+    useEffect(() => {
+        if (sessionStorage.getItem(AUTH_TOKEN)) setAuth(true)
+    }, [])
+
+    const onLogout = () => {
+        sessionStorage.removeItem(AUTH_TOKEN)
+        setAuth(false)
+    }
+
     const onLogin = (email: string, password: string) => {
         login(email, password).then((data) => {
             if (data.token) {
-                localStorage.setItem(AUTH_TOKEN, data.token)
+                sessionStorage.setItem(AUTH_TOKEN, data.token)
                 setAuth(true)
             }
         })
     }
-
-    useEffect(() => {
-        if (localStorage.getItem(AUTH_TOKEN)) setAuth(true)
-    }, [])
 
     return (
         <>
@@ -38,7 +44,7 @@ const App: VFC = () => {
                     <>
                         <Switch>
                             <Route path="/" exact>
-                                <TodoList />
+                                <Main onLogout={onLogout} />
                             </Route>
                         </Switch>
                     </>

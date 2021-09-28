@@ -118,6 +118,7 @@ const Login: VFC<loginProps> = ({ onLogin }) => {
                         <div className="row">
                             <p>Register</p>
                             <button
+                                type="submit"
                                 onClick={() => {
                                     if (emailRef.current?.value && passwordRef.current?.value) {
                                         onLogin(emailRef.current?.value, passwordRef.current?.value)
