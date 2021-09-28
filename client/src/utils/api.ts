@@ -8,6 +8,7 @@ export interface Todo {
 
 interface Login {
     token: string
+    userName: string
 }
 
 const getHeader = (): object => ({

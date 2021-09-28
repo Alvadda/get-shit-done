@@ -1,6 +1,22 @@
+import { css } from '@emotion/react'
 import React, { useState, useEffect, createRef, VFC } from 'react'
 import { readTodos, deleteTodo, createTodo, Todo } from '../../utils/api'
 import TodoItem from '../TodoItem'
+
+const todoListCss = css`
+    .todo-list-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        div:nth-child(odd) {
+            background-color: hotpink;
+        }
+        div:nth-child(even) {
+            background-color: goldenrod;
+        }
+    }
+`
 
 const TodoList: VFC = () => {
     const [todoList, setTodoList] = useState<Todo[]>([])
@@ -31,14 +47,16 @@ const TodoList: VFC = () => {
     }
 
     return (
-        <div>
+        <div css={todoListCss}>
             <div>
                 <input type="text" name="" id="" ref={inputRef} />
                 <button onClick={() => onAddTodo()}>ADD Todo</button>
             </div>
-            {todoList.map((todo) => (
-                <TodoItem key={todo.id} id={todo.id} onDelete={onDelete} description={todo.description} />
-            ))}
+            <div className="todo-list-container">
+                {todoList.map((todo) => (
+                    <TodoItem key={todo.id} id={todo.id} onDelete={onDelete} description={todo.description} />
+                ))}
+            </div>
         </div>
     )
 }

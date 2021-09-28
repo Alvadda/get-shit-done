@@ -5,6 +5,7 @@ import TodoList from './TodoList'
 
 interface MainProps {
     onLogout: () => void
+    userName: string
 }
 
 const mainCss = css`
@@ -14,10 +15,10 @@ const mainCss = css`
     grid-template-rows: 50px 1fr;
 `
 
-const Main: VFC<MainProps> = ({ onLogout }) => {
+const Main: VFC<MainProps> = ({ onLogout, userName }) => {
     return (
         <div css={mainCss}>
-            <Header onLogout={onLogout} />
+            <Header onLogout={onLogout} userName={userName} />
             <TodoList />
         </div>
     )

@@ -3,22 +3,30 @@ import React, { VFC } from 'react'
 
 interface HeaderProps {
     onLogout: () => void
+    userName: string
 }
 
 const headerCss = css`
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 0px 24px;
+
+    p {
+        font-size: 24px;
+        color: #fff;
+        font-weight: bold;
+    }
 
     svg:hover {
         opacity: 0.7;
     }
 `
 
-const Header: VFC<HeaderProps> = ({ onLogout }) => {
+const Header: VFC<HeaderProps> = ({ onLogout, userName }) => {
     return (
         <div css={headerCss}>
+            <p>{userName}</p>
             <div onClick={() => onLogout()}>
                 <svg
                     viewBox="0 0 64 64"

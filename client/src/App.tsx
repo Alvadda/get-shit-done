@@ -9,6 +9,7 @@ const AUTH_TOKEN = 'jwt_token'
 
 const App: VFC = () => {
     const [auth, setAuth] = useState<boolean>(false)
+    const [userName, setUserName] = useState<string>('')
 
     useEffect(() => {
         if (sessionStorage.getItem(AUTH_TOKEN)) setAuth(true)
@@ -22,6 +23,7 @@ const App: VFC = () => {
     const onLogin = (email: string, password: string) => {
         login(email, password).then((data) => {
             if (data.token) {
+                setUserName(data.userName)
                 sessionStorage.setItem(AUTH_TOKEN, data.token)
                 setAuth(true)
             }
@@ -43,7 +45,7 @@ const App: VFC = () => {
                     <>
                         <Switch>
                             <Route path="/" exact>
-                                <Main onLogout={onLogout} />
+                                <Main onLogout={onLogout} userName={userName} />
                             </Route>
                         </Switch>
                     </>
