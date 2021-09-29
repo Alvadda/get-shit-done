@@ -12,8 +12,8 @@ const globalStlye = css`
         box-sizing: content-box;
         margin: 0;
         padding: 0;
-        font-family: sans-serif;
-        background-color: #36393b;
+        font-family: 'Roboto', sans-serif;
+        background-color: #2d2d34;
 
         h2 {
             margin: 0;

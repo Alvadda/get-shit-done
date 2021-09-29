@@ -9,28 +9,29 @@ const loginCss = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    background: linear-gradient(243.01deg, #1c7ed6 -0.25%, #4dabf7 93.73%);
 
     height: 100vh;
 
     .login-container {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: 468px 1fr;
 
-        width: 70%;
-        height: 60%;
+        width: 1100px;
+        height: 800px;
 
-        border-radius: 4px;
-        box-shadow: 10px 10px 8px -6px #ccc;
+        border-radius: 10px;
+        box-shadow: 0px 7px 15px 3px rgba(0, 0, 0, 0.25);
 
         .login-formular {
             display: flex;
             justify-content: center;
             align-items: center;
 
-            height: 100%;
-            background-color: #797676;
-            border-bottom-left-radius: 8px;
-            border-top-left-radius: 8px;
+            padding: 0 70px;
+            background-color: #eaf8bf;
+            border-bottom-left-radius: 10px;
+            border-top-left-radius: 10px;
 
             .formular-conainer {
                 display: flex;
@@ -38,7 +39,7 @@ const loginCss = css`
                 justify-content: center;
                 align-items: center;
                 gap: 10px;
-                width: 40%;
+                width: 100%;
             }
 
             label,
@@ -46,31 +47,63 @@ const loginCss = css`
                 width: 100%;
             }
 
+            label {
+                margin-bottom: 20px;
+            }
+
             input {
-                height: 40px;
+                height: 50px;
 
                 padding: 8px 16px;
                 margin-top: 8px;
+
+                background: #ffffff;
+                box-shadow: 0px 7px 6px rgba(0, 0, 0, 0.15);
+                border-radius: 10px;
                 border-radius: 8px;
                 border: none;
+
+                font-size: 22px;
             }
 
             input:focus {
                 outline: none;
             }
 
-            button {
+            .login-text {
+                width: 100%;
+                font-weight: bold;
+                font-size: 47px;
+                line-height: 1.1;
+                display: flex;
+                align-items: center;
+                letter-spacing: -0.03em;
+                margin-bottom: 40px;
+            }
+
+            .login-btn {
                 height: 40px;
                 padding: 8px 16px;
 
-                color: #fff;
-                background-color: black;
+                background: #1c7ed6;
+                border-radius: 10px;
                 border: none;
-                border-radius: 8px;
 
-                font-size: large;
-                font-weight: bold;
-                text-transform: uppercase;
+                color: #eaf8bf;
+                font-size: 22px;
+            }
+
+            .register-btn {
+                height: 40px;
+                padding: 8px 16px;
+
+                background: #eaf8bf;
+                border: 2px solid #1c7ed6;
+                box-sizing: border-box;
+                border-radius: 10px;
+
+                color: #1c7ed6;
+                font-size: 22px;
             }
 
             button:active {
@@ -78,6 +111,7 @@ const loginCss = css`
             }
 
             .row {
+                margin-top: 40px;
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
@@ -90,9 +124,9 @@ const loginCss = css`
             align-items: center;
 
             height: 100%;
-            background-color: #36393b;
-            border-bottom-right-radius: 8px;
-            border-top-right-radius: 8px;
+            background-color: #91785d;
+            border-bottom-right-radius: 10px;
+            border-top-right-radius: 10px;
         }
     }
 `
@@ -105,6 +139,10 @@ const Login: VFC<loginProps> = ({ onLogin }) => {
             <div className="login-container">
                 <div className="login-formular">
                     <div className="formular-conainer">
+                        <p className="login-text">
+                            Login & <br />
+                            GET SHIT DONE
+                        </p>
                         <label htmlFor="email">
                             <p>Email</p>
                             <input type="email" id="email" ref={emailRef}></input>
@@ -116,9 +154,9 @@ const Login: VFC<loginProps> = ({ onLogin }) => {
                         </label>
 
                         <div className="row">
-                            <p>Register</p>
+                            <button className="register-btn">Register</button>
                             <button
-                                type="submit"
+                                className="login-btn"
                                 onClick={() => {
                                     if (emailRef.current?.value && passwordRef.current?.value) {
                                         onLogin(emailRef.current?.value, passwordRef.current?.value)
@@ -130,17 +168,7 @@ const Login: VFC<loginProps> = ({ onLogin }) => {
                         </div>
                     </div>
                 </div>
-                <div className="login-info">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis quidem qui fugiat, consequatur recusandae ad nulla soluta
-                    quisquam impedit pariatur repellendus illo. Dicta aliquam itaque quibusdam et ex, perferendis, expedita illo animi nihil
-                    fugit magnam reiciendis quo facere cupiditate esse sit iure obcaecati odio voluptatem eum ullam. Distinctio, nobis id?
-                    Itaque modi, consequuntur optio ratione accusamus nesciunt perspiciatis eaque mollitia rerum eius aliquid. Dolor illo
-                    autem quos natus porro rem fugiat optio reiciendis est magni numquam dolorem, quaerat inventore sed libero iste aliquam
-                    qui accusamus doloremque quae nisi magnam maxime ipsa. Vel dicta ab expedita eligendi dolore maiores iste repudiandae
-                    incidunt, blanditiis ea similique aperiam qui non quasi doloribus, voluptate iure repellendus vero! Repellendus incidunt
-                    quas dolore illo dolores neque, numquam harum quisquam, quia accusantium impedit aperiam recusandae. Molestias, deleniti
-                    excepturi distinctio soluta laboriosam eligendi! Incidunt voluptas vero doloribus aut fugiat labore eum veniam
-                </div>
+                <div className="login-info"></div>
             </div>
         </div>
     )
