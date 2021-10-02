@@ -3,7 +3,9 @@ const AUTH_TOKEN = 'jwt_token'
 export interface Todo {
     id?: string
     description: string
+    done: boolean
     createdAt?: Date
+    doneDate?: Date
 }
 
 interface Login {
@@ -75,6 +77,25 @@ export const createTodo = async (todo: Todo): Promise<Todo[]> =>
     new Promise<Todo[]>((resolve, reject) => {
         const request = fetch(`http://localhost:5000/todos`, {
             method: 'POST',
+            headers: {
+                ...getHeader(),
+            },
+            body: JSON.stringify(todo),
+        })
+        request.then((response) =>
+            response.json().then((data) => {
+                if (data.message) {
+                    reject(data.message)
+                }
+                resolve(data)
+            })
+        )
+    })
+
+export const updateTodo = async (todo: Todo): Promise<Todo[]> =>
+    new Promise<Todo[]>((resolve, reject) => {
+        const request = fetch(`http://localhost:5000/todos/${todo.id}`, {
+            method: 'PUT',
             headers: {
                 ...getHeader(),
             },

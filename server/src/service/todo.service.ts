@@ -29,11 +29,10 @@ export default class TodoPostgresConnector implements ITodoConnector {
 
     async updateTodo(userId: string, todo: Todo) {
         try {
-            const todosDb = await this._db.query('UPDATE todo SET description = ($1) WHERE todo_id = ($2) AND user_id = ($3) RETURNING *', [
-                todo.description,
-                todo.id,
-                userId,
-            ])
+            const todosDb = await this._db.query(
+                'UPDATE todo SET description = ($1), done = ($2) WHERE todo_id = ($3) AND user_id = ($4) RETURNING *',
+                [todo.description, todo.done, todo.id, userId]
+            )
             return mapTodos(todosDb)
         } catch (error) {
             log.error(`cant update todo with Id ${todo.id}`, error)
@@ -55,7 +54,6 @@ const mapTodos = (todosDb: QueryResult<any>) => {
     const todos: Todo[] = []
     if (todosDb.rows.length > 0) {
         todosDb.rows.forEach((todo) => {
-            console.log(todo)
             todos.push({
                 id: todo.todo_id,
                 description: todo.description,
@@ -66,6 +64,5 @@ const mapTodos = (todosDb: QueryResult<any>) => {
             })
         })
     }
-    console.log(todos)
     return todos
 }

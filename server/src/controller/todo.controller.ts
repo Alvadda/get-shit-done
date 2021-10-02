@@ -22,9 +22,8 @@ export default class TodoController {
 
     readTodoHandler = async (req: Request, res: Response) => {
         const userId = res.locals.userId
-        const { id } = req.params
         try {
-            const todos = await this.todoConnector.readTodos(id)
+            const todos = await this.todoConnector.readTodos(userId)
             res.json(todos)
         } catch (err: any) {
             log.error(err.message)

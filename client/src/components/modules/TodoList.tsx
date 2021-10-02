@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import React, { useState, useEffect, createRef, VFC } from 'react'
-import { readTodos, deleteTodo, createTodo, Todo } from '../../utils/api'
+import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../../utils/api'
 import TodoItem from '../TodoItem'
 
 const todoListCss = css`
@@ -35,10 +35,20 @@ const TodoList: VFC = () => {
         deleteTodo(id)
     }
 
+    const onDone = (id: string) => {
+        const todo = todoList.find((todo) => todo.id === id)
+        if (todo) {
+            todo.done = true
+            updateTodo(todo)
+        }
+        console.log('todo', todo)
+    }
+
     const onAddTodo = () => {
         if (inputRef.current?.value) {
             const todo: Todo = {
                 description: inputRef.current?.value,
+                done: false,
             }
             createTodo(todo).then((todo) => {
                 console.log(todo)
@@ -55,7 +65,7 @@ const TodoList: VFC = () => {
             </div>
             <div className="todo-list-container">
                 {todoList.map((todo) => (
-                    <TodoItem key={todo.id} id={todo.id} onDelete={onDelete} description={todo.description} />
+                    <TodoItem key={todo.id} id={todo.id} onDelete={onDelete} onDone={onDone} description={todo.description} />
                 ))}
             </div>
         </div>

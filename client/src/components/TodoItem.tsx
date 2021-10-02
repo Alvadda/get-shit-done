@@ -5,6 +5,7 @@ interface TodoItemProps {
     id?: string
     description: string
     onDelete: Function
+    onDone: Function
 }
 
 const todoItemStyle = css`
@@ -14,7 +15,7 @@ const todoItemStyle = css`
     background: white;
 `
 
-const TodoItem: VFC<TodoItemProps> = ({ id, description, onDelete }) => {
+const TodoItem: VFC<TodoItemProps> = ({ id, description, onDelete, onDone }) => {
     return (
         <div css={todoItemStyle}>
             <p>{description}</p>
@@ -24,6 +25,13 @@ const TodoItem: VFC<TodoItemProps> = ({ id, description, onDelete }) => {
                 }}
             >
                 Delete
+            </button>
+            <button
+                onClick={() => {
+                    onDone(id)
+                }}
+            >
+                Done
             </button>
         </div>
     )
