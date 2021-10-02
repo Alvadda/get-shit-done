@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import React, { createRef, VFC } from 'react'
+import todoImg from '../../assets/img/todoImg.jpg'
 
 interface loginProps {
     onLogin: (email: string, password: string) => void
@@ -9,7 +10,7 @@ const loginCss = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(243.01deg, #1c7ed6 -0.25%, #4dabf7 93.73%);
+    background: linear-gradient(243.01deg, #001528 -0.25%, #012a4a 93.73%);
 
     height: 100vh;
 
@@ -29,7 +30,7 @@ const loginCss = css`
             align-items: center;
 
             padding: 0 70px;
-            background-color: #eaf8bf;
+            background-color: #f4f9fe;
             border-bottom-left-radius: 10px;
             border-top-left-radius: 10px;
 
@@ -67,7 +68,8 @@ const loginCss = css`
             }
 
             input:focus {
-                outline: none;
+                /* outline: none; */
+                outline-color: #00162b;
             }
 
             .login-text {
@@ -85,11 +87,11 @@ const loginCss = css`
                 height: 40px;
                 padding: 8px 16px;
 
-                background: #1c7ed6;
+                background: #00162b;
                 border-radius: 10px;
                 border: none;
 
-                color: #eaf8bf;
+                color: #f4f9fe;
                 font-size: 22px;
             }
 
@@ -97,12 +99,12 @@ const loginCss = css`
                 height: 40px;
                 padding: 8px 16px;
 
-                background: #eaf8bf;
-                border: 2px solid #1c7ed6;
+                background: #f4f9fe;
+                border: 2px solid #00162b;
                 box-sizing: border-box;
                 border-radius: 10px;
 
-                color: #1c7ed6;
+                color: #00162b;
                 font-size: 22px;
             }
 
@@ -120,13 +122,32 @@ const loginCss = css`
 
         .login-info {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 40px;
+            padding: 0 70px;
 
             height: 100%;
-            background-color: #91785d;
+            /* background-image: url('${todoImg}'); */
+            background-color: #002848;
             border-bottom-right-radius: 10px;
             border-top-right-radius: 10px;
+
+            .login-info-todo {
+                height: 50px;
+                width: 100%;
+
+                border-radius: 10px;
+                background-color: #f4f9fe;
+            }
+
+            .login-info-todo:nth-child(odd) {
+                background-color: #f4f9fe;
+            }
+            .login-info-todo:nth-child(even) {
+                background-color: #013865;
+            }
         }
     }
 `
@@ -168,7 +189,14 @@ const Login: VFC<loginProps> = ({ onLogin }) => {
                         </div>
                     </div>
                 </div>
-                <div className="login-info"></div>
+                <div className="login-info">
+                    <div className="login-info-todo"></div>
+                    <div className="login-info-todo"></div>
+                    <div className="login-info-todo"></div>
+                    <div className="login-info-todo"></div>
+                    <div className="login-info-todo"></div>
+                    <div className="login-info-todo"></div>
+                </div>
             </div>
         </div>
     )

@@ -13,7 +13,7 @@ const globalStlye = css`
         margin: 0;
         padding: 0;
         font-family: 'Roboto', sans-serif;
-        background-color: #2d2d34;
+        background-color: #00162b;
 
         h2 {
             margin: 0;

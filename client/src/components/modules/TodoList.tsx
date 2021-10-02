@@ -8,6 +8,7 @@ const todoListCss = css`
         display: flex;
         flex-direction: column;
         gap: 8px;
+        padding: 20px 70px;
 
         div:nth-child(odd) {
             background-color: hotpink;
