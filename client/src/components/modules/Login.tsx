@@ -1,6 +1,5 @@
 import { css } from '@emotion/react'
 import React, { createRef, VFC } from 'react'
-import todoImg from '../../assets/img/todoImg.jpg'
 
 interface loginProps {
     onLogin: (email: string, password: string) => void
@@ -129,7 +128,6 @@ const loginCss = css`
             padding: 0 70px;
 
             height: 100%;
-            /* background-image: url('${todoImg}'); */
             background-color: #002848;
             border-bottom-right-radius: 10px;
             border-top-right-radius: 10px;
