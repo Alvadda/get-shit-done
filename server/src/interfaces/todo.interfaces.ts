@@ -1,7 +1,10 @@
 export interface Todo {
     id: string
     description: string
+    done: boolean
     createdAt?: Date
+    douDate?: Date | null
+    doneDate?: Date | null
 }
 
 export interface ITodoConnector {

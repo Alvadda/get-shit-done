@@ -1,4 +1,4 @@
-import { object, string, number } from 'yup'
+import { object, string, boolean } from 'yup'
 
 const createTodoSchema = object({
     body: object({
@@ -15,6 +15,7 @@ const readTodoSchema = object({
 const updateTodoSchema = object({
     body: object({
         description: string().required('Todo must have a description'),
+        done: boolean().required('Todo must have a done flag'),
     }),
     params: object({
         id: string().required('You need a ID to update a Todo'),

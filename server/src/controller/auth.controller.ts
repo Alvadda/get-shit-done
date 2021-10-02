@@ -35,7 +35,7 @@ export default class AuthController {
     loginHandler = async (req: Request, res: Response) => {
         const { email, password } = req.body
         try {
-            const user = await this.userConnector.readUser(email)
+            const user = await this.userConnector.readUser(email.toLowerCase())
             if (!user) return res.status(403).json(formatErrorMessage('Password or Email is incorrect'))
 
             const isValidPassword = await bcrypt.compare(password, user.password)

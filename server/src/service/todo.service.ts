@@ -55,12 +55,17 @@ const mapTodos = (todosDb: QueryResult<any>) => {
     const todos: Todo[] = []
     if (todosDb.rows.length > 0) {
         todosDb.rows.forEach((todo) => {
+            console.log(todo)
             todos.push({
                 id: todo.todo_id,
                 description: todo.description,
                 createdAt: todo.created_at,
+                done: todo.done,
+                doneDate: todo.done_date,
+                douDate: todo.dou_date ? todo.dou_date : undefined,
             })
         })
     }
+    console.log(todos)
     return todos
 }

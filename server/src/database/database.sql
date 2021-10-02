@@ -16,3 +16,26 @@ ALTER TABLE todo
     ADD user_id INTEGER,
     ADD CONSTRAINT fk_todo_user FOREIGN KEY (user_id) REFERENCES users (user_id);
 
+ALTER TABLE todo
+    ADD done BOOLEAN DEFAULT FALSE;
+
+ALTER TABLE todo
+    ADD done_date DATE DEFAULT NULL,
+    ADD dou_date DATE DEFAULT NULL;  
+
+create function update_done_date()
+returns trigger as $$
+begin
+  IF OLD.done = false AND NEW.done = true THEN
+    NEW.done_date := current_date;
+  END IF;
+	return NEW;
+end;
+$$ language plpgsql;
+
+CREATE TRIGGER update_done_date_trigger
+    BEFORE UPDATE OF done ON todo
+	FOR EACH ROW
+    EXECUTE PROCEDURE update_done_date();
+
+

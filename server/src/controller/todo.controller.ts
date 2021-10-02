@@ -40,22 +40,24 @@ export default class TodoController {
 
             res.json(newTodo)
         } catch (err: any) {
-            console.error(err.message)
+            log.error(err.message)
             res.sendStatus(500)
         }
     }
 
     updateTodosHandler = async (req: Request, res: Response) => {
+        const { description, done } = req.body
         const userId = res.locals.userId
         const todo: Todo = {
             id: req.params.id,
-            description: req.body.description,
+            description,
+            done,
         }
         try {
             const updatedTodo = await this.todoConnector.updateTodo(userId, todo)
             res.json(updatedTodo)
         } catch (err: any) {
-            console.error(err.message)
+            log.error(err.message)
             res.sendStatus(500)
         }
     }
@@ -68,7 +70,7 @@ export default class TodoController {
             if (!isSuccesful) return res.sendStatus(409)
             res.sendStatus(200)
         } catch (err: any) {
-            console.error(err.message)
+            log.error(err.message)
             res.sendStatus(500)
         }
     }
