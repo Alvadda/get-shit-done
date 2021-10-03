@@ -1,4 +1,4 @@
-import { object, string, boolean } from 'yup'
+import { object, string, boolean, date } from 'yup'
 
 const createTodoSchema = object({
     body: object({

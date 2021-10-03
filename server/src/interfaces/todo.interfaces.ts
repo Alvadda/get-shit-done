@@ -9,7 +9,7 @@ export interface Todo {
 
 export interface ITodoConnector {
     readTodos: (userId: string) => Promise<Todo[] | undefined>
-    createTodo: (userId: string, description: string) => Promise<Todo[] | undefined>
+    createTodo: (userId: string, description: string, douDate: Date | null) => Promise<Todo[] | undefined>
     updateTodo: (userId: string, todo: Todo) => Promise<Todo[] | undefined>
     deleteTodo: (userId: string, id: string) => Promise<boolean>
 }

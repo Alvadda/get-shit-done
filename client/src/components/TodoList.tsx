@@ -2,6 +2,8 @@ import { css } from '@emotion/react'
 import React, { useState, useEffect, createRef, VFC } from 'react'
 import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../utils/api'
 import TodoItem from './TodoItem'
+import CostumDatePicker from './CustomDatePicker'
+import TodoGenerater from './TodoGenerater'
 
 const todoListCss = css`
     padding: 20px 32px;
@@ -36,16 +38,10 @@ const TodoList: VFC = () => {
         console.log('todo', todo)
     }
 
-    const onAddTodo = () => {
-        if (inputRef.current?.value) {
-            const todo: Todo = {
-                description: inputRef.current?.value,
-                done: false,
-            }
-            createTodo(todo).then((todo) => {
-                setTodoList([...todo, ...todoList])
-            })
-        }
+    const onAddTodo = (todo: Todo) => {
+        createTodo(todo).then((todo) => {
+            setTodoList([...todo, ...todoList])
+        })
     }
 
     const removeTodoFromList = (id: string) => {
@@ -55,13 +51,17 @@ const TodoList: VFC = () => {
 
     return (
         <div css={todoListCss}>
-            <div>
-                <input type="text" name="" id="" ref={inputRef} />
-                <button onClick={() => onAddTodo()}>ADD Todo</button>
-            </div>
+            <TodoGenerater onAddTodo={onAddTodo} />
             <div className="todo-list-container">
                 {todoList.map((todo) => (
-                    <TodoItem key={todo.id} id={todo.id} onDelete={onDelete} onDone={onDone} description={todo.description} />
+                    <TodoItem
+                        key={todo.id}
+                        id={todo.id}
+                        onDelete={onDelete}
+                        onDone={onDone}
+                        description={todo.description}
+                        douDate={todo.douDate}
+                    />
                 ))}
             </div>
         </div>

@@ -51,6 +51,7 @@ const checkboxCss = css`
         transform-origin: left top;
         border-right: 4px solid #5cb85c;
         border-top: 4px solid #5cb85c;
+        border-radius: 4px;
         content: '';
         left: 4px;
         top: 11px;

@@ -5,6 +5,7 @@ import Checkbox from './Checkbox'
 interface TodoItemProps {
     id?: string
     description: string
+    douDate?: Date
     onDelete: Function
     onDone: Function
 }
@@ -24,7 +25,7 @@ const todoItemStyle = css`
     }
 `
 
-const TodoItem: VFC<TodoItemProps> = ({ id, description, onDelete, onDone }) => {
+const TodoItem: VFC<TodoItemProps> = ({ id, description, douDate, onDelete, onDone }) => {
     return (
         <div css={todoItemStyle}>
             <div className="done-description">
@@ -34,6 +35,7 @@ const TodoItem: VFC<TodoItemProps> = ({ id, description, onDelete, onDone }) => 
                     }}
                 />
                 <p>{description}</p>
+                <p>{douDate}</p>
             </div>
             <button
                 onClick={() => {

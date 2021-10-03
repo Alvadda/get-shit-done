@@ -5,7 +5,7 @@ interface SideBarProps {}
 
 const sideBarCss = css`
     width: 100%;
-    border-right: 2px solid #002848;
+    background-color: #063861;
     color: #fff;
     padding: 16px 24px;
 `

@@ -17,15 +17,16 @@ export default class TodoPostgresConnector implements ITodoConnector {
         }
     }
 
-    async createTodo(userId: string, description: string) {
+    async createTodo(userId: string, description: string, douDate: Date | null) {
         try {
-            const todosDb = await this._db.query('INSERT INTO todo (description, user_id) VALUES ($1, $2) RETURNING *', [
+            const todosDb = await this._db.query('INSERT INTO todo (description, user_id, dou_date) VALUES ($1, $2, $3) RETURNING *', [
                 description,
                 userId,
+                douDate,
             ])
             return mapTodos(todosDb)
         } catch (error) {
-            log.error(`cant create todo with description: ${description}`, error)
+            log.error(`cant create todo with description: ${description} ${error}`)
         }
     }
 

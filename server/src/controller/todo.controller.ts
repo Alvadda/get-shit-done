@@ -32,10 +32,11 @@ export default class TodoController {
     }
 
     createTodosHandler = async (req: Request, res: Response) => {
-        const { description } = req.body
+        const { description, douDate } = req.body
         const userId = res.locals.userId
         try {
-            const newTodo = await this.todoConnector.createTodo(userId, description)
+            console.log('douDate', douDate)
+            const newTodo = await this.todoConnector.createTodo(userId, description, douDate)
 
             res.json(newTodo)
         } catch (err: any) {
