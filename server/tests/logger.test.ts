@@ -4,8 +4,8 @@ describe('logger', () => {
     test('p_formatErrorMessage', () => {
         const errorMessage = formatErrorMessage('test')
 
-        const expected = { message: 'test' }
+        const expected = { errorMessage: 'test' }
         expect(errorMessage).toMatchObject(expected)
-        expect(errorMessage.message).toBe('test')
+        expect(errorMessage.errorMessage).toBe('test')
     })
 })

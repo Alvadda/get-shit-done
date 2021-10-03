@@ -45,7 +45,7 @@ describe('Auth', () => {
             password: '123',
         })
         expect(result.statusCode).toBe(403)
-        expect(result.body.message).toBe('Password or Email is incorrect')
+        expect(result.body.errorMessage).toBe('Password or Email is incorrect')
     })
 
     test('n_login_wrong_password', async () => {
@@ -55,7 +55,7 @@ describe('Auth', () => {
         })
 
         expect(result.statusCode).toBe(403)
-        expect(result.body.message).toBe('Password or Email is incorrect')
+        expect(result.body.errorMessage).toBe('Password or Email is incorrect')
     })
 
     test('n_login_no_email', async () => {
@@ -64,7 +64,7 @@ describe('Auth', () => {
         })
 
         expect(result.statusCode).toBe(400)
-        expect(result.body.message).toBe('Email is required')
+        expect(result.body.errorMessage).toBe('Email is required')
     })
 
     test('n_login_no_valid_email', async () => {
@@ -74,7 +74,7 @@ describe('Auth', () => {
         })
 
         expect(result.statusCode).toBe(400)
-        expect(result.body.message).toBe('Must be a valid email')
+        expect(result.body.errorMessage).toBe('Must be a valid email')
     })
 
     test('n_login_no_password', async () => {
@@ -83,7 +83,7 @@ describe('Auth', () => {
         })
 
         expect(result.statusCode).toBe(400)
-        expect(result.body.message).toBe('password is required')
+        expect(result.body.errorMessage).toBe('password is required')
     })
 
     test('p_register', async () => {
@@ -110,7 +110,7 @@ describe('Auth', () => {
         expect(result.statusCode).toBe(401)
         expect(userMock.readUser.mock.calls.length).toBe(1)
         expect(userMock.createUser.mock.calls.length).toBe(0)
-        expect(result.body.message).toBe('User alrdy exist')
+        expect(result.body.errorMessage).toBe('User alrdy exist')
     })
 
     test('n_register_no_name', async () => {
@@ -120,7 +120,7 @@ describe('Auth', () => {
         })
 
         expect(result.statusCode).toBe(400)
-        expect(result.body.message).toBe('Name is required')
+        expect(result.body.errorMessage).toBe('Name is required')
     })
     test('n_register_no_email', async () => {
         const result = await request(server).post('/auth/register').send({
@@ -129,7 +129,7 @@ describe('Auth', () => {
         })
 
         expect(result.statusCode).toBe(400)
-        expect(result.body.message).toBe('Email is required')
+        expect(result.body.errorMessage).toBe('Email is required')
     })
 
     test('n_register_no_valid_email', async () => {
@@ -140,7 +140,7 @@ describe('Auth', () => {
         })
 
         expect(result.statusCode).toBe(400)
-        expect(result.body.message).toBe('Must be a valid email')
+        expect(result.body.errorMessage).toBe('Must be a valid email')
     })
 
     test('n_register_no_password', async () => {
@@ -150,6 +150,6 @@ describe('Auth', () => {
         })
 
         expect(result.statusCode).toBe(400)
-        expect(result.body.message).toBe('password is required')
+        expect(result.body.errorMessage).toBe('password is required')
     })
 })
