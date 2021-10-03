@@ -1,5 +1,6 @@
 import React, { VFC } from 'react'
 import { css } from '@emotion/react'
+import Checkbox from './Checkbox'
 
 interface TodoItemProps {
     id?: string
@@ -11,27 +12,35 @@ interface TodoItemProps {
 const todoItemStyle = css`
     display: flex;
     justify-content: space-between;
-    padding: 8px 16px;
-    background: white;
+    padding: 24px 16px;
+    /* background: white; */
+    color: #fff;
+
+    border-bottom: 2px solid #002848;
+
+    .done-description {
+        display: flex;
+        gap: 20px;
+    }
 `
 
 const TodoItem: VFC<TodoItemProps> = ({ id, description, onDelete, onDone }) => {
     return (
         <div css={todoItemStyle}>
-            <p>{description}</p>
+            <div className="done-description">
+                <Checkbox
+                    onClick={() => {
+                        onDone(id)
+                    }}
+                />
+                <p>{description}</p>
+            </div>
             <button
                 onClick={() => {
                     onDelete(id)
                 }}
             >
                 Delete
-            </button>
-            <button
-                onClick={() => {
-                    onDone(id)
-                }}
-            >
-                Done
             </button>
         </div>
     )

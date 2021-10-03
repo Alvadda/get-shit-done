@@ -1,21 +1,13 @@
 import { css } from '@emotion/react'
 import React, { useState, useEffect, createRef, VFC } from 'react'
-import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../../utils/api'
-import TodoItem from '../TodoItem'
+import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../utils/api'
+import TodoItem from './TodoItem'
 
 const todoListCss = css`
+    padding: 20px 32px;
     .todo-list-container {
         display: flex;
         flex-direction: column;
-        gap: 8px;
-        padding: 20px 70px;
-
-        div:nth-child(odd) {
-            background-color: hotpink;
-        }
-        div:nth-child(even) {
-            background-color: goldenrod;
-        }
     }
 `
 

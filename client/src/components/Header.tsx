@@ -11,15 +11,19 @@ const headerCss = css`
     align-items: center;
     justify-content: space-between;
     padding: 0px 24px;
+    grid-row: 1;
+    grid-column: 1 / -1;
+    background-color: #f4f9fe;
+    color: #00162b;
 
     p {
         font-size: 24px;
-        color: #fff;
         font-weight: bold;
     }
 
     svg:hover {
         opacity: 0.7;
+        stroke: #00162b;
     }
 `
 
@@ -45,7 +49,7 @@ const Header: VFC<HeaderProps> = ({ onLogout, userName }) => {
                         strokeWidth="2"
                         strokeMiterlimit="10"
                         strokeLinecap="round"
-                        stroke="#fff"
+                        stroke="#00162b"
                         fill="none"
                         data-name="layer2"
                         strokeLinejoin="round"
@@ -55,7 +59,7 @@ const Header: VFC<HeaderProps> = ({ onLogout, userName }) => {
                         strokeWidth="2"
                         strokeMiterlimit="10"
                         strokeLinecap="round"
-                        stroke="#fff"
+                        stroke="#00162b"
                         fill="none"
                         data-name="layer1"
                         strokeLinejoin="round"
