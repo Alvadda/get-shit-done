@@ -8,7 +8,9 @@ export default class TodoPostgresConnector implements ITodoConnector {
 
     async readTodos(userId: string) {
         try {
-            const todosDb = await this._db.query('SELECT * FROM todo WHERE user_id = ($1)', [userId])
+            const todosDb = await this._db.query('SELECT * FROM todo WHERE user_id = ($1) AND done = false ORDER BY created_at DESC', [
+                userId,
+            ])
             return mapTodos(todosDb)
         } catch (error) {
             log.error('cant read todos', error)

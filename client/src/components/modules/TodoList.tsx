@@ -30,8 +30,7 @@ const TodoList: VFC = () => {
     }, [])
 
     const onDelete = (id: string) => {
-        todoList.filter((todo) => todo.id !== id)
-        setTodoList(todoList.filter((todo) => todo.id !== id))
+        removeTodoFromList(id)
         deleteTodo(id)
     }
 
@@ -39,6 +38,7 @@ const TodoList: VFC = () => {
         const todo = todoList.find((todo) => todo.id === id)
         if (todo) {
             todo.done = true
+            removeTodoFromList(id)
             updateTodo(todo)
         }
         console.log('todo', todo)
@@ -51,10 +51,14 @@ const TodoList: VFC = () => {
                 done: false,
             }
             createTodo(todo).then((todo) => {
-                console.log(todo)
-                setTodoList([...todoList, ...todo])
+                setTodoList([...todo, ...todoList])
             })
         }
+    }
+
+    const removeTodoFromList = (id: string) => {
+        todoList.filter((todo) => todo.id !== id)
+        setTodoList(todoList.filter((todo) => todo.id !== id))
     }
 
     return (

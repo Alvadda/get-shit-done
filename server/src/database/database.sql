@@ -20,14 +20,14 @@ ALTER TABLE todo
     ADD done BOOLEAN DEFAULT FALSE;
 
 ALTER TABLE todo
-    ADD done_date DATE DEFAULT NULL,
-    ADD dou_date DATE DEFAULT NULL;  
+    ADD done_date timestamp without time zone DEFAULT NULL,
+    ADD dou_date timestamp without time zone DEFAULT NULL;  
 
 create function update_done_date()
 returns trigger as $$
 begin
   IF OLD.done = false AND NEW.done = true THEN
-    NEW.done_date := current_date;
+    NEW.done_date := LOCALTIMESTAMP;
   END IF;
 	return NEW;
 end;
