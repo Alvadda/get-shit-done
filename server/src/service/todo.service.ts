@@ -11,7 +11,7 @@ export default class TodoPostgresConnector implements ITodoConnector {
             const todosDb = await this._db.query('SELECT * FROM todo WHERE user_id = ($1) AND done = false ORDER BY created_at DESC', [
                 userId,
             ])
-            return mapTodos(todosDb)
+            return this._mapTodos(todosDb)
         } catch (error) {
             log.error('cant read todos', error)
         }
@@ -24,7 +24,7 @@ export default class TodoPostgresConnector implements ITodoConnector {
                 userId,
                 douDate,
             ])
-            return mapTodos(todosDb)
+            return this._mapTodos(todosDb)
         } catch (error) {
             log.error(`cant create todo with description: ${description} ${error}`)
         }
@@ -36,7 +36,7 @@ export default class TodoPostgresConnector implements ITodoConnector {
                 'UPDATE todo SET description = ($1), done = ($2) WHERE todo_id = ($3) AND user_id = ($4) RETURNING *',
                 [todo.description, todo.done, todo.id, userId]
             )
-            return mapTodos(todosDb)
+            return this._mapTodos(todosDb)
         } catch (error) {
             log.error(`cant update todo with Id ${todo.id}`, error)
         }
@@ -51,21 +51,21 @@ export default class TodoPostgresConnector implements ITodoConnector {
             return false
         }
     }
-}
 
-const mapTodos = (todosDb: QueryResult<any>) => {
-    const todos: Todo[] = []
-    if (todosDb.rows.length > 0) {
-        todosDb.rows.forEach((todo) => {
-            todos.push({
-                id: todo.todo_id,
-                description: todo.description,
-                createdAt: todo.created_at,
-                done: todo.done,
-                doneDate: todo.done_date,
-                douDate: todo.dou_date ? todo.dou_date : undefined,
+    _mapTodos = (todosDb: QueryResult<any>) => {
+        const todos: Todo[] = []
+        if (todosDb.rows.length > 0) {
+            todosDb.rows.forEach((todo) => {
+                todos.push({
+                    id: todo.todo_id,
+                    description: todo.description,
+                    createdAt: todo.created_at,
+                    done: todo.done,
+                    doneDate: todo.done_date,
+                    douDate: todo.dou_date ? todo.dou_date : undefined,
+                })
             })
-        })
+        }
+        return todos
     }
-    return todos
 }

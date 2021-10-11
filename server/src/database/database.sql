@@ -39,3 +39,13 @@ CREATE TRIGGER update_done_date_trigger
     EXECUTE PROCEDURE update_done_date();
 
 
+CREATE TABLE projects(
+    project_id SERIAL PRIMARY KEY,
+    project_name VARCHAR(255) NOT NULL,
+    user_id INTEGER,
+    CONSTRAINT fk_projects_user FOREIGN KEY (user_id) REFERENCES users (user_id)
+);
+
+ALTER TABLE todo
+    ADD project_id INTEGER,
+    ADD CONSTRAINT fk_todo_project FOREIGN KEY (project_id) REFERENCES projects (project_id);
