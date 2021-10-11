@@ -3,7 +3,7 @@ import dbCtx from '../database/dbConnect'
 import log from '../logger/logger'
 import { Project, IProjectConnector } from '../interfaces/project.interfaces'
 
-export class ProjectConnector implements IProjectConnector {
+export default class ProjectConnector implements IProjectConnector {
     private readonly _db = dbCtx
 
     async readProjects(userId: string) {
@@ -17,7 +17,10 @@ export class ProjectConnector implements IProjectConnector {
 
     async createProject(userId: string, name: string) {
         try {
-            const projectsDb = await this._db.query('INSERT INTO projects (name, user_id) VALUES ($1, $2) RETURNING *', [name, userId])
+            const projectsDb = await this._db.query('INSERT INTO projects (project_name, user_id) VALUES ($1, $2) RETURNING *', [
+                name,
+                userId,
+            ])
             return this._mapProjects(projectsDb)
         } catch (error) {
             log.error(`cant create projects ${name} error: ${error}`)
