@@ -38,15 +38,11 @@ export default class ProjectConnector implements IProjectConnector {
     }
 
     _mapProjects = (resultDb: QueryResult<any>) => {
-        const projects: Project[] = []
-        if (resultDb.rows.length > 0) {
-            resultDb.rows.forEach((project) => {
-                projects.push({
-                    id: project.project_id,
-                    name: project.project_name,
-                })
-            })
-        }
+        if (resultDb.rows.length < 1) return []
+        const projects: Project[] = resultDb.rows.map((project) => ({
+            id: project.project_id,
+            name: project.project_name,
+        }))
         return projects
     }
 }
