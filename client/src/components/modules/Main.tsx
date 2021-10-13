@@ -17,13 +17,13 @@ const mainCss = css`
     grid-template-columns: 15% 1fr 15%;
 `
 
-const Main: VFC<MainProps> = ({ onLogout, userName,  }) => {
+const Main: VFC<MainProps> = ({ onLogout, userName }) => {
     return (
-        <div css={mainCss}>
+        <main css={mainCss}>
             <Header onLogout={onLogout} userName={userName} />
             <SideBar />
             <TodoList />
-        </div>
+        </main>
     )
 }
 

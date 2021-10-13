@@ -29,7 +29,7 @@ const headerCss = css`
 
 const Header: VFC<HeaderProps> = ({ onLogout, userName }) => {
     return (
-        <div css={headerCss}>
+        <header css={headerCss}>
             <p>{userName}</p>
             <div onClick={() => onLogout()}>
                 <svg
@@ -66,7 +66,7 @@ const Header: VFC<HeaderProps> = ({ onLogout, userName }) => {
                     ></path>
                 </svg>
             </div>
-        </div>
+        </header>
     )
 }
 
