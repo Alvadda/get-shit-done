@@ -139,10 +139,10 @@ const loginCss = css`
                 background-color: ${theme.colors.backgroundLight};
             }
 
-            .login-info-todo:nth-child(odd) {
+            .login-info-todo:nth-of-type(odd) {
                 background-color: ${theme.colors.backgroundLight};
             }
-            .login-info-todo:nth-child(even) {
+            .login-info-todo:nth-of-type(even) {
                 background-color: #013865;
             }
         }

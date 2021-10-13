@@ -1,4 +1,4 @@
-import React, { useState, VFC } from 'react'
+import React, { VFC } from 'react'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 

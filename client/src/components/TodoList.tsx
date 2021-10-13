@@ -1,9 +1,9 @@
 import { css } from '@emotion/react'
-import React, { useState, useEffect, createRef, VFC } from 'react'
+import React, { useState, useEffect, VFC } from 'react'
 import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../utils/api'
 import TodoItem from './TodoItem'
-import CostumDatePicker from './CustomDatePicker'
 import TodoGenerater from './TodoGenerater'
+import { useTodoContext } from '../context/TodoContext'
 
 const todoListCss = css`
     padding: 20px 32px;
@@ -14,55 +14,50 @@ const todoListCss = css`
 `
 
 const TodoList: VFC = () => {
-    const [todoList, setTodoList] = useState<Todo[]>([])
-    const inputRef = createRef<HTMLInputElement>()
-    console.log(todoList)
+    const { state, dispatch } = useTodoContext()
+    console.log(state)
     useEffect(() => {
         readTodos().then((todos) => {
-            setTodoList(todos)
+            dispatch({ type: 'GET_TODOS', todos })
         })
-    }, [])
+    }, [dispatch])
 
     const onDelete = (id: string) => {
-        removeTodoFromList(id)
+        dispatch({ type: 'DELETE_TODO', id })
         deleteTodo(id)
     }
 
     const onDone = (id: string) => {
-        const todo = todoList.find((todo) => todo.id === id)
+        const todo = state.todos.find((todo) => todo.id === id)
         if (todo) {
             todo.done = true
-            removeTodoFromList(id)
+            dispatch({ type: 'UPDATE_TODO', todo })
             updateTodo(todo)
         }
-        console.log('todo', todo)
     }
 
     const onAddTodo = (todo: Todo) => {
-        createTodo(todo).then((todo) => {
-            setTodoList([...todo, ...todoList])
+        createTodo(todo).then((todos) => {
+            dispatch({ type: 'ADD_TODO', todos })
         })
-    }
-
-    const removeTodoFromList = (id: string) => {
-        todoList.filter((todo) => todo.id !== id)
-        setTodoList(todoList.filter((todo) => todo.id !== id))
     }
 
     return (
         <div css={todoListCss}>
             <TodoGenerater onAddTodo={onAddTodo} />
             <div className="todo-list-container">
-                {todoList.map((todo) => (
-                    <TodoItem
-                        key={todo.id}
-                        id={todo.id}
-                        onDelete={onDelete}
-                        onDone={onDone}
-                        description={todo.description}
-                        douDate={todo.douDate}
-                    />
-                ))}
+                {state.todos
+                    .filter((todo) => !todo.done)
+                    .map((todo) => (
+                        <TodoItem
+                            key={todo.id}
+                            id={todo.id}
+                            onDelete={onDelete}
+                            onDone={onDone}
+                            description={todo.description}
+                            douDate={todo.douDate}
+                        />
+                    ))}
             </div>
         </div>
     )

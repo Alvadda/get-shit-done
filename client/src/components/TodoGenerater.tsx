@@ -1,6 +1,5 @@
 import { css } from '@emotion/react'
 import React, { createRef, useState, VFC } from 'react'
-import { Todo } from '../utils/api'
 import CostumDatePicker from './CustomDatePicker'
 
 interface TodoGeneraterProps {

@@ -24,7 +24,7 @@ const SideBar: VFC<SideBarProps> = () => {
         <aside css={sideBarCss}>
             Projects
             {projects.map((project) => (
-                <p>{project.name}</p>
+                <p key={project.id}>{project.name}</p>
             ))}
         </aside>
     )

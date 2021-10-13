@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { login } from './utils/api'
 import { GlobalStyle } from './utils/GlobalStyle'
 import { theme } from './utils/Theme'
+import TodoProvider from './context/TodoContext'
 
 const AUTH_TOKEN = 'jwt_token'
 
@@ -47,7 +48,9 @@ const App: VFC = () => {
                     <>
                         <Switch>
                             <Route path="/" exact>
-                                <Main onLogout={onLogout} userName={userName} />
+                                <TodoProvider>
+                                    <Main onLogout={onLogout} userName={userName} />
+                                </TodoProvider>
                             </Route>
                         </Switch>
                     </>
