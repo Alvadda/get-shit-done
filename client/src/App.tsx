@@ -1,9 +1,11 @@
-import React, { useEffect, useState, VFC } from 'react'
-import { GlobalStyle } from './utils/GlobalStyle'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Login from './components/modules/Login'
-import { login } from './utils/api'
 import Main from './components/modules/Main'
+import { ThemeProvider } from '@emotion/react'
+import React, { useEffect, useState, VFC } from 'react'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { login } from './utils/api'
+import { GlobalStyle } from './utils/GlobalStyle'
+import { theme } from './utils/Theme'
 
 const AUTH_TOKEN = 'jwt_token'
 
@@ -31,7 +33,7 @@ const App: VFC = () => {
     }
 
     return (
-        <>
+        <ThemeProvider theme={theme}>
             <GlobalStyle />
             <Router>
                 {!auth && (
@@ -51,7 +53,7 @@ const App: VFC = () => {
                     </>
                 )}
             </Router>
-        </>
+        </ThemeProvider>
     )
 }
 

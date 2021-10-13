@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
 import React, { createRef, VFC } from 'react'
+import { theme } from '../../utils/Theme'
 
 interface loginProps {
     onLogin: (email: string, password: string) => void
@@ -20,7 +21,7 @@ const loginCss = css`
         width: 1100px;
         height: 800px;
 
-        border-radius: 10px;
+        border-radius: ${theme.borderRadius[1]};
         box-shadow: 0px 7px 15px 3px rgba(0, 0, 0, 0.25);
 
         .login-formular {
@@ -28,17 +29,16 @@ const loginCss = css`
             justify-content: center;
             align-items: center;
 
-            padding: 0 70px;
-            background-color: #f4f9fe;
-            border-bottom-left-radius: 10px;
-            border-top-left-radius: 10px;
-
+            padding: 0 ${theme.spacing['6-4']};
+            background-color: ${theme.colors.backgroundLight};
+            border-bottom-left-radius: ${theme.borderRadius[1]};
+            border-top-left-radius: ${theme.borderRadius[1]};
             .formular-conainer {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
                 align-items: center;
-                gap: 10px;
+                gap: ${theme.spacing['0-8']};
                 width: 100%;
             }
 
@@ -48,63 +48,62 @@ const loginCss = css`
             }
 
             label {
-                margin-bottom: 20px;
+                margin-bottom: ${theme.spacing['3-2']};
             }
 
             input {
                 height: 50px;
 
-                padding: 8px 16px;
-                margin-top: 8px;
+                padding: ${theme.spacing['0-8']} ${theme.spacing['1-6']};
+                margin-top: ${theme.spacing['0-8']};
 
                 background: #ffffff;
                 box-shadow: 0px 7px 6px rgba(0, 0, 0, 0.15);
-                border-radius: 10px;
-                border-radius: 8px;
+                border-radius: ${theme.borderRadius[1]};
+                border-radius: ${theme.borderRadius['0-8']};
                 border: none;
 
-                font-size: 22px;
+                font-size: ${theme.fontSize['2-4']};
             }
 
             input:focus {
                 /* outline: none; */
-                outline-color: #00162b;
+                outline-color: ${theme.colors.backgroundDark};
             }
 
             .login-text {
                 width: 100%;
                 font-weight: bold;
-                font-size: 47px;
+                font-size: ${theme.fontSize['4-4']};
                 line-height: 1.1;
                 display: flex;
                 align-items: center;
                 letter-spacing: -0.03em;
-                margin-bottom: 40px;
+                margin-bottom: ${theme.spacing['3-2']};
             }
 
             .login-btn {
                 height: 40px;
-                padding: 8px 16px;
+                padding: ${theme.spacing['0-8']} ${theme.spacing['1-6']};
 
-                background: #00162b;
-                border-radius: 10px;
+                background: ${theme.colors.backgroundDark};
+                border-radius: ${theme.borderRadius[1]};
                 border: none;
 
-                color: #f4f9fe;
-                font-size: 22px;
+                color: ${theme.colors.backgroundLight};
+                font-size: ${theme.fontSize['2-4']};
             }
 
             .register-btn {
                 height: 40px;
-                padding: 8px 16px;
+                padding: ${theme.spacing['0-8']} ${theme.spacing['1-6']};
 
-                background: #f4f9fe;
-                border: 2px solid #00162b;
-                box-sizing: border-box;
-                border-radius: 10px;
+                background: ${theme.colors.backgroundLight};
+                border: 2px solid ${theme.colors.backgroundDark};
+                border-radius: ${theme.borderRadius[1]};
 
-                color: #00162b;
-                font-size: 22px;
+                color: ${theme.colors.backgroundDark};
+                font-size: ${theme.fontSize['2-4']};
             }
 
             button:active {
@@ -112,7 +111,7 @@ const loginCss = css`
             }
 
             .row {
-                margin-top: 40px;
+                margin-top: ${theme.spacing['3-2']};
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
@@ -124,24 +123,24 @@ const loginCss = css`
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 40px;
-            padding: 0 70px;
+            gap: ${theme.spacing['3-2']};
+            padding: 0 ${theme.spacing['6-4']};
 
             height: 100%;
-            background-color: #002848;
-            border-bottom-right-radius: 10px;
-            border-top-right-radius: 10px;
+            background-color: ${theme.colors.backgroundDarkLight};
+            border-bottom-right-radius: ${theme.borderRadius[1]};
+            border-top-right-radius: ${theme.borderRadius[1]};
 
             .login-info-todo {
                 height: 50px;
                 width: 100%;
 
-                border-radius: 10px;
-                background-color: #f4f9fe;
+                border-radius: ${theme.borderRadius[1]};
+                background-color: ${theme.colors.backgroundLight};
             }
 
             .login-info-todo:nth-child(odd) {
-                background-color: #f4f9fe;
+                background-color: ${theme.colors.backgroundLight};
             }
             .login-info-todo:nth-child(even) {
                 background-color: #013865;
