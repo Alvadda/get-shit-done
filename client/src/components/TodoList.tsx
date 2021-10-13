@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import React, { useState, useEffect, VFC } from 'react'
+import React, { useEffect, VFC } from 'react'
 import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../utils/api'
 import TodoItem from './TodoItem'
 import TodoGenerater from './TodoGenerater'
@@ -15,10 +15,9 @@ const todoListCss = css`
 
 const TodoList: VFC = () => {
     const { state, dispatch } = useTodoContext()
-    console.log(state)
     useEffect(() => {
         readTodos().then((todos) => {
-            dispatch({ type: 'GET_TODOS', todos })
+            dispatch({ type: 'SET_TODOS', todos })
         })
     }, [dispatch])
 

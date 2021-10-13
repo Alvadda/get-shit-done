@@ -2,7 +2,7 @@ import { TodoAktion, TodoState } from './../types/types'
 
 const todoReducer = (state: TodoState, aktion: TodoAktion) => {
     switch (aktion.type) {
-        case 'GET_TODOS':
+        case 'SET_TODOS':
             return {
                 ...state,
                 todos: [...aktion.todos],
@@ -21,6 +21,11 @@ const todoReducer = (state: TodoState, aktion: TodoAktion) => {
             return {
                 ...state,
                 todos: state.todos.filter((todo) => todo.id !== aktion.id),
+            }
+        case 'SET_PROJECTS':
+            return {
+                ...state,
+                projects: [...aktion.projects],
             }
         default:
             return state

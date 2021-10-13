@@ -5,8 +5,8 @@ export interface TodoState {
     projects: Project[]
 }
 
-interface GetTodos {
-    type: 'GET_TODOS'
+interface SetTodos {
+    type: 'SET_TODOS'
     todos: Todo[]
 }
 
@@ -25,4 +25,9 @@ interface DeleteTodo {
     id: string
 }
 
-export type TodoAktion = GetTodos | AddTodo | DeleteTodo | UpdateTodo
+interface SetProjects {
+    type: 'SET_PROJECTS'
+    projects: Project[]
+}
+
+export type TodoAktion = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects

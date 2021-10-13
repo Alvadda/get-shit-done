@@ -1,6 +1,7 @@
 import { css } from '@emotion/react'
-import React, { useEffect, useState, VFC } from 'react'
-import { Project, readProjects } from '../utils/api'
+import React, { useEffect, VFC } from 'react'
+import { useTodoContext } from '../context/TodoContext'
+import { readProjects } from '../utils/api'
 
 interface SideBarProps {}
 
@@ -12,18 +13,18 @@ const sideBarCss = css`
 `
 
 const SideBar: VFC<SideBarProps> = () => {
-    const [projects, setProjects] = useState<Project[]>([])
+    const { state, dispatch } = useTodoContext()
 
     useEffect(() => {
         readProjects().then((projects) => {
-            setProjects(projects)
+            dispatch({ type: 'SET_PROJECTS', projects })
         })
-    }, [])
+    }, [dispatch])
 
     return (
         <aside css={sideBarCss}>
             Projects
-            {projects.map((project) => (
+            {state.projects.map((project) => (
                 <p key={project.id}>{project.name}</p>
             ))}
         </aside>
