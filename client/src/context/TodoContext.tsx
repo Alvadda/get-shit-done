@@ -1,6 +1,6 @@
 import React, { createContext, FC, useContext, useReducer } from 'react'
 import todoReducer from '../reducer/todoReducer'
-import { TodoAktion, TodoState } from '../types/types'
+import { TodoAktion, TodoState } from '../types/todoContext.types'
 
 interface TodoContextValue {
     state: TodoState

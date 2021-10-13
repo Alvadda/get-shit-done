@@ -1,4 +1,4 @@
-import { TodoAktion, TodoState } from './../types/types'
+import { TodoAktion, TodoState } from './../types/todoContext.types'
 
 const todoReducer = (state: TodoState, aktion: TodoAktion) => {
     switch (aktion.type) {
