@@ -1,5 +1,5 @@
 import { css } from '@emotion/react'
-import React, { createRef, VFC } from 'react'
+import React, { createRef, FormEvent, VFC } from 'react'
 import { theme } from '../../utils/Theme'
 
 interface loginProps {
@@ -152,11 +152,18 @@ const loginCss = css`
 const Login: VFC<loginProps> = ({ onLogin }) => {
     const emailRef = createRef<HTMLInputElement>()
     const passwordRef = createRef<HTMLInputElement>()
+
+    const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        if (emailRef.current?.value && passwordRef.current?.value) {
+            onLogin(emailRef.current?.value, passwordRef.current?.value)
+        }
+    }
     return (
         <div css={loginCss}>
             <div className="login-container">
                 <div className="login-formular">
-                    <div className="formular-conainer">
+                    <form className="formular-conainer" onSubmit={onSubmit}>
                         <p className="login-text">
                             Login & <br />
                             GET SHIT DONE
@@ -173,18 +180,9 @@ const Login: VFC<loginProps> = ({ onLogin }) => {
 
                         <div className="row">
                             <button className="register-btn">Register</button>
-                            <button
-                                className="login-btn"
-                                onClick={() => {
-                                    if (emailRef.current?.value && passwordRef.current?.value) {
-                                        onLogin(emailRef.current?.value, passwordRef.current?.value)
-                                    }
-                                }}
-                            >
-                                Login
-                            </button>
+                            <button className="login-btn">Login</button>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div className="login-info">
                     <div className="login-info-todo"></div>
