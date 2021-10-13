@@ -9,6 +9,11 @@ export interface Todo {
     douDate?: Date
 }
 
+export interface Project {
+    id?: string
+    name?: string
+}
+
 interface Login {
     token: string
     userName: string
@@ -32,6 +37,23 @@ export const login = async (email: string, password: string): Promise<Login> =>
             response.json().then((data) => {
                 if (data.message) {
                     console.log(data.message)
+                    reject(data.message)
+                }
+                resolve(data)
+            })
+        )
+    })
+
+export const readProjects = async (): Promise<Project[]> =>
+    new Promise((resolve, reject) => {
+        const request = fetch(`http://localhost:5000/Projects`, {
+            headers: {
+                ...getHeader(),
+            },
+        })
+        request.then((response) =>
+            response.json().then((data) => {
+                if (data.message) {
                     reject(data.message)
                 }
                 resolve(data)

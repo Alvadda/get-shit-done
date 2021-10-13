@@ -1,5 +1,6 @@
 import { css } from '@emotion/react'
-import React, { VFC } from 'react'
+import React, { useEffect, useState, VFC } from 'react'
+import { Project, readProjects } from '../utils/api'
 
 interface SideBarProps {}
 
@@ -11,7 +12,22 @@ const sideBarCss = css`
 `
 
 const SideBar: VFC<SideBarProps> = () => {
-    return <div css={sideBarCss}>Sidebar</div>
+    const [projects, setProjects] = useState<Project[]>([])
+
+    useEffect(() => {
+        readProjects().then((projects) => {
+            setProjects(projects)
+        })
+    }, [])
+
+    return (
+        <aside css={sideBarCss}>
+            Projects
+            {projects.map((project) => (
+                <p>{project.name}</p>
+            ))}
+        </aside>
+    )
 }
 
 export default SideBar
