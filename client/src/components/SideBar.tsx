@@ -21,11 +21,17 @@ const SideBar: VFC<SideBarProps> = () => {
         })
     }, [dispatch])
 
+    const onSelectProject = (id?: string) => {
+        dispatch({ type: 'SET_SELECTED_PROJECT', id: id || null })
+    }
+
     return (
         <aside css={sideBarCss}>
             Projects
             {state.projects.map((project) => (
-                <p key={project.id}>{project.name}</p>
+                <p key={project.id} onClick={() => onSelectProject(project.id)}>
+                    {project.name}
+                </p>
             ))}
         </aside>
     )

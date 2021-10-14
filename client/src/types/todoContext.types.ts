@@ -3,6 +3,7 @@ import { Project, Todo } from './../utils/api'
 export interface TodoState {
     todos: Todo[]
     projects: Project[]
+    selectedProject: string | null
 }
 
 interface SetTodos {
@@ -30,4 +31,9 @@ interface SetProjects {
     projects: Project[]
 }
 
-export type TodoAktion = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects
+interface setSelectedProject {
+    type: 'SET_SELECTED_PROJECT'
+    id: string | null
+}
+
+export type TodoAktion = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects | setSelectedProject

@@ -10,6 +10,7 @@ interface TodoContextValue {
 const InitialTodoState: TodoState = {
     todos: [],
     projects: [],
+    selectedProject: null,
 }
 const TodoContext = createContext<TodoContextValue>({ state: InitialTodoState, dispatch: () => {} })
 

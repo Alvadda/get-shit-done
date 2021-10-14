@@ -15,6 +15,8 @@ const todoListCss = css`
 
 const TodoList: VFC = () => {
     const { state, dispatch } = useTodoContext()
+    console.log(state.todos)
+    console.log('state: ', state)
     useEffect(() => {
         readTodos().then((todos) => {
             dispatch({ type: 'SET_TODOS', todos })
@@ -46,7 +48,7 @@ const TodoList: VFC = () => {
             <AddTodo onAddTodo={onAddTodo} />
             <div className="todo-list-container">
                 {state.todos
-                    .filter((todo) => !todo.done)
+                    .filter((todo) => !todo.done && todo.projectId == state.selectedProject)
                     .map((todo) => (
                         <TodoItem
                             key={todo.id}

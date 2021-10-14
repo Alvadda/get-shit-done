@@ -27,6 +27,11 @@ const todoReducer = (state: TodoState, aktion: TodoAktion) => {
                 ...state,
                 projects: [...aktion.projects],
             }
+        case 'SET_SELECTED_PROJECT':
+            return {
+                ...state,
+                selectedProject: aktion.id,
+            }
         default:
             return state
     }
