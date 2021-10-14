@@ -6,6 +6,7 @@ interface TodoItemProps {
     id?: string
     description: string
     douDate?: Date
+    projectId?: string
     onDelete: Function
     onDone: Function
 }
@@ -25,7 +26,7 @@ const todoItemStyle = css`
     }
 `
 
-const TodoItem: VFC<TodoItemProps> = ({ id, description, douDate, onDelete, onDone }) => {
+const TodoItem: VFC<TodoItemProps> = ({ id, description, projectId, douDate, onDelete, onDone }) => {
     return (
         <div css={todoItemStyle}>
             <div className="done-description">
@@ -35,6 +36,7 @@ const TodoItem: VFC<TodoItemProps> = ({ id, description, douDate, onDelete, onDo
                     }}
                 />
                 <p>{description}</p>
+                <p>Project: {projectId}</p>
                 <p>{douDate}</p>
             </div>
             <button

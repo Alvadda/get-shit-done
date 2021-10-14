@@ -2,7 +2,7 @@ import { css } from '@emotion/react'
 import React, { useEffect, VFC } from 'react'
 import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../utils/api'
 import TodoItem from './TodoItem'
-import TodoGenerater from './TodoGenerater'
+import AddTodo from './AddTodo'
 import { useTodoContext } from '../context/TodoContext'
 
 const todoListCss = css`
@@ -43,7 +43,7 @@ const TodoList: VFC = () => {
 
     return (
         <div css={todoListCss}>
-            <TodoGenerater onAddTodo={onAddTodo} />
+            <AddTodo onAddTodo={onAddTodo} />
             <div className="todo-list-container">
                 {state.todos
                     .filter((todo) => !todo.done)
@@ -55,6 +55,7 @@ const TodoList: VFC = () => {
                             onDone={onDone}
                             description={todo.description}
                             douDate={todo.douDate}
+                            projectId={todo.projectId}
                         />
                     ))}
             </div>
