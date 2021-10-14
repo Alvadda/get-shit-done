@@ -1,4 +1,4 @@
-const AUTH_TOKEN = 'jwt_token'
+import { getAuthToken } from './sessionStoreManager'
 
 export interface Todo {
     id?: string
@@ -21,7 +21,7 @@ interface Login {
 
 const getHeader = (): object => ({
     'Content-Type': 'application/json',
-    [AUTH_TOKEN]: sessionStorage.getItem(AUTH_TOKEN),
+    jwt_token: getAuthToken(),
 })
 
 export const login = async (email: string, password: string): Promise<Login> =>

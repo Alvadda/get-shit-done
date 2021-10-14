@@ -8,31 +8,29 @@ import { GlobalStyle } from './utils/GlobalStyle'
 import { theme } from './utils/Theme'
 import TodoProvider from './context/TodoContext'
 import { useUserContext } from './context/UserContext'
-
-const AUTH_TOKEN = 'jwt_token'
-const USER_NAME = 'user_name'
+import { getAuthToken, getUserName, removeAuthToken, removeUserName, setAuthToken, setUserName } from './utils/sessionStoreManager'
 
 const App: VFC = () => {
     const { state, dispatch } = useUserContext()
 
     useEffect(() => {
-        const authToken = sessionStorage.getItem(AUTH_TOKEN) || undefined
+        const authToken = getAuthToken()
         if (!authToken) return
 
-        dispatch({ type: 'LOGIN', user: { name: sessionStorage.getItem(USER_NAME) || '' }, authToken })
+        dispatch({ type: 'LOGIN', user: { name: getUserName() || '' }, authToken })
     }, [dispatch])
 
     const onLogout = () => {
-        sessionStorage.removeItem(AUTH_TOKEN)
-        sessionStorage.removeItem(USER_NAME)
+        removeUserName()
+        removeAuthToken()
         dispatch({ type: 'LOGOUT' })
     }
 
     const onLogin = (email: string, password: string) => {
         login(email, password).then((data) => {
             if (data.token) {
-                sessionStorage.setItem(AUTH_TOKEN, data.token)
-                sessionStorage.setItem(USER_NAME, data.userName)
+                setUserName(data.userName)
+                setAuthToken(data.token)
                 dispatch({ type: 'LOGIN', user: { name: data.userName }, authToken: data.token })
             }
         })
