@@ -1,6 +1,6 @@
-import { TodoAktion, TodoState } from './../types/todoContext.types'
+import { TodoAktion, AppState } from './../types/appContext.types'
 
-const todoReducer = (state: TodoState, aktion: TodoAktion) => {
+const todoReducer = (state: AppState, aktion: TodoAktion) => {
     switch (aktion.type) {
         case 'SET_TODOS':
             return {

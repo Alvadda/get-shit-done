@@ -1,6 +1,6 @@
-import { Project, Todo } from './../utils/api'
+import { Project, Todo } from '../utils/api'
 
-export interface TodoState {
+export interface AppState {
     todos: Todo[]
     projects: Project[]
     selectedProject: string | null

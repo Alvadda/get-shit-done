@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { login } from './utils/api'
 import { GlobalStyle } from './utils/GlobalStyle'
 import { theme } from './utils/Theme'
-import TodoProvider from './context/TodoContext'
+import AppProvider from './context/AppContext'
 import { useUserContext } from './context/UserContext'
 import { getAuthToken, getUserName, removeAuthToken, removeUserName, setAuthToken, setUserName } from './utils/sessionStoreManager'
 
@@ -51,9 +51,9 @@ const App: VFC = () => {
                     <>
                         <Switch>
                             <Route path="/" exact>
-                                <TodoProvider>
+                                <AppProvider>
                                     <Main onLogout={onLogout} userName={state.user?.name || ''} />
-                                </TodoProvider>
+                                </AppProvider>
                             </Route>
                         </Switch>
                     </>

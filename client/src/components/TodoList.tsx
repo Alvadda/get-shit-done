@@ -3,7 +3,7 @@ import React, { useEffect, VFC } from 'react'
 import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../utils/api'
 import TodoItem from './TodoItem'
 import AddTodo from './AddTodo'
-import { useTodoContext } from '../context/TodoContext'
+import { useAppContext } from '../context/AppContext'
 
 const todoListCss = css`
     padding: 20px 32px;
@@ -14,7 +14,7 @@ const todoListCss = css`
 `
 
 const TodoList: VFC = () => {
-    const { state, dispatch } = useTodoContext()
+    const { state, dispatch } = useAppContext()
     console.log(state.todos)
     console.log('state: ', state)
     useEffect(() => {

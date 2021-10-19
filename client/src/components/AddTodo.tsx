@@ -3,7 +3,7 @@ import React, { createRef, useState, VFC, FormEvent } from 'react'
 import CostumDatePicker from './CustomDatePicker'
 import Dropdown from 'react-dropdown'
 import 'react-dropdown/style.css'
-import { useTodoContext } from '../context/TodoContext'
+import { useAppContext } from '../context/AppContext'
 
 interface AddTodoProps {
     onAddTodo: Function
@@ -18,7 +18,7 @@ const addTodoCss = css`
 `
 
 const AddTodo: VFC<AddTodoProps> = ({ onAddTodo }) => {
-    const { state } = useTodoContext()
+    const { state } = useAppContext()
     const [douDate, setDouDate] = useState(new Date())
     const [project, setProject] = useState<String>('')
 
