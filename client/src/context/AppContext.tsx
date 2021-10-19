@@ -1,6 +1,6 @@
 import React, { createContext, FC, useContext, useReducer } from 'react'
 import todoReducer from '../reducer/todoReducer'
-import { TodoAction, AppState } from '../types/appContext.types'
+import { TodoAction, AppState, ProjectTypes } from '../types/appContext.types'
 
 interface AppContextValue {
     state: AppState
@@ -10,7 +10,7 @@ interface AppContextValue {
 const InitialAppState: AppState = {
     todos: [],
     projects: [],
-    selectedProject: null,
+    selectedProjectType: ProjectTypes.Inbox,
 }
 const AppContext = createContext<AppContextValue>({ state: InitialAppState, dispatch: () => {} })
 

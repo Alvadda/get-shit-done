@@ -4,6 +4,7 @@ import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../utils/ap
 import TodoItem from './TodoItem'
 import AddTodo from './AddTodo'
 import { useAppContext } from '../context/AppContext'
+import { ProjectTypes } from '../types/appContext.types'
 
 const todoListCss = css`
     padding: 20px 32px;
@@ -43,12 +44,30 @@ const TodoList: VFC = () => {
         })
     }
 
+    const isSameDay = (d1: Date, d2: Date) => {
+        return d1.getFullYear() === d2.getFullYear() && d1.getDate() === d2.getDate() && d1.getMonth() === d2.getMonth()
+    }
+
+    const showTodosToSelectedProject = (todo: Todo) => {
+        if (todo.done) return false
+
+        switch (state.selectedProjectType) {
+            case ProjectTypes.Inbox:
+                return todo.projectId === null
+            case ProjectTypes.DoNow:
+                if (!todo.douDate) return false
+                return isSameDay(new Date(todo.douDate), new Date())
+            case ProjectTypes.Id:
+                return todo.projectId === state.selectedProject
+        }
+    }
+
     return (
         <div css={todoListCss}>
             <AddTodo onAddTodo={onAddTodo} />
             <div className="todo-list-container">
                 {state.todos
-                    .filter((todo) => !todo.done && todo.projectId == state.selectedProject)
+                    .filter((todo) => showTodosToSelectedProject(todo))
                     .map((todo) => (
                         <TodoItem
                             key={todo.id}

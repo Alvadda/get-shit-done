@@ -11,7 +11,7 @@ export interface Todo {
 }
 
 export interface Project {
-    id?: string
+    id: string
     name?: string
 }
 

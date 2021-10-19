@@ -3,7 +3,15 @@ import { Project, Todo } from '../utils/api'
 export interface AppState {
     todos: Todo[]
     projects: Project[]
-    selectedProject: string | null
+    selectedProject?: string
+    selectedProjectType: ProjectTypes
+}
+
+export enum ProjectTypes {
+    Inbox,
+    DoNow,
+    DoSoon,
+    Id,
 }
 
 interface SetTodos {
@@ -33,7 +41,8 @@ interface SetProjects {
 
 interface setSelectedProject {
     type: 'SET_SELECTED_PROJECT'
-    id: string | null
+    selectProjectType: ProjectTypes
+    id?: string
 }
 
 export type TodoAction = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects | setSelectedProject

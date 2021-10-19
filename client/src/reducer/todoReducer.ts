@@ -30,6 +30,7 @@ const todoReducer = (state: AppState, action: TodoAction) => {
         case 'SET_SELECTED_PROJECT':
             return {
                 ...state,
+                selectedProjectType: action.selectProjectType,
                 selectedProject: action.id,
             }
         default:

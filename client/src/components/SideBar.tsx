@@ -1,7 +1,9 @@
 import { css } from '@emotion/react'
 import React, { useEffect, VFC } from 'react'
 import { useAppContext } from '../context/AppContext'
+import { ProjectTypes } from '../types/appContext.types'
 import { readProjects } from '../utils/api'
+import ProjectItem from './Project'
 
 interface SideBarProps {}
 
@@ -21,17 +23,16 @@ const SideBar: VFC<SideBarProps> = () => {
         })
     }, [dispatch])
 
-    const onSelectProject = (id?: string) => {
-        dispatch({ type: 'SET_SELECTED_PROJECT', id: id || null })
+    const onSelectProject = (selectProjectType: ProjectTypes, id?: string) => {
+        dispatch({ type: 'SET_SELECTED_PROJECT', selectProjectType, id })
     }
 
     return (
         <aside css={sideBarCss}>
-            Projects
+            <p onClick={() => onSelectProject(ProjectTypes.Inbox)}>Inbox</p>
+            <p onClick={() => onSelectProject(ProjectTypes.DoNow)}>DO NOW</p>
             {state.projects.map((project) => (
-                <p key={project.id} onClick={() => onSelectProject(project.id)}>
-                    {project.name}
-                </p>
+                <ProjectItem project={project} onSelect={onSelectProject} />
             ))}
         </aside>
     )
