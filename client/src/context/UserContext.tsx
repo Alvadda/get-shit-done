@@ -1,10 +1,10 @@
 import userReducer from '../reducer/userReducer'
 import React, { createContext, FC, useContext, useReducer } from 'react'
-import { UserState, UserAktion } from '../types/userContext.types'
+import { UserState, UserAction } from '../types/userContext.types'
 
 interface UserContextValue {
     state: UserState
-    dispatch: (aktion: UserAktion) => void
+    dispatch: (action: UserAction) => void
 }
 
 const InitialUserState: UserState = {}

@@ -1,11 +1,11 @@
-import { UserState, UserAktion } from './../types/userContext.types'
+import { UserState, UserAction } from './../types/userContext.types'
 
-const userReducer = (state: UserState, aktion: UserAktion) => {
-    switch (aktion.type) {
+const userReducer = (state: UserState, action: UserAction) => {
+    switch (action.type) {
         case 'LOGIN':
             return {
-                user: aktion.user,
-                authToken: aktion.authToken,
+                user: action.user,
+                authToken: action.authToken,
             }
         case 'LOGOUT':
             return {}

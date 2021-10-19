@@ -1,36 +1,36 @@
-import { TodoAktion, AppState } from './../types/appContext.types'
+import { TodoAction, AppState } from './../types/appContext.types'
 
-const todoReducer = (state: AppState, aktion: TodoAktion) => {
-    switch (aktion.type) {
+const todoReducer = (state: AppState, action: TodoAction) => {
+    switch (action.type) {
         case 'SET_TODOS':
             return {
                 ...state,
-                todos: [...aktion.todos],
+                todos: [...action.todos],
             }
         case 'ADD_TODO':
             return {
                 ...state,
-                todos: [...aktion.todos, ...state.todos],
+                todos: [...action.todos, ...state.todos],
             }
         case 'UPDATE_TODO':
             return {
                 ...state,
-                todos: state.todos.map((todo) => (todo.id === aktion.todo.id ? aktion.todo : todo)),
+                todos: state.todos.map((todo) => (todo.id === action.todo.id ? action.todo : todo)),
             }
         case 'DELETE_TODO':
             return {
                 ...state,
-                todos: state.todos.filter((todo) => todo.id !== aktion.id),
+                todos: state.todos.filter((todo) => todo.id !== action.id),
             }
         case 'SET_PROJECTS':
             return {
                 ...state,
-                projects: [...aktion.projects],
+                projects: [...action.projects],
             }
         case 'SET_SELECTED_PROJECT':
             return {
                 ...state,
-                selectedProject: aktion.id,
+                selectedProject: action.id,
             }
         default:
             return state

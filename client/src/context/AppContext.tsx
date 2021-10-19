@@ -1,10 +1,10 @@
 import React, { createContext, FC, useContext, useReducer } from 'react'
 import todoReducer from '../reducer/todoReducer'
-import { TodoAktion, AppState } from '../types/appContext.types'
+import { TodoAction, AppState } from '../types/appContext.types'
 
 interface AppContextValue {
     state: AppState
-    dispatch: (aktion: TodoAktion) => void
+    dispatch: (action: TodoAction) => void
 }
 
 const InitialAppState: AppState = {

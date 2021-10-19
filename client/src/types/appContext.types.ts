@@ -36,4 +36,4 @@ interface setSelectedProject {
     id: string | null
 }
 
-export type TodoAktion = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects | setSelectedProject
+export type TodoAction = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects | setSelectedProject

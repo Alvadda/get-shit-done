@@ -16,4 +16,4 @@ interface Logout {
     type: 'LOGOUT'
 }
 
-export type UserAktion = Login | Logout
+export type UserAction = Login | Logout
