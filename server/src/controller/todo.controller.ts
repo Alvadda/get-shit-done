@@ -35,7 +35,6 @@ export default class TodoController {
         const { description, douDate, projectId } = req.body
         const userId = res.locals.userId
         try {
-            console.log('douDate', douDate)
             const newTodo = await this.todoConnector.createTodo(userId, description, douDate, projectId || null)
 
             res.json(newTodo)

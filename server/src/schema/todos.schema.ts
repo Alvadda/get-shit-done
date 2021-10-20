@@ -3,7 +3,7 @@ import { object, string, boolean, date } from 'yup'
 const createTodoSchema = object({
     body: object({
         description: string().required('Todo must have a description'),
-        projectId: string(),
+        projectId: string().nullable(),
     }),
 })
 
@@ -17,7 +17,7 @@ const updateTodoSchema = object({
     body: object({
         description: string().required('Todo must have a description'),
         done: boolean().required('Todo must have a done flag'),
-        projectId: string(),
+        projectId: string().nullable(),
     }),
     params: object({
         id: string().required('You need a ID to update a Todo'),
