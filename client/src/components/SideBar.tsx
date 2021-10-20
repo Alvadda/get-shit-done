@@ -31,6 +31,7 @@ const SideBar: VFC<SideBarProps> = () => {
         <aside css={sideBarCss}>
             <p onClick={() => onSelectProject(ProjectTypes.Inbox)}>Inbox</p>
             <p onClick={() => onSelectProject(ProjectTypes.DoNow)}>DO NOW</p>
+            <p onClick={() => onSelectProject(ProjectTypes.DoSoon)}>DO SOON</p>
             {state.projects.map((project) => (
                 <ProjectItem project={project} onSelect={onSelectProject} />
             ))}

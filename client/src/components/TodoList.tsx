@@ -5,6 +5,7 @@ import TodoItem from './TodoItem'
 import AddTodo from './AddTodo'
 import { useAppContext } from '../context/AppContext'
 import { ProjectTypes } from '../types/appContext.types'
+import { isDateWithinOneWeekRange, isSameDay } from '../utils/helper'
 
 const todoListCss = css`
     padding: 20px 32px;
@@ -44,10 +45,6 @@ const TodoList: VFC = () => {
         })
     }
 
-    const isSameDay = (d1: Date, d2: Date) => {
-        return d1.getFullYear() === d2.getFullYear() && d1.getDate() === d2.getDate() && d1.getMonth() === d2.getMonth()
-    }
-
     const showTodosToSelectedProject = (todo: Todo) => {
         if (todo.done) return false
 
@@ -57,6 +54,9 @@ const TodoList: VFC = () => {
             case ProjectTypes.DoNow:
                 if (!todo.douDate) return false
                 return isSameDay(new Date(todo.douDate), new Date())
+            case ProjectTypes.DoSoon:
+                if (!todo.douDate) return false
+                return isDateWithinOneWeekRange(new Date(todo.douDate))
             case ProjectTypes.Id:
                 return todo.projectId === state.selectedProject
         }

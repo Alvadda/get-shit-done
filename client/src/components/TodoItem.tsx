@@ -1,6 +1,7 @@
 import React, { VFC } from 'react'
 import { css } from '@emotion/react'
 import Checkbox from './Checkbox'
+import { getDDMMYYYY } from '../utils/helper'
 
 interface TodoItemProps {
     id?: string
@@ -12,33 +13,31 @@ interface TodoItemProps {
 }
 
 const todoItemStyle = css`
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 60% 1fr 1fr 50px;
+    column-gap: 12px;
     padding: 24px 16px;
     /* background: white; */
     color: #fff;
 
     border-bottom: 2px solid #002848;
 
-    .done-description {
-        display: flex;
-        gap: 20px;
+    .description {
+        overflow: hidden;
     }
 `
 
 const TodoItem: VFC<TodoItemProps> = ({ id, description, projectId, douDate, onDelete, onDone }) => {
     return (
         <div css={todoItemStyle}>
-            <div className="done-description">
-                <Checkbox
-                    onClick={() => {
-                        onDone(id)
-                    }}
-                />
-                <p>{description}</p>
-                <p>Project: {projectId}</p>
-                <p>{douDate}</p>
-            </div>
+            <Checkbox
+                onClick={() => {
+                    onDone(id)
+                }}
+            />
+            <p className="description">{description}</p>
+            <p>Project: {projectId}</p>
+            <p>{douDate && getDDMMYYYY(new Date(douDate))}</p>
             <button
                 onClick={() => {
                     onDelete(id)
