@@ -39,10 +39,15 @@ interface SetProjects {
     projects: Project[]
 }
 
+interface AddProject {
+    type: 'ADD_PROJECTS'
+    projects: Project[]
+}
+
 interface setSelectedProject {
     type: 'SET_SELECTED_PROJECT'
     selectProjectType: ProjectTypes
     id?: string
 }
 
-export type TodoAction = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects | setSelectedProject
+export type TodoAction = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects | setSelectedProject | AddProject

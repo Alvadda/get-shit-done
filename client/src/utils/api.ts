@@ -25,9 +25,11 @@ const getHeader = (): object => ({
     jwt_token: getAuthToken(),
 })
 
+const prefix = 'http://localhost:5000'
+
 export const login = async (email: string, password: string): Promise<Login> =>
     new Promise((resolve, reject) => {
-        const request = fetch(`http://localhost:5000/auth/login`, {
+        const request = fetch(`${prefix}/auth/login`, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -36,9 +38,9 @@ export const login = async (email: string, password: string): Promise<Login> =>
         })
         request.then((response) =>
             response.json().then((data) => {
-                if (data.message) {
-                    console.log(data.message)
-                    reject(data.message)
+                if (data.errorMessage) {
+                    console.log(data.errorMessage)
+                    reject(data.errorMessage)
                 }
                 resolve(data)
             })
@@ -47,32 +49,46 @@ export const login = async (email: string, password: string): Promise<Login> =>
 
 export const readProjects = async (): Promise<Project[]> =>
     new Promise((resolve, reject) => {
-        const request = fetch(`http://localhost:5000/Projects`, {
+        const request = fetch(`${prefix}/Projects`, {
             headers: {
                 ...getHeader(),
             },
         })
         request.then((response) =>
             response.json().then((data) => {
-                if (data.message) {
-                    reject(data.message)
+                if (data.errorMessage) {
+                    reject(data.errorMessage)
                 }
                 resolve(data)
             })
         )
     })
 
+export const createProject = async (name: string): Promise<Project[]> => {
+    const response = await fetch(`${prefix}/projects`, {
+        method: 'POST',
+        headers: {
+            ...getHeader(),
+        },
+        body: JSON.stringify({ name }),
+    })
+
+    const data = await response.json()
+    if (data.errorMessage) throw new Error('data.errorMessage')
+    return data
+}
+
 export const readTodos = async (): Promise<Todo[]> =>
     new Promise((resolve, reject) => {
-        const request = fetch(`http://localhost:5000/todos`, {
+        const request = fetch(`${prefix}/todos`, {
             headers: {
                 ...getHeader(),
             },
         })
         request.then((response) =>
             response.json().then((data) => {
-                if (data.message) {
-                    reject(data.message)
+                if (data.errorMessage) {
+                    reject(data.errorMessage)
                 }
                 resolve(data)
             })
@@ -81,7 +97,7 @@ export const readTodos = async (): Promise<Todo[]> =>
 
 export const deleteTodo = async (id: string): Promise<Todo[]> =>
     new Promise<Todo[]>((resolve, reject) => {
-        const request = fetch(`http://localhost:5000/todos/${id}`, {
+        const request = fetch(`${prefix}/todos/${id}`, {
             method: 'DELETE',
             headers: {
                 ...getHeader(),
@@ -89,8 +105,8 @@ export const deleteTodo = async (id: string): Promise<Todo[]> =>
         })
         request.then((response) =>
             response.json().then((data) => {
-                if (data.message) {
-                    reject(data.message)
+                if (data.errorMessage) {
+                    reject(data.errorMessage)
                 }
                 resolve(data)
             })
@@ -99,7 +115,7 @@ export const deleteTodo = async (id: string): Promise<Todo[]> =>
 
 export const createTodo = async (todo: Todo): Promise<Todo[]> =>
     new Promise<Todo[]>((resolve, reject) => {
-        const request = fetch(`http://localhost:5000/todos`, {
+        const request = fetch(`${prefix}/todos`, {
             method: 'POST',
             headers: {
                 ...getHeader(),
@@ -108,8 +124,8 @@ export const createTodo = async (todo: Todo): Promise<Todo[]> =>
         })
         request.then((response) =>
             response.json().then((data) => {
-                if (data.message) {
-                    reject(data.message)
+                if (data.errorMessage) {
+                    reject(data.errorMessage)
                 }
                 resolve(data)
             })
@@ -118,7 +134,7 @@ export const createTodo = async (todo: Todo): Promise<Todo[]> =>
 
 export const updateTodo = async (todo: Todo): Promise<Todo[]> =>
     new Promise<Todo[]>((resolve, reject) => {
-        const request = fetch(`http://localhost:5000/todos/${todo.id}`, {
+        const request = fetch(`${prefix}/todos/${todo.id}`, {
             method: 'PUT',
             headers: {
                 ...getHeader(),
@@ -127,8 +143,8 @@ export const updateTodo = async (todo: Todo): Promise<Todo[]> =>
         })
         request.then((response) =>
             response.json().then((data) => {
-                if (data.message) {
-                    reject(data.message)
+                if (data.errorMessage) {
+                    reject(data.errorMessage)
                 }
                 resolve(data)
             })

@@ -1,6 +1,6 @@
-import { TodoAction, AppState } from './../types/appContext.types'
+import { TodoAction, AppState } from '../types/appContext.types'
 
-const todoReducer = (state: AppState, action: TodoAction) => {
+const appReducer = (state: AppState, action: TodoAction) => {
     switch (action.type) {
         case 'SET_TODOS':
             return {
@@ -27,6 +27,11 @@ const todoReducer = (state: AppState, action: TodoAction) => {
                 ...state,
                 projects: [...action.projects],
             }
+        case 'ADD_PROJECTS':
+            return {
+                ...state,
+                projects: [...state.projects, ...action.projects],
+            }
         case 'SET_SELECTED_PROJECT':
             return {
                 ...state,
@@ -38,4 +43,4 @@ const todoReducer = (state: AppState, action: TodoAction) => {
     }
 }
 
-export default todoReducer
+export default appReducer

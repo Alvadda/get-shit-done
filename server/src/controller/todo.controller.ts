@@ -36,7 +36,6 @@ export default class TodoController {
         const userId = res.locals.userId
         try {
             const newTodo = await this.todoConnector.createTodo(userId, description, douDate, projectId || null)
-
             res.json(newTodo)
         } catch (err: any) {
             log.error(err.message)

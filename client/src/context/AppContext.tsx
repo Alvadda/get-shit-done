@@ -1,5 +1,5 @@
 import React, { createContext, FC, useContext, useReducer } from 'react'
-import todoReducer from '../reducer/todoReducer'
+import appReducer from '../reducer/appReducer'
 import { TodoAction, AppState, ProjectTypes } from '../types/appContext.types'
 
 interface AppContextValue {
@@ -17,7 +17,7 @@ const AppContext = createContext<AppContextValue>({ state: InitialAppState, disp
 export const useAppContext = () => useContext<AppContextValue>(AppContext)
 
 const TodoProvider: FC = ({ children }) => {
-    const [state, dispatch] = useReducer(todoReducer, InitialAppState)
+    const [state, dispatch] = useReducer(appReducer, InitialAppState)
     return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>
 }
 
