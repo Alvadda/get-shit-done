@@ -14,31 +14,33 @@ const addTodoCss = css`
         display: grid;
         grid-template-columns: 50px 1fr 1fr 1fr;
         gap: 12px;
+
+        button {
+            background-color: transparent;
+            border: none;
+
+            svg {
+                stroke: #fff;
+            }
+        }
     }
 `
 
 const AddTodo: VFC<AddTodoProps> = ({ onAddTodo }) => {
     const { state } = useAppContext()
     const [douDate, setDouDate] = useState(new Date())
-    const [project, setProject] = useState<String>('')
 
     const todoRef = createRef<HTMLInputElement>()
+    const projectRef = createRef<HTMLSelectElement>()
 
-    const options = state.projects.map((project) => ({
-        value: project.id || '',
-        label: project.name || '',
-    }))
-    const defaultOption = options[0]
-
-    console.log(project)
     const addTodo = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (todoRef.current?.value) {
             onAddTodo({
-                description: todoRef.current?.value,
+                description: todoRef.current.value,
                 douDate,
                 done: false,
-                projectId: project,
+                projectId: projectRef.current?.value,
             })
         }
     }
@@ -46,15 +48,31 @@ const AddTodo: VFC<AddTodoProps> = ({ onAddTodo }) => {
     return (
         <div css={addTodoCss}>
             <form onSubmit={addTodo}>
-                <button type="submit">ADD Todo</button>
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                    </svg>
+                </button>
                 <input type="text" placeholder="Todo" ref={todoRef} />
-                <Dropdown
+                <select ref={projectRef}>
+                    <option value=""> Select a Project:</option>
+                    {state.projects.map((project) => (
+                        <option key={project.id} value={project.id}>
+                            {project.name}
+                        </option>
+                    ))}
+                </select>
+                {/* <Dropdown
                     options={options}
                     onChange={(value) => setProject(value.value)}
                     value={defaultOption}
                     placeholder="Select an option"
-                />
-                ;
+                /> */}
                 <CostumDatePicker date={douDate} setDate={setDouDate} />
             </form>
         </div>
