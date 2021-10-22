@@ -1,3 +1,4 @@
+import { Project } from './project.interfaces'
 export interface Todo {
     id: string
     description: string
@@ -5,7 +6,7 @@ export interface Todo {
     createdAt?: Date
     douDate?: Date | null
     doneDate?: Date | null
-    projectId?: string
+    project?: Project
 }
 
 export interface ITodoConnector {

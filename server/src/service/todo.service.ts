@@ -8,11 +8,13 @@ export default class TodoPostgresConnector implements ITodoConnector {
 
     async readTodos(userId: string) {
         try {
-            const todosDb = await this._db.query('SELECT * FROM todo WHERE user_id = ($1) AND done = false ORDER BY created_at DESC', [
-                userId,
-            ])
+            const todosDb = await this._db.query(
+                'SELECT * FROM todo LEFT JOIN projects ON projects.project_id = todo.project_id WHERE todo.user_id = ($1) AND todo.done = false ORDER BY created_at DESC',
+                [userId]
+            )
             return this._mapTodos(todosDb)
         } catch (error) {
+            console.log(error)
             log.error('cant read todos', error)
         }
     }
@@ -60,7 +62,10 @@ export default class TodoPostgresConnector implements ITodoConnector {
             done: todo.done,
             doneDate: todo.done_date,
             douDate: todo.dou_date ? new Date(todo.dou_date) : undefined,
-            projectId: todo.project_id,
+            project: {
+                id: todo.project_id,
+                name: todo.project_name,
+            },
         }))
         return todos
     }
