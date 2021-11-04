@@ -1,8 +1,6 @@
 import { css } from '@emotion/react'
 import React, { createRef, useState, VFC, FormEvent } from 'react'
 import CostumDatePicker from './CustomDatePicker'
-import Dropdown from 'react-dropdown'
-import 'react-dropdown/style.css'
 import { useAppContext } from '../context/AppContext'
 
 interface AddTodoProps {
@@ -40,7 +38,10 @@ const AddTodo: VFC<AddTodoProps> = ({ onAddTodo }) => {
                 description: todoRef.current.value,
                 douDate,
                 done: false,
-                projectId: projectRef.current?.value,
+                project: {
+                    id: projectRef.current?.value,
+                    name: state.projects.find((project) => project.id == projectRef.current?.value)?.name,
+                },
             })
         }
     }

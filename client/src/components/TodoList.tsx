@@ -17,8 +17,6 @@ const todoListCss = css`
 
 const TodoList: VFC = () => {
     const { state, dispatch } = useAppContext()
-    console.log(state.todos)
-    console.log('state: ', state)
     useEffect(() => {
         readTodos().then((todos) => {
             dispatch({ type: 'SET_TODOS', todos })
@@ -50,7 +48,7 @@ const TodoList: VFC = () => {
 
         switch (state.selectedProjectType) {
             case ProjectTypes.Inbox:
-                return todo.projectId === null
+                return todo.project?.id === null
             case ProjectTypes.DoNow:
                 if (!todo.douDate) return false
                 return isSameDay(new Date(todo.douDate), new Date())
@@ -58,7 +56,7 @@ const TodoList: VFC = () => {
                 if (!todo.douDate) return false
                 return isDateWithinOneWeekRange(new Date(todo.douDate))
             case ProjectTypes.Id:
-                return todo.projectId === state.selectedProject
+                return todo.project?.id === state.selectedProject
         }
     }
 
@@ -76,7 +74,7 @@ const TodoList: VFC = () => {
                             onDone={onDone}
                             description={todo.description}
                             douDate={todo.douDate}
-                            projectId={todo.projectId}
+                            projectName={todo.project?.name}
                         />
                     ))}
             </div>

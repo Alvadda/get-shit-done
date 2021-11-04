@@ -19,6 +19,19 @@ export default class TodoPostgresConnector implements ITodoConnector {
         }
     }
 
+    async readTodo(todoId: string) {
+        try {
+            const todosDb = await this._db.query(
+                'SELECT * FROM todo LEFT JOIN projects ON projects.project_id = todo.project_id WHERE todo.todo_id = ($1)',
+                [todoId]
+            )
+            return this._mapTodos(todosDb)
+        } catch (error) {
+            console.log(error)
+            log.error('cant read todos', error)
+        }
+    }
+
     async createTodo(userId: string, description: string, douDate: Date | null, projectId: string | null) {
         try {
             const todosDb = await this._db.query(

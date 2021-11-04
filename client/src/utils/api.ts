@@ -7,7 +7,7 @@ export interface Todo {
     createdAt?: Date
     doneDate?: Date
     douDate?: Date
-    projectId?: string
+    project?: Project
 }
 
 export interface Project {

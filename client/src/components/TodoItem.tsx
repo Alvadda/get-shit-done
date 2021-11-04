@@ -7,7 +7,7 @@ interface TodoItemProps {
     id?: string
     description: string
     douDate?: Date
-    projectId?: string
+    projectName?: string
     onDelete: Function
     onDone: Function
 }
@@ -27,7 +27,7 @@ const todoItemStyle = css`
     }
 `
 
-const TodoItem: VFC<TodoItemProps> = ({ id, description, projectId, douDate, onDelete, onDone }) => {
+const TodoItem: VFC<TodoItemProps> = ({ id, description, projectName, douDate, onDelete, onDone }) => {
     return (
         <div css={todoItemStyle}>
             <Checkbox
@@ -36,7 +36,7 @@ const TodoItem: VFC<TodoItemProps> = ({ id, description, projectId, douDate, onD
                 }}
             />
             <p className="description">{description}</p>
-            <p>Project: {projectId}</p>
+            <p>{projectName}</p>
             <p>{douDate && getDDMMYYYY(new Date(douDate))}</p>
             <button
                 onClick={() => {
