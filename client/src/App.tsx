@@ -9,6 +9,7 @@ import { theme } from './utils/Theme'
 import AppProvider from './context/AppContext'
 import { useUserContext } from './context/UserContext'
 import { getAuthToken, getUserName, removeAuthToken, removeUserName, setAuthToken, setUserName } from './utils/sessionStoreManager'
+import SendTodo from './components/modules/SendTodo'
 
 const App: VFC = () => {
     const { state, dispatch } = useUserContext()
@@ -42,6 +43,9 @@ const App: VFC = () => {
             <Router>
                 {!state.authToken && (
                     <Switch>
+                        <Route path="/:guid">
+                            <SendTodo />
+                        </Route>
                         <Route path="/">
                             <Login onLogin={onLogin} />
                         </Route>
