@@ -1,15 +1,17 @@
 import request from 'supertest'
 import startServer from '../src/server'
-import { TodoConnectorMock } from './mock/todo.mock'
 import dotenv from 'dotenv'
+import { TodoConnectorMock } from './mock/todo.mock'
 import { UserConnectorMock } from './mock/user.mock'
+import { ProjectConnectorMock } from './mock/project.mock'
 dotenv.config()
 
 const TOKEN = process.env.TEST_TOKEN || ''
 
 const todoMock = new TodoConnectorMock()
 const userMock = new UserConnectorMock()
-const server = startServer(todoMock, userMock)
+const projectMock = new ProjectConnectorMock()
+const server = startServer(todoMock, userMock, projectMock)
 
 describe('Todos', () => {
     test('p_get_todos', async () => {

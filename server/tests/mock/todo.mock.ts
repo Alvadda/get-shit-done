@@ -19,6 +19,7 @@ const todos: Todo[] = [
 ]
 export class TodoConnectorMock implements ITodoConnector {
     readTodos = jest.fn().mockReturnValue(todos)
+    readTodo = jest.fn().mockReturnValue([todos[0]])
     createTodo = jest.fn()
     updateTodo = jest.fn()
     deleteTodo = jest.fn()
