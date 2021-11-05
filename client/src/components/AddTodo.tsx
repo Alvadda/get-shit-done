@@ -17,8 +17,16 @@ const addTodoCss = css`
             background-color: transparent;
             border: none;
 
+            transition: all 300ms;
+
             svg {
                 stroke: #fff;
+            }
+            &:hover {
+                opacity: 0.6;
+            }
+            &:active svg {
+                stroke: #71e271;
             }
         }
     }

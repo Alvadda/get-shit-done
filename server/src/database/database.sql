@@ -49,3 +49,13 @@ CREATE TABLE projects(
 ALTER TABLE todo
     ADD project_id INTEGER,
     ADD CONSTRAINT fk_todo_project FOREIGN KEY (project_id) REFERENCES projects (project_id);
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
+ CREATE TABLE send_session(
+    send_session_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    max_todos INTEGER,
+    expiration_date timestamp without time zone DEFAULT NULL,
+    user_id INTEGER,
+    CONSTRAINT fk_projects_user FOREIGN KEY (user_id) REFERENCES users (user_id)
+);   

@@ -75,4 +75,16 @@ export default class TodoController {
             res.sendStatus(500)
         }
     }
+
+    createSendTodoSessionHandler = async (req: Request, res: Response) => {
+        const userId = res.locals.userId
+        //Todo maxTodos % expirationDate
+        try {
+            const SendTodoSessionId = await this.todoConnector.createSendTodoSession(userId)
+            res.json(SendTodoSessionId)
+        } catch (error: any) {
+            log.error(error.message)
+            res.sendStatus(500)
+        }
+    }
 }

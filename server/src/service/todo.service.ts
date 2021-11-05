@@ -66,6 +66,18 @@ export default class TodoPostgresConnector implements ITodoConnector {
         }
     }
 
+    async createSendTodoSession(userId: string, maxTodos?: string, expirationDate?: Date) {
+        try {
+            const SendTodoSessionDb = await this._db.query(
+                'INSERT INTO send_session (user_id, max_todos, expiration_date) VALUES ($1, $2, $3) RETURNING send_session_id',
+                [userId, maxTodos, expirationDate]
+            )
+            return SendTodoSessionDb.rows[0]
+        } catch (error) {
+            throw new Error(`Èrror in createSendTodoSession, Error: ${error}`)
+        }
+    }
+
     _mapTodos = (todosDb: QueryResult<any>) => {
         if (todosDb.rows.length < 1) return []
         const todos: Todo[] = todosDb.rows.map((todo) => ({

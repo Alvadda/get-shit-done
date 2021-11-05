@@ -150,3 +150,16 @@ export const updateTodo = async (todo: Todo): Promise<Todo[]> =>
             })
         )
     })
+
+export const createSendTodoSession = async (): Promise<string> => {
+    const request = await fetch(`${prefix}/todos/sendTodoSession`, {
+        method: 'POST',
+        headers: {
+            ...getHeader(),
+        },
+    })
+    const data = await request.json()
+
+    if (data.errorMessage) throw new Error(data.errorMessage)
+    return data.send_session_id
+}

@@ -15,6 +15,8 @@ export const initTodoRoute = (connector: ITodoConnector) => {
     router.post('/', valdiation(createTodoSchema), authorization, controller.createTodosHandler)
     router.put('/:id', valdiation(updateTodoSchema), authorization, controller.updateTodosHandler)
     router.delete('/:id', valdiation(deleteTodoSchema), authorization, controller.deleteTodosHandler)
+
+    router.post('/sendTodoSession', authorization, controller.createSendTodoSessionHandler)
 }
 
 export default router
