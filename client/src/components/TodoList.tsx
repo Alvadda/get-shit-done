@@ -9,9 +9,12 @@ import { isDateWithinOneWeekRange, isSameDay } from '../utils/helper'
 
 const todoListCss = css`
     padding: 20px 32px;
+    height: calc(100vh - 50px);
     .todo-list-container {
         display: flex;
         flex-direction: column;
+        height: 100%;
+        overflow: auto;
     }
 `
 

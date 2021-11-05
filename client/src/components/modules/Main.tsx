@@ -15,6 +15,8 @@ const mainCss = css`
     height: 100vh;
     grid-template-rows: 50px 1fr;
     grid-template-columns: 15% 1fr 10%;
+
+    overflow: hidden;
 `
 
 const Main: VFC<MainProps> = ({ onLogout, userName }) => {
