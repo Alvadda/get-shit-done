@@ -9,6 +9,13 @@ type SendTodoParams = {
 }
 
 const SendTodoStyle = css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+
+    padding-top: 5rem;
+
     color: #fff;
 `
 
