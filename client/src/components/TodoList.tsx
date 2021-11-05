@@ -62,7 +62,7 @@ const TodoList: VFC = () => {
 
     return (
         <div css={todoListCss}>
-            <AddTodo onAddTodo={onAddTodo} />
+            <AddTodo onAddTodo={onAddTodo} showProjects />
             <div className="todo-list-container">
                 {state.todos
                     .filter((todo) => showTodosToSelectedProject(todo))

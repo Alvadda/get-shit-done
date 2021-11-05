@@ -5,6 +5,7 @@ import { useAppContext } from '../context/AppContext'
 
 interface AddTodoProps {
     onAddTodo: Function
+    showProjects?: boolean
 }
 
 const addTodoCss = css`
@@ -32,7 +33,7 @@ const addTodoCss = css`
     }
 `
 
-const AddTodo: VFC<AddTodoProps> = ({ onAddTodo }) => {
+const AddTodo: VFC<AddTodoProps> = ({ onAddTodo, showProjects }) => {
     const { state } = useAppContext()
     const [douDate, setDouDate] = useState(new Date())
 
@@ -68,20 +69,17 @@ const AddTodo: VFC<AddTodoProps> = ({ onAddTodo }) => {
                     </svg>
                 </button>
                 <input type="text" placeholder="Todo" ref={todoRef} />
-                <select ref={projectRef}>
-                    <option value=""> Select a Project:</option>
-                    {state.projects.map((project) => (
-                        <option key={project.id} value={project.id}>
-                            {project.name}
-                        </option>
-                    ))}
-                </select>
-                {/* <Dropdown
-                    options={options}
-                    onChange={(value) => setProject(value.value)}
-                    value={defaultOption}
-                    placeholder="Select an option"
-                /> */}
+                {showProjects && (
+                    <select ref={projectRef}>
+                        <option value=""> Select a Project:</option>
+                        {state.projects.map((project) => (
+                            <option key={project.id} value={project.id}>
+                                {project.name}
+                            </option>
+                        ))}
+                    </select>
+                )}
+
                 <CostumDatePicker date={douDate} setDate={setDouDate} />
             </form>
         </div>
