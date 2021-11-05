@@ -173,3 +173,17 @@ export const getIsSendTodoSessionValid = async (guid: string): Promise<boolean> 
     })
     return request.status === 200
 }
+
+export const sendTodo = async (guid: string, todo: Todo): Promise<Todo[]> => {
+    const request = await fetch(`${prefix}/sendtodo/${guid}`, {
+        method: 'POST',
+        headers: {
+            ...getHeader(),
+        },
+        body: JSON.stringify(todo),
+    })
+    const data = await request.json()
+
+    if (data.errorMessage) throw new Error(data.errorMessage)
+    return data
+}

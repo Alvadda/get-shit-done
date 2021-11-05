@@ -3,6 +3,7 @@ import { object, string, boolean, date } from 'yup'
 const createTodoSchema = object({
     body: object({
         description: string().required('Todo must have a description'),
+        douDate: date().nullable(),
         project: object({
             id: string(),
             name: string(),
@@ -36,10 +37,4 @@ const deleteTodoSchema = object({
     }),
 })
 
-const validSendTodoSessionSchema = object({
-    params: object({
-        id: string().required('You need a Session ID'),
-    }),
-})
-
-export { createTodoSchema, readTodoSchema, updateTodoSchema, deleteTodoSchema, validSendTodoSessionSchema }
+export { createTodoSchema, readTodoSchema, updateTodoSchema, deleteTodoSchema }

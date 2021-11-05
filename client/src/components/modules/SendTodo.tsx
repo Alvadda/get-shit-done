@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getIsSendTodoSessionValid, Todo } from '../../utils/api'
+import { getIsSendTodoSessionValid, sendTodo, Todo } from '../../utils/api'
 import AddTodo from '../AddTodo'
 
 type SendTodoParams = {
@@ -20,8 +20,9 @@ const SendTodo = () => {
         getIsSendTodoSessionValid(guid).then((isGuidValid) => setIsValid(isGuidValid))
     }, [guid])
 
-    const onAddTodo = (todo: Todo) => {
-        console.log(todo)
+    const onAddTodo = async (todo: Todo) => {
+        const newTodo = await sendTodo(guid, todo)
+        console.log('Todo Send', newTodo)
     }
     return (
         <div css={SendTodoStyle}>

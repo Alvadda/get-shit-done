@@ -21,6 +21,21 @@ export default class SendTodoController {
         }
     }
 
+    sendTodosHandler = async (req: Request, res: Response) => {
+        const { description, douDate } = req.body
+        const { id } = req.params
+        try {
+            const sendTodoSession = await this.todoConnector.getSendTodoSession(id)
+            if (!sendTodoSession) return res.sendStatus(401)
+
+            const todo = await this.todoConnector.createTodo(sendTodoSession.userId, description, douDate, null)
+            res.json(todo)
+        } catch (err: any) {
+            log.error(err.message)
+            res.sendStatus(500)
+        }
+    }
+
     isSendTodoSessionValidHandler = async (req: Request, res: Response) => {
         const { id } = req.params
         try {

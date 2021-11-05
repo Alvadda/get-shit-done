@@ -82,11 +82,9 @@ export default class TodoPostgresConnector implements ITodoConnector {
     async getSendTodoSession(sessionId: string) {
         try {
             const sendTodoSessionDb = await this._db.query('SELECT * FROM send_session WHERE send_session_id = ($1)', [sessionId])
-            console.log('sendTodoSessionDb', sendTodoSessionDb)
-
             return this._mapSendTodoSession(sendTodoSessionDb)
         } catch (error) {
-            console.log(error)
+            console.log('--------error--------', error)
             throw new Error(`Èrror in getSendTodoSession, Error: ${error}`)
         }
     }
