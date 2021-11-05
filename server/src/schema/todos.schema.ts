@@ -36,4 +36,10 @@ const deleteTodoSchema = object({
     }),
 })
 
-export { createTodoSchema, readTodoSchema, updateTodoSchema, deleteTodoSchema }
+const validSendTodoSessionSchema = object({
+    params: object({
+        id: string().required('You need a Session ID'),
+    }),
+})
+
+export { createTodoSchema, readTodoSchema, updateTodoSchema, deleteTodoSchema, validSendTodoSessionSchema }

@@ -1,3 +1,4 @@
+import { SendTodoSession } from './../interfaces/todo.interfaces'
 import { QueryResult } from 'pg'
 import dbCtx from '../database/dbConnect'
 import log from '../logger/logger'
@@ -78,6 +79,18 @@ export default class TodoPostgresConnector implements ITodoConnector {
         }
     }
 
+    async getSendTodoSession(sessionId: string) {
+        try {
+            const sendTodoSessionDb = await this._db.query('SELECT * FROM send_session WHERE send_session_id = ($1)', [sessionId])
+            console.log('sendTodoSessionDb', sendTodoSessionDb)
+
+            return this._mapSendTodoSession(sendTodoSessionDb)
+        } catch (error) {
+            console.log(error)
+            throw new Error(`Èrror in getSendTodoSession, Error: ${error}`)
+        }
+    }
+
     _mapTodos = (todosDb: QueryResult<any>) => {
         if (todosDb.rows.length < 1) return []
         const todos: Todo[] = todosDb.rows.map((todo) => ({
@@ -93,5 +106,16 @@ export default class TodoPostgresConnector implements ITodoConnector {
             },
         }))
         return todos
+    }
+
+    _mapSendTodoSession = (SendTodoSessionDb: QueryResult<any>): SendTodoSession | undefined => {
+        if (SendTodoSessionDb.rows.length !== 1) return
+        const sendTodoSession = SendTodoSessionDb.rows.shift()
+        return {
+            guid: sendTodoSession.send_session_id,
+            userId: sendTodoSession.user_id,
+            maxTodos: sendTodoSession.max_todos,
+            expirationDate: sendTodoSession.expiration_date ? new Date(sendTodoSession.expiration_date) : undefined,
+        }
     }
 }

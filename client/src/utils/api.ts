@@ -152,7 +152,7 @@ export const updateTodo = async (todo: Todo): Promise<Todo[]> =>
     })
 
 export const createSendTodoSession = async (): Promise<string> => {
-    const request = await fetch(`${prefix}/todos/sendTodoSession`, {
+    const request = await fetch(`${prefix}/sendtodo`, {
         method: 'POST',
         headers: {
             ...getHeader(),
@@ -162,4 +162,14 @@ export const createSendTodoSession = async (): Promise<string> => {
 
     if (data.errorMessage) throw new Error(data.errorMessage)
     return data.send_session_id
+}
+
+export const getIsSendTodoSessionValid = async (guid: string): Promise<boolean> => {
+    const request = await fetch(`${prefix}/sendtodo/isvalid/${guid}`, {
+        method: 'GET',
+        headers: {
+            ...getHeader(),
+        },
+    })
+    return request.status === 200
 }

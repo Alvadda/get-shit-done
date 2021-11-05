@@ -23,4 +23,5 @@ export class TodoConnectorMock implements ITodoConnector {
     createTodo = jest.fn()
     updateTodo = jest.fn()
     deleteTodo = jest.fn()
+    createSendTodoSession = jest.fn()
 }
