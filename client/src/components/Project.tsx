@@ -4,13 +4,16 @@ import { Project } from '../utils/api'
 
 interface ProjectItemProps {
     project: Project
+    numberOfTodos: number
     onSelect: (selectProjectType: ProjectTypes, id?: string) => void
 }
 
-const ProjectItem: VFC<ProjectItemProps> = ({ project, onSelect }) => {
+const ProjectItem: VFC<ProjectItemProps> = ({ project, onSelect, numberOfTodos }) => {
     return (
         <div>
-            <p onClick={() => onSelect(ProjectTypes.Id, project.id)}>{project.name}</p>
+            <p onClick={() => onSelect(ProjectTypes.Id, project.id)}>
+                {project.name} {numberOfTodos}
+            </p>
         </div>
     )
 }

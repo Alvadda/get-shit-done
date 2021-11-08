@@ -2,7 +2,8 @@ import { css } from '@emotion/react'
 import React, { createRef, FormEvent, useEffect, useState, VFC } from 'react'
 import { useAppContext } from '../context/AppContext'
 import { ProjectTypes } from '../types/appContext.types'
-import { readProjects, createProject, createSendTodoSession } from '../utils/api'
+import { readProjects, createProject, createSendTodoSession, Todo } from '../utils/api'
+import { isDateWithinOneWeekRange, isSameDay } from '../utils/helper'
 import ProjectItem from './Project'
 
 interface SideBarProps {}
@@ -69,14 +70,38 @@ const SideBar: VFC<SideBarProps> = () => {
         console.log(link)
     }
 
+    const getNumberOfTodos = (projectId: string, todos: Todo[]) => {
+        return todos.filter((todo) => todo.project?.id === projectId).length
+    }
+
+    const getNubersOfTodoNow = () => {
+        return state.todos.filter((todo) => {
+            if (!todo.douDate) return false
+            return isSameDay(new Date(todo.douDate), new Date())
+        }).length
+    }
+
+    const getNubersOfTodoSoon = () => {
+        return state.todos.filter((todo) => {
+            if (!todo.douDate) return false
+            return isDateWithinOneWeekRange(new Date(todo.douDate))
+        }).length
+    }
+
+    const getNubersOfTodoInbox = () => {
+        return state.todos.filter((todo) => todo.project?.id === null).length
+    }
+
     return (
         <aside css={sideBarCss}>
-            <p onClick={() => onSelectProject(ProjectTypes.Inbox)}>Inbox</p>
-            <p onClick={() => onSelectProject(ProjectTypes.DoNow)}>DO NOW</p>
-            <p onClick={() => onSelectProject(ProjectTypes.DoSoon)}>DO SOON</p>
-            {state.projects.map((project) => (
-                <ProjectItem key={project.id} project={project} onSelect={onSelectProject} />
-            ))}
+            <p onClick={() => onSelectProject(ProjectTypes.Inbox)}>Inbox {getNubersOfTodoInbox()}</p>
+            <p onClick={() => onSelectProject(ProjectTypes.DoNow)}>DO NOW {getNubersOfTodoNow()}</p>
+            <p onClick={() => onSelectProject(ProjectTypes.DoSoon)}>DO SOON {getNubersOfTodoSoon()}</p>
+            {state.projects.map((project) => {
+                const numberOfTodos = getNumberOfTodos(project.id, state.todos)
+
+                return <ProjectItem key={project.id} project={project} onSelect={onSelectProject} numberOfTodos={numberOfTodos} />
+            })}
             <form onSubmit={onAddProject}>
                 <button>
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

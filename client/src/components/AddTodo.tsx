@@ -49,7 +49,7 @@ const AddTodo: VFC<AddTodoProps> = ({ onAddTodo, showProjects }) => {
                 done: false,
                 project: {
                     id: projectRef.current?.value,
-                    name: state.projects.find((project) => project.id == projectRef.current?.value)?.name,
+                    name: state.projects.find((project) => project.id === projectRef.current?.value)?.name,
                 },
             })
         }
