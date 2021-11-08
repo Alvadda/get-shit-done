@@ -81,7 +81,11 @@ export default class TodoPostgresConnector implements ITodoConnector {
 
     async getSendTodoSession(sessionId: string) {
         try {
-            const sendTodoSessionDb = await this._db.query('SELECT * FROM send_session WHERE send_session_id = ($1)', [sessionId])
+            const sendTodoSessionDb = await this._db.query(
+                'SELECT * FROM send_session LEFT JOIN users ON send_session.user_id = users.user_id ' +
+                    ' WHERE send_session.send_session_id = ($1)',
+                [sessionId]
+            )
             return this._mapSendTodoSession(sendTodoSessionDb)
         } catch (error) {
             console.log('--------error--------', error)
@@ -114,6 +118,7 @@ export default class TodoPostgresConnector implements ITodoConnector {
             userId: sendTodoSession.user_id,
             maxTodos: sendTodoSession.max_todos,
             expirationDate: sendTodoSession.expiration_date ? new Date(sendTodoSession.expiration_date) : undefined,
+            user: sendTodoSession.user_name,
         }
     }
 }

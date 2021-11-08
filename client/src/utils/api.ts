@@ -164,14 +164,16 @@ export const createSendTodoSession = async (): Promise<string> => {
     return data.send_session_id
 }
 
-export const getIsSendTodoSessionValid = async (guid: string): Promise<boolean> => {
+export const getIsSendTodoSessionValid = async (guid: string): Promise<string | ''> => {
     const request = await fetch(`${prefix}/sendtodo/isvalid/${guid}`, {
         method: 'GET',
         headers: {
             ...getHeader(),
         },
     })
-    return request.status === 200
+    if (request.status !== 200) return ''
+    const user = await request.json()
+    return user.user
 }
 
 export const sendTodo = async (guid: string, todo: Todo): Promise<Todo[]> => {

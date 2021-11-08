@@ -12,6 +12,7 @@ export interface Todo {
 
 export interface SendTodoSession {
     guid: string
+    user?: string
     userId: string
     maxTodos?: string
     expirationDate?: Date

@@ -42,7 +42,7 @@ export default class SendTodoController {
             const sendTodoSession = await this.todoConnector.getSendTodoSession(id)
             const isValid = this._isSendTodoSessionValid(sendTodoSession)
             if (!isValid) return res.sendStatus(401)
-            res.sendStatus(200)
+            res.json({ user: sendTodoSession?.user })
         } catch (error: any) {
             log.error(error.message)
             res.sendStatus(500)

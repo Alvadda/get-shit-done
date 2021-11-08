@@ -21,10 +21,10 @@ const SendTodoStyle = css`
 
 const SendTodo = () => {
     const { guid } = useParams<SendTodoParams>()
-    const [isValid, setIsValid] = useState<Boolean>(false)
+    const [todoOwner, setTodoOwner] = useState<string>('')
 
     useEffect(() => {
-        getIsSendTodoSessionValid(guid).then((isGuidValid) => setIsValid(isGuidValid))
+        getIsSendTodoSessionValid(guid).then((isGuidValid) => setTodoOwner(isGuidValid))
     }, [guid])
 
     const onAddTodo = async (todo: Todo) => {
@@ -33,13 +33,13 @@ const SendTodo = () => {
     }
     return (
         <div css={SendTodoStyle}>
-            {isValid && (
+            {todoOwner && (
                 <>
-                    <h3>LINK IS VALID</h3>
+                    <h3>ADD TODO FOR {todoOwner.toLocaleUpperCase()}</h3>
                     <AddTodo onAddTodo={onAddTodo} />
                 </>
             )}
-            {!isValid && (
+            {!todoOwner && (
                 <>
                     <h3>LINK IS INVALID</h3>
                 </>
