@@ -2,14 +2,15 @@ import React, { VFC } from 'react'
 import { css } from '@emotion/react'
 import Checkbox from './Checkbox'
 import { getDDMMYYYY } from '../utils/helper'
+import SelectProject from './SelectProject'
+import { Project, Todo } from '../utils/api'
 
 interface TodoItemProps {
     id?: string
-    description: string
-    douDate?: Date
-    projectName?: string
+    todo: Todo
     onDelete: Function
     onDone: Function
+    onUpdate: (Todo: Todo) => void
 }
 
 const todoItemStyle = css`
@@ -27,7 +28,14 @@ const todoItemStyle = css`
     }
 `
 
-const TodoItem: VFC<TodoItemProps> = ({ id, description, projectName, douDate, onDelete, onDone }) => {
+const TodoItem: VFC<TodoItemProps> = ({ id, todo, onDelete, onDone, onUpdate }) => {
+    const onSelect = (project: Project) => {
+        onUpdate({
+            ...todo,
+            project,
+        })
+    }
+
     return (
         <div css={todoItemStyle}>
             <Checkbox
@@ -35,9 +43,10 @@ const TodoItem: VFC<TodoItemProps> = ({ id, description, projectName, douDate, o
                     onDone(id)
                 }}
             />
-            <p className="description">{description}</p>
-            <p>{projectName}</p>
-            <p>{douDate && getDDMMYYYY(new Date(douDate))}</p>
+            <p className="description">{todo.description}</p>
+            {Boolean(todo.project?.name) && <p>{todo.project?.name}</p>}
+            {!Boolean(todo.project?.name) && <SelectProject onSelect={onSelect} />}
+            <p>{getDDMMYYYY(new Date(todo.douDate))}</p>
             <button
                 onClick={() => {
                     onDelete(id)

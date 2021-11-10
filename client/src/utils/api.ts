@@ -6,7 +6,7 @@ export interface Todo {
     done: boolean
     createdAt?: Date
     doneDate?: Date
-    douDate?: Date
+    douDate: Date
     project?: Project
 }
 

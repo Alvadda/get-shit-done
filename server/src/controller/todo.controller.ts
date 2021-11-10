@@ -47,12 +47,13 @@ export default class TodoController {
     }
 
     updateTodosHandler = async (req: Request, res: Response) => {
-        const { description, done } = req.body
+        const { description, done, project } = req.body
         const userId = res.locals.userId
         const todo: Todo = {
             id: req.params.id,
             description,
             done,
+            project,
         }
         try {
             const updatedTodo = await this.todoConnector.updateTodo(userId, todo)

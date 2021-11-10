@@ -1,17 +1,16 @@
 import React, { createRef, VFC } from 'react'
+import { useAppContext } from '../context/AppContext'
 import { Project } from '../utils/api'
 
 interface SelectProjectProps {
-    projects: Project[]
     onSelect: (project: Project) => void
 }
 
-const onSelectChange = () => {}
-
-const SelectProject: VFC<SelectProjectProps> = ({ projects, onSelect }) => {
+const SelectProject: VFC<SelectProjectProps> = ({ onSelect }) => {
+    const { state } = useAppContext()
     const onSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const projectId = event.target.value
-        const project = projects.find((project) => project.id.toString() === projectId)
+        const project = state.projects.find((project) => project.id.toString() === projectId)
         if (!project) return
 
         onSelect(project)
@@ -19,7 +18,7 @@ const SelectProject: VFC<SelectProjectProps> = ({ projects, onSelect }) => {
     return (
         <select onChange={(e) => onSelectChange(e)}>
             <option value=""> Select a Project:</option>
-            {projects.map((project) => (
+            {state.projects.map((project) => (
                 <option key={project.id} value={project.id}>
                     {project.name}
                 </option>

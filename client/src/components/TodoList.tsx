@@ -40,6 +40,11 @@ const TodoList: VFC = () => {
         }
     }
 
+    const onUpdate = (todo: Todo) => {
+        dispatch({ type: 'UPDATE_TODO', todo })
+        updateTodo(todo)
+    }
+
     const onAddTodo = (todo: Todo) => {
         createTodo(todo).then((todos) => {
             dispatch({ type: 'ADD_TODO', todos })
@@ -70,15 +75,7 @@ const TodoList: VFC = () => {
                 {state.todos
                     .filter((todo) => showTodosToSelectedProject(todo))
                     .map((todo) => (
-                        <TodoItem
-                            key={todo.id}
-                            id={todo.id}
-                            onDelete={onDelete}
-                            onDone={onDone}
-                            description={todo.description}
-                            douDate={todo.douDate}
-                            projectName={todo.project?.name}
-                        />
+                        <TodoItem key={todo.id} id={todo.id} todo={todo} onDelete={onDelete} onDone={onDone} onUpdate={onUpdate} />
                     ))}
             </div>
         </div>
