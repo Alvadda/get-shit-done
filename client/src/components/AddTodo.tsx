@@ -2,6 +2,8 @@ import { css } from '@emotion/react'
 import React, { createRef, useState, VFC, FormEvent } from 'react'
 import CostumDatePicker from './CustomDatePicker'
 import { useAppContext } from '../context/AppContext'
+import SelectProject from './SelectProject'
+import { Project } from '../utils/api'
 
 interface AddTodoProps {
     onAddTodo: Function
@@ -36,9 +38,9 @@ const addTodoCss = css`
 const AddTodo: VFC<AddTodoProps> = ({ onAddTodo, showProjects }) => {
     const { state } = useAppContext()
     const [douDate, setDouDate] = useState(new Date())
+    const [selectedProject, setSelectedProject] = useState<Project | {}>({})
 
     const todoRef = createRef<HTMLInputElement>()
-    const projectRef = createRef<HTMLSelectElement>()
 
     const addTodo = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -48,13 +50,15 @@ const AddTodo: VFC<AddTodoProps> = ({ onAddTodo, showProjects }) => {
                 douDate,
                 done: false,
                 project: {
-                    id: projectRef.current?.value,
-                    name: state.projects.find((project) => project.id === projectRef.current?.value)?.name,
+                    ...selectedProject,
                 },
             })
         }
     }
 
+    const onSelect = (project: Project) => {
+        setSelectedProject(project)
+    }
     return (
         <div css={addTodoCss}>
             <form onSubmit={addTodo}>
@@ -69,16 +73,7 @@ const AddTodo: VFC<AddTodoProps> = ({ onAddTodo, showProjects }) => {
                     </svg>
                 </button>
                 <input type="text" placeholder="Todo" ref={todoRef} />
-                {showProjects && (
-                    <select ref={projectRef}>
-                        <option value=""> Select a Project:</option>
-                        {state.projects.map((project) => (
-                            <option key={project.id} value={project.id}>
-                                {project.name}
-                            </option>
-                        ))}
-                    </select>
-                )}
+                {showProjects && <SelectProject projects={state.projects} onSelect={onSelect} />}
 
                 <CostumDatePicker date={douDate} setDate={setDouDate} />
             </form>
