@@ -1,6 +1,6 @@
-import React, { createRef, VFC } from 'react'
-import { useAppContext } from '../context/AppContext'
-import { Project } from '../utils/api'
+import React, { VFC } from 'react'
+import { useAppContext } from '../../context/AppContext'
+import { Project } from '../../utils/api'
 
 interface SelectProjectProps {
     onSelect: (project: Project) => void
@@ -16,8 +16,10 @@ const SelectProject: VFC<SelectProjectProps> = ({ onSelect }) => {
         onSelect(project)
     }
     return (
-        <select onChange={(e) => onSelectChange(e)}>
-            <option value=""> Select a Project:</option>
+        <select data-testid="select" onChange={(e) => onSelectChange(e)}>
+            <option data-testid="option" value="">
+                Select a Project:
+            </option>
             {state.projects.map((project) => (
                 <option key={project.id} value={project.id}>
                     {project.name}

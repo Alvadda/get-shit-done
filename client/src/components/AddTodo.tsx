@@ -1,8 +1,7 @@
 import { css } from '@emotion/react'
 import React, { createRef, useState, VFC, FormEvent } from 'react'
 import CostumDatePicker from './CustomDatePicker'
-import { useAppContext } from '../context/AppContext'
-import SelectProject from './SelectProject'
+import SelectProject from './SelectProject/SelectProject'
 import { Project } from '../utils/api'
 
 interface AddTodoProps {
@@ -36,7 +35,6 @@ const addTodoCss = css`
 `
 
 const AddTodo: VFC<AddTodoProps> = ({ onAddTodo, showProjects }) => {
-    const { state } = useAppContext()
     const [douDate, setDouDate] = useState(new Date())
     const [selectedProject, setSelectedProject] = useState<Project | {}>({})
 

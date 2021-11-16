@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import React, { VFC } from 'react'
-import Header from '../Header'
+import Header from '../Header/Header'
 import SideBar from '../SideBar'
 import TodoList from '../TodoList'
 
