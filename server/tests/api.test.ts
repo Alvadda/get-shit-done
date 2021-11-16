@@ -14,6 +14,10 @@ const projectMock = new ProjectConnectorMock()
 const server = startServer(todoMock, userMock, projectMock)
 
 describe('Todos', () => {
+    beforeEach(() => {
+        todoMock.readTodo.mockClear()
+        todoMock.readTodos.mockClear()
+    })
     test('p_get_todos', async () => {
         const result = await request(server).get('/todos').send().set('jwt_token', TOKEN)
 
