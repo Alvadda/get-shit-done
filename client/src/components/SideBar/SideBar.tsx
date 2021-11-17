@@ -4,7 +4,7 @@ import { useAppContext } from '../../context/AppContext'
 import { ProjectTypes } from '../../types/appContext.types'
 import { readProjects, createProject, createSendTodoSession, Todo } from '../../utils/api'
 import { isDateWithinOneWeekRange, isSameDay } from '../../utils/helper'
-import ProjectItem from '../Project'
+import ProjectItem from '../Project/Project'
 
 interface SideBarProps {}
 

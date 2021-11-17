@@ -1,8 +1,8 @@
 import { css } from '@emotion/react'
 import React, { createRef, useState, VFC, FormEvent } from 'react'
-import CostumDatePicker from './CustomDatePicker'
-import SelectProject from './SelectProject/SelectProject'
-import { Project } from '../utils/api'
+import CostumDatePicker from '../CustomDatePicker'
+import SelectProject from '../SelectProject/SelectProject'
+import { Project } from '../../utils/api'
 
 interface AddTodoProps {
     onAddTodo: Function
@@ -58,9 +58,9 @@ const AddTodo: VFC<AddTodoProps> = ({ onAddTodo, showProjects }) => {
         setSelectedProject(project)
     }
     return (
-        <div css={addTodoCss}>
+        <div css={addTodoCss} data-testid="add-todo">
             <form onSubmit={addTodo}>
-                <button type="submit">
+                <button data-testid="add-todo-button" type="submit">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path
                             strokeLinecap="round"

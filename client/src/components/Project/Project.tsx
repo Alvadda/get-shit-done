@@ -1,6 +1,6 @@
 import React, { VFC } from 'react'
-import { ProjectTypes } from '../types/appContext.types'
-import { Project } from '../utils/api'
+import { ProjectTypes } from '../../types/appContext.types'
+import { Project } from '../../utils/api'
 
 interface ProjectItemProps {
     project: Project

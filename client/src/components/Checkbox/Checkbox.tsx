@@ -62,6 +62,7 @@ const Checkbox: VFC<CheckboxProps> = ({ onClick }) => {
     const [isAktive, setIsAktive] = useState(false)
     return (
         <div
+            data-testid="checkbox"
             css={checkboxCss}
             onClick={() => {
                 setIsAktive(!isAktive)

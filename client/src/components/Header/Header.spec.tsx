@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect'
 
 import Header from '../Header/Header'
 
-describe('SelectProject', () => {
+describe('Header', () => {
     it('renders', () => {
         render(<Header onLogout={() => {}} userName="test" />)
         expect(screen.getByText('test')).toHaveTextContent('test')

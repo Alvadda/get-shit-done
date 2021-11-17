@@ -1,9 +1,9 @@
 import React, { VFC } from 'react'
 import { css } from '@emotion/react'
-import Checkbox from './Checkbox'
-import { getDDMMYYYY } from '../utils/helper'
-import SelectProject from './SelectProject/SelectProject'
-import { Project, Todo } from '../utils/api'
+import Checkbox from '../Checkbox/Checkbox'
+import { getDDMMYYYY } from '../../utils/helper'
+import SelectProject from '../SelectProject/SelectProject'
+import { Project, Todo } from '../../utils/api'
 
 interface TodoItemProps {
     id?: string
