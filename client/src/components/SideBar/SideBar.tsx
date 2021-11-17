@@ -1,10 +1,10 @@
 import { css } from '@emotion/react'
 import React, { createRef, FormEvent, useEffect, useState, VFC } from 'react'
-import { useAppContext } from '../context/AppContext'
-import { ProjectTypes } from '../types/appContext.types'
-import { readProjects, createProject, createSendTodoSession, Todo } from '../utils/api'
-import { isDateWithinOneWeekRange, isSameDay } from '../utils/helper'
-import ProjectItem from './Project'
+import { useAppContext } from '../../context/AppContext'
+import { ProjectTypes } from '../../types/appContext.types'
+import { readProjects, createProject, createSendTodoSession, Todo } from '../../utils/api'
+import { isDateWithinOneWeekRange, isSameDay } from '../../utils/helper'
+import ProjectItem from '../Project'
 
 interface SideBarProps {}
 
@@ -103,7 +103,7 @@ const SideBar: VFC<SideBarProps> = () => {
                 return <ProjectItem key={project.id} project={project} onSelect={onSelectProject} numberOfTodos={numberOfTodos} />
             })}
             <form onSubmit={onAddProject}>
-                <button>
+                <button data-testid="add-project">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path
                             strokeLinecap="round"
@@ -116,7 +116,7 @@ const SideBar: VFC<SideBarProps> = () => {
                 <input type="text" placeholder="new Project" ref={projectRef} />
             </form>
             <form onSubmit={sendTodoSessionLink}>
-                <button>
+                <button data-testid="get-link">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path
                             strokeLinecap="round"

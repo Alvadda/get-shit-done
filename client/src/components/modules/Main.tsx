@@ -1,7 +1,7 @@
 import { css } from '@emotion/react'
 import React, { VFC } from 'react'
 import Header from '../Header/Header'
-import SideBar from '../SideBar'
+import SideBar from '../SideBar/SideBar'
 import TodoList from '../TodoList'
 
 interface MainProps {
