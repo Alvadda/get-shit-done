@@ -1,10 +1,10 @@
-import React, { createContext, FC, useContext, useReducer } from 'react'
+import React, { createContext, FC, useContext, useEffect, useReducer } from 'react'
 import appReducer from '../reducer/appReducer'
-import { TodoAction, AppState, ProjectTypes } from '../types/appContext.types'
+import { AppAction, AppState, ProjectTypes } from '../types/appContext.types'
 
 interface AppContextValue {
     state: AppState
-    dispatch: (action: TodoAction) => void
+    dispatch: (action: AppAction) => void
 }
 
 const InitialAppState: AppState = {
@@ -16,9 +16,22 @@ const AppContext = createContext<AppContextValue>({ state: InitialAppState, disp
 
 export const useAppContext = () => useContext<AppContextValue>(AppContext)
 
-const TodoProvider: FC = ({ children }) => {
+const AppProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(appReducer, InitialAppState)
+    useEffect(() => {
+        if (process.env.NODE_ENV === 'test') {
+            dispatch({
+                type: 'ADD_PROJECTS',
+                projects: [
+                    {
+                        id: '1',
+                        name: 'TestProject',
+                    },
+                ],
+            })
+        }
+    }, [])
     return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>
 }
 
-export default TodoProvider
+export default AppProvider

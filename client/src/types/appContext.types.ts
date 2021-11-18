@@ -50,4 +50,4 @@ interface setSelectedProject {
     id?: string
 }
 
-export type TodoAction = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects | setSelectedProject | AddProject
+export type AppAction = SetTodos | AddTodo | DeleteTodo | UpdateTodo | SetProjects | setSelectedProject | AddProject
