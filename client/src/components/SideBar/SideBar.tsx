@@ -76,7 +76,7 @@ const SideBar: VFC<SideBarProps> = () => {
     }
 
     const getNumberOfTodos = (projectId: string, todos: Todo[]) => {
-        return todos.filter((todo) => todo.project?.id === projectId).length
+        return todos.filter((todo) => !todo.done && todo.project?.id === projectId).length
     }
 
     const getNubersOfTodoNow = () => {

@@ -20,6 +20,12 @@ describe('SideBar', () => {
         expect(screen.getByTestId('do-soon-number')).toHaveTextContent('1')
     })
 
+    it('check added project', () => {
+        render(<SideBar />)
+        expect(screen.getByText('Project 1')).toBeTruthy()
+        expect(screen.getByTestId('Project 1-number')).toHaveTextContent('2')
+    })
+
     it('check add projects', () => {
         render(<SideBar />)
         expect(screen.getByTestId('add-project')).toBeTruthy()

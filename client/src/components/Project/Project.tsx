@@ -18,7 +18,7 @@ const ProjectItem: VFC<ProjectItemProps> = ({ project, onSelect, numberOfTodos }
     return (
         <div css={projectItemCss}>
             <p onClick={() => onSelect(ProjectTypes.Id, project.id)}>{project.name}</p>
-            <div>{numberOfTodos}</div>
+            <div data-testid={`${project.name}-number`}>{numberOfTodos}</div>
         </div>
     )
 }
