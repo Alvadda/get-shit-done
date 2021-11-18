@@ -27,42 +27,31 @@ const getHeader = (): object => ({
 
 const prefix = 'http://localhost:5000'
 
-export const login = async (email: string, password: string): Promise<Login> =>
-    new Promise((resolve, reject) => {
-        const request = fetch(`${prefix}/auth/login`, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            body: JSON.stringify({ email, password }),
-        })
-        request.then((response) =>
-            response.json().then((data) => {
-                if (data.errorMessage) {
-                    console.log(data.errorMessage)
-                    reject(data.errorMessage)
-                }
-                resolve(data)
-            })
-        )
+export const login = async (email: string, password: string): Promise<Login> => {
+    const request = await fetch(`${prefix}/auth/login`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
     })
 
-export const readProjects = async (): Promise<Project[]> =>
-    new Promise((resolve, reject) => {
-        const request = fetch(`${prefix}/Projects`, {
-            headers: {
-                ...getHeader(),
-            },
-        })
-        request.then((response) =>
-            response.json().then((data) => {
-                if (data.errorMessage) {
-                    reject(data.errorMessage)
-                }
-                resolve(data)
-            })
-        )
+    const data = await request.json()
+    if (data.errorMessage) throw new Error(data.errorMessage)
+    return data
+}
+
+export const readProjects = async (): Promise<Project[]> => {
+    const request = await fetch(`${prefix}/Projects`, {
+        headers: {
+            ...getHeader(),
+        },
     })
+
+    const data = await request.json()
+    if (data.errorMessage) throw new Error(data.errorMessage)
+    return data
+}
 
 export const createProject = async (name: string): Promise<Project[]> => {
     const response = await fetch(`${prefix}/projects`, {
@@ -78,78 +67,59 @@ export const createProject = async (name: string): Promise<Project[]> => {
     return data
 }
 
-export const readTodos = async (): Promise<Todo[]> =>
-    new Promise((resolve, reject) => {
-        const request = fetch(`${prefix}/todos`, {
-            headers: {
-                ...getHeader(),
-            },
-        })
-        request.then((response) =>
-            response.json().then((data) => {
-                if (data.errorMessage) {
-                    reject(data.errorMessage)
-                }
-                resolve(data)
-            })
-        )
+export const readTodos = async (): Promise<Todo[]> => {
+    const response = await fetch(`${prefix}/todos`, {
+        headers: {
+            ...getHeader(),
+        },
     })
 
-export const deleteTodo = async (id: string): Promise<Todo[]> =>
-    new Promise<Todo[]>((resolve, reject) => {
-        const request = fetch(`${prefix}/todos/${id}`, {
-            method: 'DELETE',
-            headers: {
-                ...getHeader(),
-            },
-        })
-        request.then((response) =>
-            response.json().then((data) => {
-                if (data.errorMessage) {
-                    reject(data.errorMessage)
-                }
-                resolve(data)
-            })
-        )
+    console.log(process.env.NODE_ENV)
+    const data = await response.json()
+    if (data.errorMessage) throw new Error('data.errorMessage')
+    return data
+}
+
+export const deleteTodo = async (id: string): Promise<Todo[]> => {
+    const request = await fetch(`${prefix}/todos/${id}`, {
+        method: 'DELETE',
+        headers: {
+            ...getHeader(),
+        },
     })
 
-export const createTodo = async (todo: Todo): Promise<Todo[]> =>
-    new Promise<Todo[]>((resolve, reject) => {
-        const request = fetch(`${prefix}/todos`, {
-            method: 'POST',
-            headers: {
-                ...getHeader(),
-            },
-            body: JSON.stringify(todo),
-        })
-        request.then((response) =>
-            response.json().then((data) => {
-                if (data.errorMessage) {
-                    reject(data.errorMessage)
-                }
-                resolve(data)
-            })
-        )
+    const data = await request.json()
+    if (data.errorMessage) throw new Error('data.errorMessage')
+    return data
+}
+
+export const createTodo = async (todo: Todo): Promise<Todo[]> => {
+    const request = await fetch(`${prefix}/todos`, {
+        method: 'POST',
+        headers: {
+            ...getHeader(),
+        },
+        body: JSON.stringify(todo),
     })
 
-export const updateTodo = async (todo: Todo): Promise<Todo[]> =>
-    new Promise<Todo[]>((resolve, reject) => {
-        const request = fetch(`${prefix}/todos/${todo.id}`, {
-            method: 'PUT',
-            headers: {
-                ...getHeader(),
-            },
-            body: JSON.stringify(todo),
-        })
-        request.then((response) =>
-            response.json().then((data) => {
-                if (data.errorMessage) {
-                    reject(data.errorMessage)
-                }
-                resolve(data)
-            })
-        )
+    const data = await request.json()
+    if (data.errorMessage) throw new Error('data.errorMessage')
+    return data
+}
+
+export const updateTodo = async (todo: Todo): Promise<Todo[]> => {
+    const request = await fetch(`${prefix}/todos/${todo.id}`, {
+        method: 'PUT',
+        headers: {
+            ...getHeader(),
+        },
+        body: JSON.stringify(todo),
     })
+
+    const data = await request.json()
+    if (data.errorMessage) throw new Error('data.errorMessage')
+    return data
+}
 
 export const createSendTodoSession = async (): Promise<string> => {
     const request = await fetch(`${prefix}/sendtodo`, {
