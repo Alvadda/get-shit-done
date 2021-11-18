@@ -1,8 +1,8 @@
 import { css } from '@emotion/react'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { getIsSendTodoSessionValid, sendTodo, Todo } from '../../utils/api'
-import AddTodo from '../AddTodo/AddTodo'
+import { getIsSendTodoSessionValid, sendTodo, Todo } from '../utils/api'
+import AddTodo from '../components/AddTodo/AddTodo'
 
 type SendTodoParams = {
     guid: string

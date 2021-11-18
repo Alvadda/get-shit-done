@@ -1,8 +1,8 @@
 import { css } from '@emotion/react'
 import React, { VFC } from 'react'
-import Header from '../Header/Header'
-import SideBar from '../SideBar/SideBar'
-import TodoList from '../TodoList'
+import Header from '../components/Header/Header'
+import SideBar from '../components/SideBar/SideBar'
+import TodoList from '../components/TodoList/TodoList'
 
 interface MainProps {
     onLogout: () => void

@@ -1,5 +1,5 @@
-import Login from './components/modules/Login'
-import Main from './components/modules/Main'
+import Login from './pages/Login'
+import Main from './pages/Main'
 import { ThemeProvider } from '@emotion/react'
 import React, { useEffect, VFC } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -9,7 +9,7 @@ import { theme } from './utils/Theme'
 import AppProvider from './context/AppContext'
 import { useUserContext } from './context/UserContext'
 import { getAuthToken, getUserName, removeAuthToken, removeUserName, setAuthToken, setUserName } from './utils/sessionStoreManager'
-import SendTodo from './components/modules/SendTodo'
+import SendTodo from './pages/SendTodo'
 
 const App: VFC = () => {
     const { state, dispatch } = useUserContext()

@@ -1,11 +1,11 @@
 import { css } from '@emotion/react'
 import React, { useEffect, VFC } from 'react'
-import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../utils/api'
-import TodoItem from './TodoItem/TodoItem'
-import AddTodo from './AddTodo/AddTodo'
-import { useAppContext } from '../context/AppContext'
-import { ProjectTypes } from '../types/appContext.types'
-import { isDateWithinOneWeekRange, isSameDay } from '../utils/helper'
+import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../../utils/api'
+import TodoItem from '../TodoItem/TodoItem'
+import AddTodo from '../AddTodo/AddTodo'
+import { useAppContext } from '../../context/AppContext'
+import { ProjectTypes } from '../../types/appContext.types'
+import { isDateWithinOneWeekRange, isSameDay } from '../../utils/helper'
 
 const todoListCss = css`
     padding: 20px 32px;

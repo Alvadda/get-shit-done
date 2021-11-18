@@ -1,6 +1,6 @@
 import { css } from '@emotion/react'
 import React, { createRef, FormEvent, VFC } from 'react'
-import { theme } from '../../utils/Theme'
+import { theme } from '../utils/Theme'
 
 interface loginProps {
     onLogin: (email: string, password: string) => void
