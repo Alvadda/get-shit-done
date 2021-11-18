@@ -11,6 +11,7 @@ describe('SelectProject', () => {
     })
 
     it('check if on click gets called', () => {
+        jest.useFakeTimers()
         const onClick = jest.fn()
         render(<Checkbox onClick={onClick} />)
         const checkbox = screen.getByTestId('checkbox')
@@ -19,5 +20,6 @@ describe('SelectProject', () => {
         setTimeout(() => {
             expect(onClick.mock.calls.length).toBe(1)
         }, 650)
+        jest.runAllTimers()
     })
 })

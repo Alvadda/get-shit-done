@@ -28,7 +28,7 @@ const todoItemStyle = css`
     }
 `
 
-const TodoItem: VFC<TodoItemProps> = ({ id, todo, onDelete, onDone, onUpdate }) => {
+const TodoItem: VFC<TodoItemProps> = ({ todo, onDelete, onDone, onUpdate }) => {
     const onSelect = (project: Project) => {
         onUpdate({
             ...todo,
@@ -40,7 +40,7 @@ const TodoItem: VFC<TodoItemProps> = ({ id, todo, onDelete, onDone, onUpdate }) 
         <div css={todoItemStyle}>
             <Checkbox
                 onClick={() => {
-                    onDone(id)
+                    onDone(todo.id)
                 }}
             />
             <p className="description">{todo.description}</p>
@@ -49,7 +49,7 @@ const TodoItem: VFC<TodoItemProps> = ({ id, todo, onDelete, onDone, onUpdate }) 
             <p>{getDDMMYYYY(new Date(todo.douDate))}</p>
             <button
                 onClick={() => {
-                    onDelete(id)
+                    onDelete(todo.id)
                 }}
             >
                 Delete
