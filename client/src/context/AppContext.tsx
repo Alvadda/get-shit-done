@@ -1,6 +1,7 @@
 import React, { createContext, FC, useContext, useEffect, useReducer } from 'react'
 import appReducer from '../reducer/appReducer'
 import { AppAction, AppState, ProjectTypes } from '../types/appContext.types'
+import { initProjects, initTodos } from '../reducer/initTestState'
 
 interface AppContextValue {
     state: AppState
@@ -20,15 +21,8 @@ const AppProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(appReducer, InitialAppState)
     useEffect(() => {
         if (process.env.NODE_ENV === 'test') {
-            dispatch({
-                type: 'ADD_PROJECTS',
-                projects: [
-                    {
-                        id: '1',
-                        name: 'TestProject',
-                    },
-                ],
-            })
+            dispatch({ type: 'SET_TODOS', todos: initTodos })
+            dispatch({ type: 'SET_PROJECTS', projects: initProjects })
         }
     }, [])
     return <AppContext.Provider value={{ state, dispatch }}>{children}</AppContext.Provider>

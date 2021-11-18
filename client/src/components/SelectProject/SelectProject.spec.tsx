@@ -21,20 +21,20 @@ describe('SelectProject', () => {
         expect(screen.getByTestId('select')).toBeTruthy()
         expect(screen.getAllByTestId('option').length).toBe(1)
         expect(screen.getByText('Select a Project:')).toBeTruthy()
-        expect(screen.getByText('TestProject')).toBeTruthy()
+        expect(screen.getByText('Project 1')).toBeTruthy()
     })
 
     it('check on option select', () => {
         const onSelect = (project: Project) => {
-            expect(project.name).toBe('TestProject')
+            expect(project.name).toBe('Project 1')
         }
         render(<SelectProject onSelect={onSelect} />)
         const select = screen.getByTestId('select')
         expect(select).toBeTruthy()
         expect(screen.getAllByTestId('option').length).toBe(1)
         expect(screen.getByText('Select a Project:')).toBeTruthy()
-        const testProject = screen.getByText('TestProject')
-        expect(testProject).toBeTruthy()
+        const project = screen.getByText('Project 1')
+        expect(project).toBeTruthy()
         fireEvent.change(select, { target: { value: '1' } })
     })
 })

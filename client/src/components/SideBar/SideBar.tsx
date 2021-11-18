@@ -37,6 +37,11 @@ const sideBarCss = css`
             stroke: #fff;
         }
     }
+
+    .project {
+        display: flex;
+        gap: 8px;
+    }
 `
 
 const SideBar: VFC<SideBarProps> = () => {
@@ -77,26 +82,36 @@ const SideBar: VFC<SideBarProps> = () => {
     const getNubersOfTodoNow = () => {
         return state.todos.filter((todo) => {
             if (!todo.douDate) return false
-            return isSameDay(new Date(todo.douDate), new Date())
+            return !todo.done && isSameDay(new Date(todo.douDate), new Date())
         }).length
     }
 
     const getNubersOfTodoSoon = () => {
         return state.todos.filter((todo) => {
             if (!todo.douDate) return false
-            return isDateWithinOneWeekRange(new Date(todo.douDate))
+            return !todo.done && isDateWithinOneWeekRange(new Date(todo.douDate))
         }).length
     }
 
     const getNubersOfTodoInbox = () => {
-        return state.todos.filter((todo) => todo.project?.id === null).length
+        return state.todos.filter((todo) => !todo.done && !Boolean(todo.project)).length
     }
 
     return (
         <aside css={sideBarCss}>
-            <p onClick={() => onSelectProject(ProjectTypes.Inbox)}>Inbox {getNubersOfTodoInbox()}</p>
-            <p onClick={() => onSelectProject(ProjectTypes.DoNow)}>DO NOW {getNubersOfTodoNow()}</p>
-            <p onClick={() => onSelectProject(ProjectTypes.DoSoon)}>DO SOON {getNubersOfTodoSoon()}</p>
+            <div className="project">
+                <p onClick={() => onSelectProject(ProjectTypes.Inbox)}>Inbox</p>
+                <div data-testid="inbox-number">{getNubersOfTodoInbox()}</div>
+            </div>
+            <div className="project">
+                <p onClick={() => onSelectProject(ProjectTypes.DoNow)}>DO NOW</p>
+                <div data-testid="do-now-number">{getNubersOfTodoNow()}</div>
+            </div>
+            <div className="project">
+                <p onClick={() => onSelectProject(ProjectTypes.DoSoon)}>DO SOON</p>
+                <div data-testid="do-soon-number">{getNubersOfTodoSoon()}</div>
+            </div>
+
             {state.projects.map((project) => {
                 const numberOfTodos = getNumberOfTodos(project.id, state.todos)
 

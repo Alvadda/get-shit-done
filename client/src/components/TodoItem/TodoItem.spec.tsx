@@ -62,14 +62,14 @@ describe('TodoItem', () => {
             douDate: new Date('December 17, 2030'),
         }
         const onUpdate = (todo: Todo) => {
-            expect(todo.project?.name).toBe('TestProject')
+            expect(todo.project?.name).toBe('Project 1')
         }
         render(<TodoItem todo={todo} onDone={() => {}} onUpdate={onUpdate} onDelete={() => {}} />)
         setTimeout(() => {}, 650)
         const select = screen.getByTestId('select')
-        const testProject = screen.getByText('TestProject')
+        const project = screen.getByText('Project 1')
         expect(select).toBeTruthy()
-        expect(testProject).toBeTruthy()
+        expect(project).toBeTruthy()
         fireEvent.change(select, { target: { value: '1' } })
     })
 

@@ -95,18 +95,23 @@ export default class TodoPostgresConnector implements ITodoConnector {
 
     _mapTodos = (todosDb: QueryResult<any>) => {
         if (todosDb.rows.length < 1) return []
-        const todos: Todo[] = todosDb.rows.map((todo) => ({
-            id: todo.todo_id,
-            description: todo.description,
-            createdAt: new Date(todo.created_at),
-            done: todo.done,
-            doneDate: todo.done_date,
-            douDate: todo.dou_date ? new Date(todo.dou_date) : undefined,
-            project: {
-                id: todo.project_id,
-                name: todo.project_name,
-            },
-        }))
+        const todos: Todo[] = todosDb.rows.map((todoDb) => {
+            const todo: Todo = {
+                id: todoDb.todo_id,
+                description: todoDb.description,
+                createdAt: new Date(todoDb.created_at),
+                done: todoDb.done,
+                doneDate: todoDb.done_date,
+                douDate: todoDb.dou_date ? new Date(todoDb.dou_date) : undefined,
+            }
+            if (todoDb.project_id) {
+                todo.project = {
+                    id: todoDb.project_id,
+                    name: todoDb.project_name,
+                }
+            }
+            return todo
+        })
         return todos
     }
 

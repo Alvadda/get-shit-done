@@ -1,5 +1,6 @@
 import React from 'react'
 import { render, screen } from '../../utils/test-util'
+import '@testing-library/jest-dom/extend-expect'
 
 import SideBar from '../SideBar/SideBar'
 
@@ -11,9 +12,12 @@ describe('SideBar', () => {
 
     it('check default projects', () => {
         render(<SideBar />)
-        expect(screen.getByText('Inbox 0')).toBeTruthy()
-        expect(screen.getByText('DO NOW 0')).toBeTruthy()
-        expect(screen.getByText('DO SOON 0')).toBeTruthy()
+        expect(screen.getByText('Inbox')).toBeTruthy()
+        expect(screen.getByText('DO NOW')).toBeTruthy()
+        expect(screen.getByText('DO SOON')).toBeTruthy()
+        expect(screen.getByTestId('inbox-number')).toHaveTextContent('1')
+        expect(screen.getByTestId('do-now-number')).toHaveTextContent('1')
+        expect(screen.getByTestId('do-soon-number')).toHaveTextContent('1')
     })
 
     it('check add projects', () => {
