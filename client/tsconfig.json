@@ -15,7 +15,7 @@
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "types": ["@emotion/react/types/css-prop", "node", "jest", "@testing-library/jest-dom"]
+        "types": ["@emotion/react/types/css-prop", "node", "jest", "@testing-library/jest-dom", "cypress"]
     },
     "include": ["src"]
 }
