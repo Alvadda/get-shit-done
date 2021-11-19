@@ -44,7 +44,7 @@ export const login = async (email: string, password: string): Promise<Login> => 
 }
 
 export const readProjects = async (): Promise<Project[]> => {
-    const request = await fetch(`${prefix}/Projects`, {
+    const request = await fetch(`${prefix}/projects`, {
         headers: {
             ...getHeader(),
         },
@@ -81,7 +81,7 @@ export const readTodos = async (): Promise<Todo[]> => {
     return data
 }
 
-export const deleteTodo = async (id: string): Promise<Todo[]> => {
+export const deleteTodo = async (id: string): Promise<boolean> => {
     const request = await fetch(`${prefix}/todos/${id}`, {
         method: 'DELETE',
         headers: {
@@ -89,9 +89,10 @@ export const deleteTodo = async (id: string): Promise<Todo[]> => {
         },
     })
 
-    const data = await request.json()
-    if (data.errorMessage) throw new Error('data.errorMessage')
-    return data
+    // const data = await request.json()
+    // if (data.errorMessage) throw new Error('data.errorMessage')
+    // return data
+    return true
 }
 
 export const createTodo = async (todo: Todo): Promise<Todo[]> => {

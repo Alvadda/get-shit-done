@@ -94,7 +94,7 @@ const SideBar: VFC<SideBarProps> = () => {
     }
 
     const getNubersOfTodoInbox = () => {
-        return state.todos.filter((todo) => !todo.done && !Boolean(todo.project)).length
+        return state.todos.filter((todo) => !todo.done && !Boolean(todo.project?.id)).length
     }
 
     return (

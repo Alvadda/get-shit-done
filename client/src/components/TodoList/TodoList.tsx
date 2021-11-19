@@ -56,7 +56,7 @@ const TodoList: VFC = () => {
 
         switch (state.selectedProjectType) {
             case ProjectTypes.Inbox:
-                return !Boolean(todo.project)
+                return !Boolean(todo.project?.id)
             case ProjectTypes.DoNow:
                 if (!todo.douDate) return false
                 return isSameDay(new Date(todo.douDate), new Date())
