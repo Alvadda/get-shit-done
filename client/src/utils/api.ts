@@ -1,3 +1,4 @@
+import { ok } from 'assert'
 import { getAuthToken } from './sessionStoreManager'
 
 export interface Todo {
@@ -92,7 +93,7 @@ export const deleteTodo = async (id: string): Promise<boolean> => {
     // const data = await request.json()
     // if (data.errorMessage) throw new Error('data.errorMessage')
     // return data
-    return true
+    return request.ok
 }
 
 export const createTodo = async (todo: Todo): Promise<Todo[]> => {

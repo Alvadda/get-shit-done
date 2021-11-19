@@ -3,13 +3,26 @@ import { Todo, Project } from '../../utils/api'
 import Todos from './respons/todos.json'
 import Projects from './respons/projects.json'
 
+interface Login {
+    email: string
+    password: string
+}
+
 const prefix = ''
 
 const todoList: Todo[] = [...(Todos as unknown as Todo[])]
 const projectList: Project[] = [...(Projects as unknown as Project[])]
+const sendTodoSession = '023842ljn4i4k13b1k2j3hjvb1u4'
+const testUser: Login = {
+    email: 'test@user.de',
+    password: '123',
+}
 
 export const handlers = [
-    rest.post(`${prefix}/auth/login`, (req, res, ctx) => {
+    rest.post<Login>(`${prefix}/auth/login`, (req, res, ctx) => {
+        const user = req.body
+        if (JSON.stringify(user) !== JSON.stringify(testUser)) return res(ctx.status(401))
+
         return res(ctx.status(200), ctx.json({ userName: 'testUser', token: '12n3k1j2h31k4h132lkj12kj3h' }))
     }),
 
@@ -38,5 +51,20 @@ export const handlers = [
     rest.put<Todo>(`${prefix}/todos/:id`, (req, res, ctx) => {
         const todo = req.body
         return res(ctx.status(200), ctx.json([todo]))
+    }),
+
+    rest.post(`${prefix}/sendtodo`, (req, res, ctx) => {
+        return res(ctx.status(200), ctx.json({ send_session_id: sendTodoSession }))
+    }),
+    rest.post<Todo>(`${prefix}/sendtodo/:id`, (req, res, ctx) => {
+        const todo = req.body
+        return res(ctx.status(200), ctx.json([todo]))
+    }),
+    rest.get(`${prefix}/sendtodo/isvalid/:id`, (req, res, ctx) => {
+        const { id } = req.params
+        if (id === sendTodoSession) {
+            return res(ctx.status(200), ctx.json({ user: 'TestUser' }))
+        }
+        return res(ctx.status(401))
     }),
 ]
