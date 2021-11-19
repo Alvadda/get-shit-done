@@ -8,7 +8,7 @@
 
 # testing
 /coverage
-
+*.mp4
 # production
 /client/build
 /server/build

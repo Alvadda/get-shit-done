@@ -89,10 +89,6 @@ export const deleteTodo = async (id: string): Promise<boolean> => {
             ...getHeader(),
         },
     })
-
-    // const data = await request.json()
-    // if (data.errorMessage) throw new Error('data.errorMessage')
-    // return data
     return request.ok
 }
 
