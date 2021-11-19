@@ -69,7 +69,7 @@ const TodoList: VFC = () => {
     }
 
     return (
-        <div css={todoListCss}>
+        <div css={todoListCss} data-testid="todo-list">
             <AddTodo onAddTodo={onAddTodo} showProjects />
             <div className="todo-list-container">
                 {state.todos
