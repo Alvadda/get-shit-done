@@ -1,7 +1,6 @@
 import React, { createContext, FC, useContext, useEffect, useReducer } from 'react'
 import appReducer from '../reducer/appReducer'
 import { AppAction, AppState, ProjectTypes } from '../types/appContext.types'
-import { initProjects, initTodos } from '../reducer/initTestState'
 
 interface AppContextValue {
     state: AppState
@@ -21,6 +20,7 @@ const AppProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(appReducer, InitialAppState)
     useEffect(() => {
         if (process.env.NODE_ENV === 'test') {
+            const { initTodos, initProjects } = require('../../__mock__/reducer/initState')
             dispatch({ type: 'SET_TODOS', todos: initTodos })
             dispatch({ type: 'SET_PROJECTS', projects: initProjects })
         }

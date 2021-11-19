@@ -1,4 +1,4 @@
-import { Project, Todo } from '../utils/api'
+import { Project, Todo } from '../../src/utils/api'
 
 const today = new Date()
 const tomorrow = new Date(today)

@@ -74,7 +74,6 @@ export const readTodos = async (): Promise<Todo[]> => {
         },
     })
 
-    console.log(process.env.NODE_ENV)
     const data = await response.json()
     if (data.errorMessage) throw new Error('data.errorMessage')
     return data
