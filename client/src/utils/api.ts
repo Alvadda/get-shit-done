@@ -25,7 +25,9 @@ const getHeader = (): object => ({
     jwt_token: getAuthToken(),
 })
 
-const prefix = 'http://localhost:5000'
+const isDev = process.env.NODE_ENV === 'development'
+
+const prefix = isDev ? '' : 'http://localhost:5000'
 
 export const login = async (email: string, password: string): Promise<Login> => {
     const request = await fetch(`${prefix}/auth/login`, {

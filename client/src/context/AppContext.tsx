@@ -20,7 +20,7 @@ const AppProvider: FC = ({ children }) => {
     const [state, dispatch] = useReducer(appReducer, InitialAppState)
     useEffect(() => {
         if (process.env.NODE_ENV === 'test') {
-            const { initTodos, initProjects } = require('../../__mock__/reducer/initState')
+            const { initTodos, initProjects } = require('../__mock__/reducer/initState.ts')
             dispatch({ type: 'SET_TODOS', todos: initTodos })
             dispatch({ type: 'SET_PROJECTS', projects: initProjects })
         }
