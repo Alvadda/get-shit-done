@@ -4,8 +4,6 @@ import { readTodos, deleteTodo, createTodo, Todo, updateTodo } from '../../utils
 import TodoItem from '../TodoItem/TodoItem'
 import AddTodo from '../AddTodo/AddTodo'
 import { useAppContext } from '../../context/AppContext'
-import { ProjectTypes } from '../../types/appContext.types'
-import { isDateWithinOneWeekRange, isSameDay } from '../../utils/helper'
 import { useAppSelector } from '../../hooks/useAppSelector'
 
 const todoListCss = css`
@@ -21,7 +19,7 @@ const todoListCss = css`
 
 const TodoList: VFC = () => {
     const { state, dispatch } = useAppContext()
-    const { selectTodoToSelectedProject } = useAppSelector()
+    const { selectTodosToSelectedProject } = useAppSelector()
 
     useEffect(() => {
         readTodos().then((todos) => {
@@ -58,7 +56,7 @@ const TodoList: VFC = () => {
         <div css={todoListCss} data-testid="todo-list">
             <AddTodo onAddTodo={onAddTodo} showProjects />
             <div className="todo-list-container">
-                {selectTodoToSelectedProject().map((todo) => (
+                {selectTodosToSelectedProject().map((todo) => (
                     <TodoItem key={todo.id} id={todo.id} todo={todo} onDelete={onDelete} onDone={onDone} onUpdate={onUpdate} />
                 ))}
             </div>

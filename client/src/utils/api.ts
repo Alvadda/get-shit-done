@@ -1,4 +1,3 @@
-import { ok } from 'assert'
 import { getAuthToken } from './sessionStoreManager'
 
 export interface Todo {

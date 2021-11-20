@@ -19,6 +19,6 @@ import './commands'
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 beforeEach(() => {
-    cy.viewport(1600, 900)
+    cy.viewport(1200, 800)
     cy.visit('http://localhost:3000')
 })

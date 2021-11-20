@@ -22,7 +22,7 @@ export const useAppSelector = () => {
         return state.todos.filter((todo) => !todo.done && todo.project?.id === projectId)
     }
 
-    const selectTodoToSelectedProject = () => {
+    const selectTodosToSelectedProject = () => {
         switch (state.selectedProjectType) {
             case ProjectTypes.Inbox:
                 return selectTodosInbox
@@ -40,6 +40,6 @@ export const useAppSelector = () => {
         selectTodosNow,
         selectTodosSoon,
         selectTodosFromProject,
-        selectTodoToSelectedProject,
+        selectTodosToSelectedProject,
     }
 }

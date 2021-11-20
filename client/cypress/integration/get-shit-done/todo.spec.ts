@@ -1,6 +1,6 @@
 import { removeAuthToken, removeUserName } from '../../../src/utils/sessionStoreManager'
 
-describe('login', () => {
+describe('Todo', () => {
     beforeEach(() => {
         cy.fixture('todo.json').then((todo) => {
             cy.get('#email').type(todo.userMail)
