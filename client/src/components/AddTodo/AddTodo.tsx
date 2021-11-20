@@ -70,7 +70,7 @@ const AddTodo: VFC<AddTodoProps> = ({ onAddTodo, showProjects }) => {
                         />
                     </svg>
                 </button>
-                <input type="text" placeholder="Todo" ref={todoRef} />
+                <input data-testid="add-todo-description" type="text" placeholder="Todo" ref={todoRef} />
                 {showProjects && <SelectProject onSelect={onSelect} />}
 
                 <CostumDatePicker date={douDate} setDate={setDouDate} />

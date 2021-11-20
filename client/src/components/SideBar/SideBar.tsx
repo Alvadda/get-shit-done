@@ -99,24 +99,26 @@ const SideBar: VFC<SideBarProps> = () => {
 
     return (
         <aside css={sideBarCss}>
-            <div className="project">
-                <p onClick={() => onSelectProject(ProjectTypes.Inbox)}>Inbox</p>
-                <div data-testid="inbox-number">{getNubersOfTodoInbox()}</div>
-            </div>
-            <div className="project">
-                <p onClick={() => onSelectProject(ProjectTypes.DoNow)}>DO NOW</p>
-                <div data-testid="do-now-number">{getNubersOfTodoNow()}</div>
-            </div>
-            <div className="project">
-                <p onClick={() => onSelectProject(ProjectTypes.DoSoon)}>DO SOON</p>
-                <div data-testid="do-soon-number">{getNubersOfTodoSoon()}</div>
-            </div>
+            <div data-testid="project-container">
+                <div className="project">
+                    <p onClick={() => onSelectProject(ProjectTypes.Inbox)}>Inbox</p>
+                    <div data-testid="inbox-number">{getNubersOfTodoInbox()}</div>
+                </div>
+                <div className="project">
+                    <p onClick={() => onSelectProject(ProjectTypes.DoNow)}>DO NOW</p>
+                    <div data-testid="do-now-number">{getNubersOfTodoNow()}</div>
+                </div>
+                <div className="project">
+                    <p onClick={() => onSelectProject(ProjectTypes.DoSoon)}>DO SOON</p>
+                    <div data-testid="do-soon-number">{getNubersOfTodoSoon()}</div>
+                </div>
 
-            {state.projects.map((project) => {
-                const numberOfTodos = getNumberOfTodos(project.id, state.todos)
+                {state.projects.map((project) => {
+                    const numberOfTodos = getNumberOfTodos(project.id, state.todos)
 
-                return <ProjectItem key={project.id} project={project} onSelect={onSelectProject} numberOfTodos={numberOfTodos} />
-            })}
+                    return <ProjectItem key={project.id} project={project} onSelect={onSelectProject} numberOfTodos={numberOfTodos} />
+                })}
+            </div>
             <form onSubmit={onAddProject}>
                 <button data-testid="add-project">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

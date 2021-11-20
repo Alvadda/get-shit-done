@@ -37,7 +37,7 @@ const TodoItem: VFC<TodoItemProps> = ({ todo, onDelete, onDone, onUpdate }) => {
     }
 
     return (
-        <div css={todoItemStyle}>
+        <div css={todoItemStyle} data-testid="todo-item">
             <Checkbox
                 onClick={() => {
                     onDone(todo.id)
@@ -48,6 +48,7 @@ const TodoItem: VFC<TodoItemProps> = ({ todo, onDelete, onDone, onUpdate }) => {
             {!Boolean(todo.project?.name) && <SelectProject onSelect={onSelect} />}
             <p>{getDDMMYYYY(new Date(todo.douDate))}</p>
             <button
+                data-testid="todo-item-delete"
                 onClick={() => {
                     onDelete(todo.id)
                 }}

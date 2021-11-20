@@ -1,0 +1,9 @@
+{
+    "userMail": "test@user.de",
+    "userPassword": "123",
+    "wrongUserPassword": "qwe",
+    "addTodoDescription1": "new Todo",
+    "addTodoDescription2": "new Todo with project",
+    "testProject1": "Test Project 1",
+    "inbox": "Inbox"
+}

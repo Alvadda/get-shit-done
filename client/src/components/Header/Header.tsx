@@ -30,7 +30,7 @@ const headerCss = css`
 const Header: VFC<HeaderProps> = ({ onLogout, userName }) => {
     return (
         <header css={headerCss}>
-            <p>{userName}</p>
+            <p data-testid="user-name">{userName}</p>
             <div data-testid="logout" onClick={() => onLogout()}>
                 <svg
                     viewBox="0 0 64 64"
