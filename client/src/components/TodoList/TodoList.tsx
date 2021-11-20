@@ -6,6 +6,7 @@ import AddTodo from '../AddTodo/AddTodo'
 import { useAppContext } from '../../context/AppContext'
 import { ProjectTypes } from '../../types/appContext.types'
 import { isDateWithinOneWeekRange, isSameDay } from '../../utils/helper'
+import { useAppSelector } from '../../hooks/useAppSelector'
 
 const todoListCss = css`
     padding: 20px 32px;
@@ -20,6 +21,8 @@ const todoListCss = css`
 
 const TodoList: VFC = () => {
     const { state, dispatch } = useAppContext()
+    const { selectTodoToSelectedProject } = useAppSelector()
+
     useEffect(() => {
         readTodos().then((todos) => {
             dispatch({ type: 'SET_TODOS', todos })
@@ -51,32 +54,13 @@ const TodoList: VFC = () => {
         })
     }
 
-    const showTodosToSelectedProject = (todo: Todo) => {
-        if (todo.done) return false
-
-        switch (state.selectedProjectType) {
-            case ProjectTypes.Inbox:
-                return !Boolean(todo.project?.id)
-            case ProjectTypes.DoNow:
-                if (!todo.douDate) return false
-                return isSameDay(new Date(todo.douDate), new Date())
-            case ProjectTypes.DoSoon:
-                if (!todo.douDate) return false
-                return isDateWithinOneWeekRange(new Date(todo.douDate))
-            case ProjectTypes.Id:
-                return todo.project?.id === state.selectedProject
-        }
-    }
-
     return (
         <div css={todoListCss} data-testid="todo-list">
             <AddTodo onAddTodo={onAddTodo} showProjects />
             <div className="todo-list-container">
-                {state.todos
-                    .filter((todo) => showTodosToSelectedProject(todo))
-                    .map((todo) => (
-                        <TodoItem key={todo.id} id={todo.id} todo={todo} onDelete={onDelete} onDone={onDone} onUpdate={onUpdate} />
-                    ))}
+                {selectTodoToSelectedProject().map((todo) => (
+                    <TodoItem key={todo.id} id={todo.id} todo={todo} onDelete={onDelete} onDone={onDone} onUpdate={onUpdate} />
+                ))}
             </div>
         </div>
     )

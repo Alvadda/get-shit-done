@@ -1,9 +1,9 @@
 import { css } from '@emotion/react'
 import React, { createRef, FormEvent, useEffect, useState, VFC } from 'react'
 import { useAppContext } from '../../context/AppContext'
+import { useAppSelector } from '../../hooks/useAppSelector'
 import { ProjectTypes } from '../../types/appContext.types'
-import { readProjects, createProject, createSendTodoSession, Todo } from '../../utils/api'
-import { isDateWithinOneWeekRange, isSameDay } from '../../utils/helper'
+import { readProjects, createProject, createSendTodoSession } from '../../utils/api'
 import ProjectItem from '../Project/Project'
 
 interface SideBarProps {}
@@ -46,6 +46,8 @@ const sideBarCss = css`
 
 const SideBar: VFC<SideBarProps> = () => {
     const { state, dispatch } = useAppContext()
+    const { selectTodosInbox, selectTodosNow, selectTodosSoon, selectTodosFromProject } = useAppSelector()
+
     const projectRef = createRef<HTMLInputElement>()
     const sendTodoSessionLinkRef = createRef<HTMLInputElement>()
     const [link, setLink] = useState<string>('')
@@ -74,48 +76,24 @@ const SideBar: VFC<SideBarProps> = () => {
         setLink(`http://localhost:3000/${guid}`)
         console.log(link)
     }
-
-    const getNumberOfTodos = (projectId: string, todos: Todo[]) => {
-        return todos.filter((todo) => !todo.done && todo.project?.id === projectId).length
-    }
-
-    const getNubersOfTodoNow = () => {
-        return state.todos.filter((todo) => {
-            if (!todo.douDate) return false
-            return !todo.done && isSameDay(new Date(todo.douDate), new Date())
-        }).length
-    }
-
-    const getNubersOfTodoSoon = () => {
-        return state.todos.filter((todo) => {
-            if (!todo.douDate) return false
-            return !todo.done && isDateWithinOneWeekRange(new Date(todo.douDate))
-        }).length
-    }
-
-    const getNubersOfTodoInbox = () => {
-        return state.todos.filter((todo) => !todo.done && !Boolean(todo.project?.id)).length
-    }
-
     return (
         <aside css={sideBarCss}>
             <div data-testid="project-container">
                 <div className="project">
                     <p onClick={() => onSelectProject(ProjectTypes.Inbox)}>Inbox</p>
-                    <div data-testid="inbox-number">{getNubersOfTodoInbox()}</div>
+                    <div data-testid="inbox-number">{selectTodosInbox.length}</div>
                 </div>
                 <div className="project">
                     <p onClick={() => onSelectProject(ProjectTypes.DoNow)}>DO NOW</p>
-                    <div data-testid="do-now-number">{getNubersOfTodoNow()}</div>
+                    <div data-testid="do-now-number">{selectTodosNow.length}</div>
                 </div>
                 <div className="project">
                     <p onClick={() => onSelectProject(ProjectTypes.DoSoon)}>DO SOON</p>
-                    <div data-testid="do-soon-number">{getNubersOfTodoSoon()}</div>
+                    <div data-testid="do-soon-number">{selectTodosSoon.length}</div>
                 </div>
 
                 {state.projects.map((project) => {
-                    const numberOfTodos = getNumberOfTodos(project.id, state.todos)
-
+                    const numberOfTodos = selectTodosFromProject(project.id).length
                     return <ProjectItem key={project.id} project={project} onSelect={onSelectProject} numberOfTodos={numberOfTodos} />
                 })}
             </div>
