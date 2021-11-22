@@ -12,6 +12,10 @@ interface ProjectItemProps {
 const projectItemCss = css`
     display: flex;
     gap: 8px;
+
+    p {
+        cursor: pointer;
+    }
 `
 
 const ProjectItem: VFC<ProjectItemProps> = ({ project, onSelect, numberOfTodos }) => {

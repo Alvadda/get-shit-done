@@ -119,8 +119,8 @@ export const updateTodo = async (todo: Todo): Promise<Todo[]> => {
     return data
 }
 
-export const createSendTodoSession = async (): Promise<string> => {
-    const request = await fetch(`${prefix}/sendtodo`, {
+export const createSendTodoSession = async (todos?: number, days?: number): Promise<string> => {
+    const request = await fetch(`${prefix}/sendtodo/?todos=${todos}&days=${days}`, {
         method: 'POST',
         headers: {
             ...getHeader(),

@@ -34,6 +34,7 @@ const checkboxCss = css`
     border-radius: 100px;
     border: 2px solid #fff;
     position: relative;
+    cursor: pointer;
 
     .checkmark {
         display: block;

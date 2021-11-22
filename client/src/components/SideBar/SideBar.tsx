@@ -32,6 +32,7 @@ const sideBarCss = css`
         border: none;
 
         font-family: inherit;
+        cursor: pointer;
 
         svg {
             stroke: #fff;
@@ -41,6 +42,20 @@ const sideBarCss = css`
     .project {
         display: flex;
         gap: 8px;
+
+        p {
+            cursor: pointer;
+        }
+    }
+
+    .link-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .link-categorie {
+        display: flex;
+        gap: 12px;
     }
 `
 
@@ -50,6 +65,8 @@ const SideBar: VFC<SideBarProps> = () => {
 
     const projectRef = createRef<HTMLInputElement>()
     const sendTodoSessionLinkRef = createRef<HTMLInputElement>()
+    const sendTodoSessionDaysRef = createRef<HTMLInputElement>()
+    const sendTodoSessionTodosRef = createRef<HTMLInputElement>()
     const [link, setLink] = useState<string>('')
 
     useEffect(() => {
@@ -72,7 +89,10 @@ const SideBar: VFC<SideBarProps> = () => {
 
     const sendTodoSessionLink = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const guid = await createSendTodoSession()
+        const guid = await createSendTodoSession(
+            Number(sendTodoSessionTodosRef.current?.value),
+            Number(sendTodoSessionDaysRef.current?.value)
+        )
         setLink(`http://localhost:3000/${guid}`)
         console.log(link)
     }
@@ -110,18 +130,24 @@ const SideBar: VFC<SideBarProps> = () => {
                 </button>
                 <input type="text" placeholder="new Project" ref={projectRef} />
             </form>
-            <form onSubmit={sendTodoSessionLink}>
-                <button data-testid="get-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                    </svg>
-                </button>
-                <input id="sendTodoSessionLink" type="text" placeholder="Link" readOnly ref={sendTodoSessionLinkRef} value={link} />
+            <form className="link-container" onSubmit={sendTodoSessionLink}>
+                <div className="link-categorie">
+                    <button data-testid="get-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                        </svg>
+                    </button>
+                    <input id="sendTodoSessionLink" type="text" placeholder="Link" readOnly ref={sendTodoSessionLinkRef} value={link} />
+                </div>
+                <div className="link-categorie">
+                    <input id="sendTodoSessionLink" type="number" placeholder="Todos" ref={sendTodoSessionDaysRef} />
+                    <input id="sendTodoSessionLink" type="number" placeholder="Days" ref={sendTodoSessionTodosRef} />
+                </div>
             </form>
         </aside>
     )

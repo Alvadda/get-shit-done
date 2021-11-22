@@ -5,7 +5,7 @@ import UserProvider from './context/UserContext'
 
 if (process.env.NODE_ENV === 'development') {
     const { worker } = require('./__mock__/msw/browser.ts')
-    worker.start()
+    worker.start({ onUnhandledRequest: 'bypass' })
 }
 
 ReactDOM.render(

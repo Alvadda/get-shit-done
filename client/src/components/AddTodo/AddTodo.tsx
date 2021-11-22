@@ -19,6 +19,7 @@ const addTodoCss = css`
             background-color: transparent;
             border: none;
 
+            cursor: pointer;
             transition: all 300ms;
 
             svg {

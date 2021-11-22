@@ -26,6 +26,10 @@ const todoItemStyle = css`
     .description {
         overflow: hidden;
     }
+
+    button {
+        cursor: pointer;
+    }
 `
 
 const TodoItem: VFC<TodoItemProps> = ({ todo, onDelete, onDone, onUpdate }) => {
