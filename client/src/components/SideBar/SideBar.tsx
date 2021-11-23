@@ -5,7 +5,7 @@ import { useAppSelector } from '../../hooks/useAppSelector'
 import { ProjectTypes } from '../../types/appContext.types'
 import { readProjects, createProject, createSendTodoSession } from '../../utils/api'
 import ProjectItem from '../Project/Project'
-import Plus from '../Svg/Plus'
+import Plus from '../../assets/Svg/Plus'
 
 const sideBarCss = css`
     width: 100%;

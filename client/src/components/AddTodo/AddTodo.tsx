@@ -3,7 +3,7 @@ import React, { createRef, useState, VFC, FormEvent } from 'react'
 import CostumDatePicker from '../CustomDataPicker/CustomDatePicker'
 import SelectProject from '../SelectProject/SelectProject'
 import { Project } from '../../utils/api'
-import Plus from '../Svg/Plus'
+import Plus from '../../assets/Svg/Plus'
 
 interface AddTodoProps {
     onAddTodo: Function
@@ -67,7 +67,6 @@ const AddTodo: VFC<AddTodoProps> = ({ onAddTodo, showProjects }) => {
                 </button>
                 <input data-testid="add-todo-description" type="text" placeholder="Todo" ref={todoRef} />
                 {showProjects && <SelectProject onSelect={onSelect} />}
-
                 <CostumDatePicker date={douDate} setDate={setDouDate} />
             </form>
         </div>
