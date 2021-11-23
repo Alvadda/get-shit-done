@@ -54,9 +54,6 @@ export const handlers = [
     }),
 
     rest.post(`${prefix}/sendtodo`, (req, res, ctx) => {
-        const todos = req.url.searchParams.get('todos')
-        const days = req.url.searchParams.get('days')
-        console.log(todos, days)
         return res(ctx.status(200), ctx.json({ send_session_id: sendTodoSession }))
     }),
     rest.post<Todo>(`${prefix}/sendtodo/:id`, (req, res, ctx) => {
