@@ -47,7 +47,7 @@ const SendTodo = () => {
 
     const onAddTodo = async (todo: Todo) => {
         try {
-            const newTodo = await sendTodo(guid, todo)
+            await sendTodo(guid, todo)
             setState({ ...state, errorMessage: undefined, todosLeft: state.todosLeft - 1 })
         } catch (error: any) {
             setState({ ...state, errorMessage: error.message })

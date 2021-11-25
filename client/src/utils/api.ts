@@ -143,9 +143,9 @@ export const getIsSendTodoSessionValid = async (guid: string): Promise<SendTodoS
             ...getHeader(),
         },
     })
-    if (response.status !== 200) throw new Error('Session not valid')
-
     const data = await response.json()
+
+    if (response.status !== 200) throw new Error(data?.errorMessage)
     return data
 }
 

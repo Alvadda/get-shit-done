@@ -130,8 +130,8 @@ const SideBar: VFC = () => {
                     <input id="sendTodoSessionLink" type="text" placeholder="Link" readOnly ref={sendTodoSessionLinkRef} value={link} />
                 </div>
                 <div className="link-categorie">
-                    <input id="sendTodoSessionLink" type="number" placeholder="Todos" ref={sendTodoSessionDaysRef} />
-                    <input id="sendTodoSessionLink" type="number" placeholder="Days" ref={sendTodoSessionTodosRef} />
+                    <input id="sendTodoSessionLink" type="number" placeholder="Todos" ref={sendTodoSessionTodosRef} />
+                    <input id="sendTodoSessionLink" type="number" placeholder="Days" ref={sendTodoSessionDaysRef} />
                 </div>
             </form>
         </aside>

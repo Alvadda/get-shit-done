@@ -59,7 +59,7 @@ export const handlers = [
         return res(ctx.status(200), ctx.json({ send_session_id: sendTodoSession }))
     }),
     rest.post<Todo>(`${prefix}/sendtodo/:id`, (req, res, ctx) => {
-        if (todosLeft < 1) return res(ctx.status(403), ctx.json({ errorMessage: 'You cant send more Todos' }))
+        if (todosLeft < 1) return res(ctx.status(403), ctx.json({ errorMessage: 'You cant send more todos or the Session is expired' }))
         todosLeft--
         const todo = req.body
         return res(ctx.status(200), ctx.json([todo]))
@@ -69,6 +69,6 @@ export const handlers = [
         if (id === sendTodoSession) {
             return res(ctx.status(200), ctx.json({ user: 'TestUser', todosLeft }))
         }
-        return res(ctx.status(401))
+        return res(ctx.status(403), ctx.json({ errorMessage: 'You cant send more todos or the Session is expired' }))
     }),
 ]
