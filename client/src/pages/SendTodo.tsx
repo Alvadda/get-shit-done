@@ -8,6 +8,12 @@ type SendTodoParams = {
     guid: string
 }
 
+interface SendTodoState {
+    user?: string
+    todosLeft: number
+    errorMessage?: string
+}
+
 const SendTodoStyle = css`
     display: flex;
     flex-direction: column;
@@ -17,33 +23,51 @@ const SendTodoStyle = css`
     padding-top: 5rem;
 
     color: #fff;
+
+    .error-message {
+        color: red;
+    }
 `
 
 const SendTodo = () => {
     const { guid } = useParams<SendTodoParams>()
-    const [todoOwner, setTodoOwner] = useState<string>('')
+    const [state, setState] = useState<SendTodoState>({ todosLeft: 0 })
 
     useEffect(() => {
-        getIsSendTodoSessionValid(guid).then((isGuidValid) => setTodoOwner(isGuidValid))
+        const isSessionValid = async () => {
+            try {
+                const { user, todosLeft } = await getIsSendTodoSessionValid(guid)
+                setState({ user, todosLeft })
+            } catch (error: any) {
+                setState({ todosLeft: 0, errorMessage: error.message })
+            }
+        }
+        isSessionValid()
     }, [guid])
 
     const onAddTodo = async (todo: Todo) => {
-        const newTodo = await sendTodo(guid, todo)
-        console.log('Todo Send', newTodo)
+        try {
+            const newTodo = await sendTodo(guid, todo)
+            setState({ ...state, errorMessage: undefined, todosLeft: state.todosLeft - 1 })
+        } catch (error: any) {
+            setState({ ...state, errorMessage: error.message })
+        }
     }
     return (
         <div css={SendTodoStyle}>
-            {todoOwner && (
+            {state.user && (
                 <>
-                    <h3>ADD TODO FOR {todoOwner.toLocaleUpperCase()}</h3>
+                    <h3>ADD TODO FOR {state.user.toLocaleUpperCase()}</h3>
                     <AddTodo onAddTodo={onAddTodo} />
+                    <p className="todos-left">{state.todosLeft}</p>
                 </>
             )}
-            {!todoOwner && (
+            {!state.user && (
                 <>
                     <h3>LINK IS INVALID</h3>
                 </>
             )}
+            {state.errorMessage && <p className="error-message">{state.errorMessage}</p>}
         </div>
     )
 }

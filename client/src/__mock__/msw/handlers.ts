@@ -18,6 +18,8 @@ const testUser: Login = {
     password: '123',
 }
 
+let todosLeft = 3
+
 export const handlers = [
     rest.post<Login>(`${prefix}/auth/login`, (req, res, ctx) => {
         const user = req.body
@@ -57,13 +59,15 @@ export const handlers = [
         return res(ctx.status(200), ctx.json({ send_session_id: sendTodoSession }))
     }),
     rest.post<Todo>(`${prefix}/sendtodo/:id`, (req, res, ctx) => {
+        if (todosLeft < 1) return res(ctx.status(403), ctx.json({ errorMessage: 'You cant send more Todos' }))
+        todosLeft--
         const todo = req.body
         return res(ctx.status(200), ctx.json([todo]))
     }),
     rest.get(`${prefix}/sendtodo/isvalid/:id`, (req, res, ctx) => {
         const { id } = req.params
         if (id === sendTodoSession) {
-            return res(ctx.status(200), ctx.json({ user: 'TestUser' }))
+            return res(ctx.status(200), ctx.json({ user: 'TestUser', todosLeft }))
         }
         return res(ctx.status(401))
     }),

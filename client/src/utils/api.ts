@@ -20,6 +20,10 @@ interface Login {
     userName: string
 }
 
+interface SendTodoSession {
+    user?: string
+    todosLeft: number
+}
 const getHeader = (): object => ({
     'Content-Type': 'application/json',
     jwt_token: getAuthToken(),
@@ -132,16 +136,17 @@ export const createSendTodoSession = async (todos?: number, days?: number): Prom
     return data.send_session_id
 }
 
-export const getIsSendTodoSessionValid = async (guid: string): Promise<string | ''> => {
-    const request = await fetch(`${prefix}/sendtodo/isvalid/${guid}`, {
+export const getIsSendTodoSessionValid = async (guid: string): Promise<SendTodoSession> => {
+    const response = await fetch(`${prefix}/sendtodo/isvalid/${guid}`, {
         method: 'GET',
         headers: {
             ...getHeader(),
         },
     })
-    if (request.status !== 200) return ''
-    const user = await request.json()
-    return user.user
+    if (response.status !== 200) throw new Error('Session not valid')
+
+    const data = await response.json()
+    return data
 }
 
 export const sendTodo = async (guid: string, todo: Todo): Promise<Todo[]> => {
