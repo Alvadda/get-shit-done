@@ -14,7 +14,7 @@ export interface SendTodoSession {
     guid: string
     user?: string
     userId: string
-    maxTodos?: string
+    maxTodos?: number
     expirationDate?: Date
 }
 
@@ -24,6 +24,7 @@ export interface ITodoConnector {
     createTodo: (userId: string, description: string, douDate: Date | null, projectId: string | null) => Promise<Todo[] | undefined>
     updateTodo: (userId: string, todo: Todo) => Promise<Todo[] | undefined>
     deleteTodo: (userId: string, id: string) => Promise<boolean>
-    createSendTodoSession: (userId: string, maxTodos?: string, expirationDate?: Date) => Promise<string>
+    createSendTodoSession: (userId: string, maxTodos?: number, expirationDate?: Date) => Promise<string>
     getSendTodoSession: (sessionId: string) => Promise<SendTodoSession | undefined>
+    updateSendTodoSession: (session: SendTodoSession) => Promise<boolean>
 }

@@ -67,7 +67,7 @@ export default class TodoPostgresConnector implements ITodoConnector {
         }
     }
 
-    async createSendTodoSession(userId: string, maxTodos?: string, expirationDate?: Date) {
+    async createSendTodoSession(userId: string, maxTodos?: number, expirationDate?: Date) {
         console.log('createSendTodoSession', maxTodos, expirationDate)
 
         try {
@@ -89,6 +89,20 @@ export default class TodoPostgresConnector implements ITodoConnector {
                 [sessionId]
             )
             return this._mapSendTodoSession(sendTodoSessionDb)
+        } catch (error) {
+            console.log('--------error--------', error)
+            throw new Error(`Èrror in getSendTodoSession, Error: ${error}`)
+        }
+    }
+
+    async updateSendTodoSession(session: SendTodoSession) {
+        try {
+            await this._db.query('UPDATE send_session SET max_todos = ($1), expiration_date = ($2) WHERE send_session_id = ($3)', [
+                session.maxTodos,
+                session.expirationDate,
+                session.guid,
+            ])
+            return true
         } catch (error) {
             console.log('--------error--------', error)
             throw new Error(`Èrror in getSendTodoSession, Error: ${error}`)

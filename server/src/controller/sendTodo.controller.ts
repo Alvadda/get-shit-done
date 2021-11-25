@@ -1,3 +1,4 @@
+import { formatErrorMessage } from './../logger/logger'
 import { Todo, ITodoConnector, SendTodoSession } from '../interfaces/todo.interfaces'
 import { Request, Response } from 'express'
 import log from '../logger/logger'
@@ -14,14 +15,15 @@ export default class SendTodoController {
         const { todos, days } = req.query
 
         const expirationDate = new Date()
-        if (days) {
+        const hasexpiration = days && Number(days) > 0
+        if (hasexpiration) {
             expirationDate.setDate(expirationDate.getDate() + Number(days))
         }
         try {
             const SendTodoSessionId = await this.todoConnector.createSendTodoSession(
                 userId,
-                todos?.toString(),
-                days ? expirationDate : undefined
+                Number(todos),
+                hasexpiration ? expirationDate : undefined
             )
             res.status(201).json(SendTodoSessionId)
         } catch (error: any) {
@@ -35,9 +37,16 @@ export default class SendTodoController {
         const { id } = req.params
         try {
             const sendTodoSession = await this.todoConnector.getSendTodoSession(id)
-            if (!sendTodoSession) return res.sendStatus(401)
+            const isValid = this._isSendTodoSessionValid(sendTodoSession)
+            if (!sendTodoSession || !isValid) {
+                return res.status(403).json(formatErrorMessage('You cant send more todos or the Session is expired'))
+            }
 
-            const todo = await this.todoConnector.createTodo(sendTodoSession.userId, description, douDate, null)
+            const todo = await this.todoConnector.createTodo(sendTodoSession?.userId, description, douDate, null)
+
+            if (sendTodoSession.maxTodos && sendTodoSession.maxTodos > 0) sendTodoSession.maxTodos--
+            await this.todoConnector.updateSendTodoSession(sendTodoSession)
+
             res.json(todo)
         } catch (err: any) {
             log.error(err.message)
@@ -50,8 +59,10 @@ export default class SendTodoController {
         try {
             const sendTodoSession = await this.todoConnector.getSendTodoSession(id)
             const isValid = this._isSendTodoSessionValid(sendTodoSession)
-            if (!isValid) return res.sendStatus(401)
-            res.json({ user: sendTodoSession?.user })
+            if (!sendTodoSession || !isValid) {
+                return res.status(403).json(formatErrorMessage('You cant send more todos or the Session is expired'))
+            }
+            res.json({ user: sendTodoSession?.user, todosLeft: sendTodoSession.maxTodos })
         } catch (error: any) {
             log.error(error.message)
             res.sendStatus(500)
@@ -60,6 +71,10 @@ export default class SendTodoController {
 
     _isSendTodoSessionValid = (sendTodoSession?: SendTodoSession) => {
         if (!sendTodoSession) return false
+        const now = new Date()
+        if (sendTodoSession.expirationDate && now > sendTodoSession.expirationDate) return false
+        if (Number(sendTodoSession.maxTodos) < 1) return false
+
         return true
     }
 }
