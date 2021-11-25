@@ -68,6 +68,8 @@ export default class TodoPostgresConnector implements ITodoConnector {
     }
 
     async createSendTodoSession(userId: string, maxTodos?: string, expirationDate?: Date) {
+        console.log('createSendTodoSession', maxTodos, expirationDate)
+
         try {
             const SendTodoSessionDb = await this._db.query(
                 'INSERT INTO send_session (user_id, max_todos, expiration_date) VALUES ($1, $2, $3) RETURNING send_session_id',

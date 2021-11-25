@@ -11,10 +11,19 @@ export default class SendTodoController {
 
     createSendTodoSessionHandler = async (req: Request, res: Response) => {
         const userId = res.locals.userId
-        //Todo maxTodos % expirationDate
+        const { todos, days } = req.query
+
+        const expirationDate = new Date()
+        if (days) {
+            expirationDate.setDate(expirationDate.getDate() + Number(days))
+        }
         try {
-            const SendTodoSessionId = await this.todoConnector.createSendTodoSession(userId)
-            res.json(SendTodoSessionId)
+            const SendTodoSessionId = await this.todoConnector.createSendTodoSession(
+                userId,
+                todos?.toString(),
+                days ? expirationDate : undefined
+            )
+            res.status(201).json(SendTodoSessionId)
         } catch (error: any) {
             log.error(error.message)
             res.sendStatus(500)

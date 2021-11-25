@@ -58,4 +58,4 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
     expiration_date timestamp without time zone DEFAULT NULL,
     user_id INTEGER,
     CONSTRAINT fk_projects_user FOREIGN KEY (user_id) REFERENCES users (user_id)
-);   
+);

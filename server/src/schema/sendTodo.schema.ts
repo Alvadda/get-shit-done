@@ -1,4 +1,4 @@
-import { object, string, boolean, date } from 'yup'
+import { object, string, date, number } from 'yup'
 
 const sendTodoSchema = object({
     params: object({
@@ -10,10 +10,17 @@ const sendTodoSchema = object({
     }),
 })
 
+const createSendTodoSessionSchema = object({
+    params: object({
+        todos: number().nullable(),
+        days: number().nullable(),
+    }),
+})
+
 const validSendTodoSessionSchema = object({
     params: object({
         id: string().required('You need a Session ID'),
     }),
 })
 
-export { sendTodoSchema, validSendTodoSessionSchema }
+export { sendTodoSchema, validSendTodoSessionSchema, createSendTodoSessionSchema }
