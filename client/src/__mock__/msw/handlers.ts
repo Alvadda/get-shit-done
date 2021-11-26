@@ -8,6 +8,10 @@ interface Login {
     password: string
 }
 
+interface Register extends Login {
+    name: string
+}
+
 const prefix = ''
 
 const todoList: Todo[] = [...(Todos as unknown as Todo[])]
@@ -23,9 +27,17 @@ let todosLeft = 3
 export const handlers = [
     rest.post<Login>(`${prefix}/auth/login`, (req, res, ctx) => {
         const user = req.body
-        if (JSON.stringify(user) !== JSON.stringify(testUser)) return res(ctx.status(401))
+        if (JSON.stringify(user) !== JSON.stringify(testUser))
+            return res(ctx.status(401), ctx.json({ errorMessage: 'Email or password incorrect' }))
 
         return res(ctx.status(200), ctx.json({ userName: 'testUser', token: '12n3k1j2h31k4h132lkj12kj3h' }))
+    }),
+
+    rest.post<Register>(`${prefix}/auth/register`, (req, res, ctx) => {
+        const user = req.body
+        if (user.email === testUser.email) return res(ctx.status(401), ctx.json({ errorMessage: 'Email alrdy exist' }))
+
+        return res(ctx.status(200), ctx.json({ userName: user.name, token: '12n3k1j2h31k4h132lkj12kj3h' }))
     }),
 
     rest.get(`${prefix}/projects`, (req, res, ctx) => {

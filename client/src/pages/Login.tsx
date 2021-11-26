@@ -3,7 +3,9 @@ import React, { createRef, FormEvent, VFC } from 'react'
 import { theme } from '../utils/Theme'
 
 interface loginProps {
+    error?: string
     onLogin: (email: string, password: string) => void
+    onRegister: (name: string, email: string, password: string) => void
 }
 
 const loginCss = css`
@@ -149,14 +151,22 @@ const loginCss = css`
     }
 `
 
-const Login: VFC<loginProps> = ({ onLogin }) => {
+const Login: VFC<loginProps> = ({ onLogin, onRegister, error }) => {
     const emailRef = createRef<HTMLInputElement>()
     const passwordRef = createRef<HTMLInputElement>()
+    const nameRef = createRef<HTMLInputElement>()
+    console.log('error', error)
 
     const onSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         if (emailRef.current?.value && passwordRef.current?.value) {
-            onLogin(emailRef.current?.value, passwordRef.current?.value)
+            onLogin(emailRef.current.value, passwordRef.current.value)
+        }
+    }
+
+    const register = () => {
+        if (nameRef.current?.value && emailRef.current?.value && passwordRef.current?.value) {
+            onRegister(nameRef.current.value, emailRef.current.value, passwordRef.current.value)
         }
     }
     return (
@@ -168,19 +178,26 @@ const Login: VFC<loginProps> = ({ onLogin }) => {
                             Login & <br />
                             GET SHIT DONE
                         </p>
+                        <label htmlFor="name">
+                            <p>Name</p>
+                            <input type="text" id="name" ref={nameRef}></input>
+                        </label>
                         <label htmlFor="email">
                             <p>Email</p>
                             <input type="email" id="email" ref={emailRef}></input>
                         </label>
-
                         <label htmlFor="password">
                             <p>Password</p>
                             <input type="password" id="password" ref={passwordRef}></input>
                         </label>
-
+                        <p>{error}</p>
                         <div className="row">
-                            <button className="register-btn">Register</button>
-                            <button className="login-btn">Login</button>
+                            <button type="button" className="register-btn" onClick={register}>
+                                Register
+                            </button>
+                            <button type="submit" className="login-btn">
+                                Login
+                            </button>
                         </div>
                     </form>
                 </div>

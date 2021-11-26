@@ -9,6 +9,11 @@ const userReducer = (state: UserState, action: UserAction) => {
             }
         case 'LOGOUT':
             return {}
+        case 'ERROR':
+            return {
+                ...state,
+                errorMessage: action.message,
+            }
         default:
             return state
     }

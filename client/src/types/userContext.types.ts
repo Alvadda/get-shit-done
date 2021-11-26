@@ -5,6 +5,7 @@ interface User {
 export interface UserState {
     user?: User
     authToken?: string
+    errorMessage?: string
 }
 
 interface Login {
@@ -16,4 +17,9 @@ interface Logout {
     type: 'LOGOUT'
 }
 
-export type UserAction = Login | Logout
+interface Error {
+    type: 'ERROR'
+    message: string
+}
+
+export type UserAction = Login | Logout | Error

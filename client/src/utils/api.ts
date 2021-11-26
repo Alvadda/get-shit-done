@@ -15,7 +15,7 @@ export interface Project {
     name?: string
 }
 
-interface Login {
+export interface Login {
     token: string
     userName: string
 }
@@ -40,6 +40,20 @@ export const login = async (email: string, password: string): Promise<Login> => 
         },
         method: 'POST',
         body: JSON.stringify({ email, password }),
+    })
+
+    const data = await request.json()
+    if (data.errorMessage) throw new Error(data.errorMessage)
+    return data
+}
+
+export const register = async (name: string, email: string, password: string): Promise<Login> => {
+    const request = await fetch(`${prefix}/auth/register`, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
     })
 
     const data = await request.json()
