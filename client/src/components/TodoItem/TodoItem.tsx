@@ -1,9 +1,10 @@
-import React, { VFC } from 'react'
+import { VFC } from 'react'
 import { css } from '@emotion/react'
 import Checkbox from '../Checkbox/Checkbox'
 import { getDDMMYYYY } from '../../utils/helper'
 import SelectProject from '../SelectProject/SelectProject'
 import { Project, Todo } from '../../utils/api'
+import { theme } from '../../utils/Theme'
 
 interface TodoItemProps {
     id?: string
@@ -15,11 +16,12 @@ interface TodoItemProps {
 
 const todoItemStyle = css`
     display: grid;
-    grid-template-columns: auto 60% 1fr 1fr 50px;
+    grid-template-columns: auto 60% 1fr 1fr auto;
     column-gap: 12px;
     padding: 24px 16px;
     /* background: white; */
     color: #fff;
+    align-items: center;
 
     border-bottom: 2px solid #002848;
 
@@ -29,6 +31,18 @@ const todoItemStyle = css`
 
     button {
         cursor: pointer;
+    }
+    button,
+    select {
+        padding: ${theme.spacing['0-8']} ${theme.spacing['1-6']};
+
+        background: #ffffff;
+
+        border-radius: ${theme.borderRadius[1]};
+        border-radius: ${theme.borderRadius['0-8']};
+        border: none;
+
+        font-size: ${theme.fontSize['1-2']};
     }
 `
 

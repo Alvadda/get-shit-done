@@ -1,9 +1,10 @@
 import { css } from '@emotion/react'
-import React, { createRef, useState, VFC, FormEvent } from 'react'
+import { createRef, useState, VFC, FormEvent } from 'react'
 import CostumDatePicker from '../CustomDataPicker/CustomDatePicker'
 import SelectProject from '../SelectProject/SelectProject'
 import { Project } from '../../utils/api'
 import Plus from '../../assets/Svg/Plus'
+import { theme } from '../../utils/Theme'
 
 interface AddTodoProps {
     onAddTodo: Function
@@ -15,6 +16,22 @@ const addTodoCss = css`
         display: grid;
         grid-template-columns: 50px 1fr 1fr 1fr;
         gap: 12px;
+        align-items: center;
+
+        input,
+        select {
+            height: 50px;
+
+            padding: ${theme.spacing['0-8']} ${theme.spacing['1-6']};
+
+            background: #ffffff;
+
+            border-radius: ${theme.borderRadius[1]};
+            border-radius: ${theme.borderRadius['0-8']};
+            border: none;
+
+            font-size: ${theme.fontSize['1-8']};
+        }
 
         button {
             background-color: transparent;

@@ -1,11 +1,12 @@
 import { css } from '@emotion/react'
-import React, { createRef, FormEvent, useEffect, useState, VFC } from 'react'
+import { createRef, FormEvent, useEffect, useState, VFC } from 'react'
 import { useAppContext } from '../../context/AppContext'
 import { useAppSelector } from '../../hooks/useAppSelector'
 import { ProjectTypes } from '../../types/appContext.types'
 import { readProjects, createProject, createSendTodoSession } from '../../utils/api'
 import ProjectItem from '../Project/Project'
 import Plus from '../../assets/Svg/Plus'
+import { theme } from '../../utils/Theme'
 
 const sideBarCss = css`
     width: 100%;
@@ -22,6 +23,15 @@ const sideBarCss = css`
 
     form input {
         width: 100%;
+        padding: ${theme.spacing['0-8']} ${theme.spacing['1-6']};
+
+        background: #ffffff;
+
+        border-radius: ${theme.borderRadius[1]};
+        border-radius: ${theme.borderRadius['0-8']};
+        border: none;
+
+        font-size: ${theme.fontSize['1-2']};
     }
     form button {
         width: 30px;
